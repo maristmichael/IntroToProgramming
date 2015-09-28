@@ -5,11 +5,9 @@
      <meta charset="utf-8"/>
     <title>Run Away</title>
     <script type="text/javascript">
-        var startingRoom = 1; // room where you start in
-        
+        var currentRoom = 1; // room where you start in
         function showScene(descrip){
-            document.getElementById("scene").innerHTML = descrip;
-            
+            document.getElementById("scene").innerHTML = descrip;   
         }
     </script>
     
@@ -17,8 +15,16 @@
 
 <body>
     <h1>Run Away!</h1>
-    <div id="scene">You wake up to find that you are in a room filled with          snakes. Your are terrified of snakes, so you look for a way to escape.          To the north there is a bottomless pit, it might be a good idea to not          fall in. 
+    <div id="scene">You wake up to find that you are in a room filled with snakes. Your are terrified of snakes, so you look for a way to escape.          To the north there is a bottomless pit, it might be a good idea to not          fall in. 
     </div>
+    <button onclick="
+    if (currentRoom === 1) {
+        currentRoom = 12;
+        showScene('You somehow fell into the obvious pitt. You are dead.');
+        } else {
+        showScene('You are still dead.')
+        }
+    ">North</button>         
 
 </body>
 
