@@ -11,24 +11,28 @@
         }
         
         function moveNorth(){
+            var notice;
             if (currentRoom === 1) {
                 currentRoom = 12;
-                showScene('You somehow fell into the obvious pitt. You are dead.');
+                notice = "You somehow fell into the obvious pitt. You are dead.";
             } else if (currentRoom === 12) {
-                showScene('You are still dead.')
+                notice = "You are still dead.";
             } else if (currentRoom === 2) {
                 currentRoom = 3;
-                showScene('This is a long hallway, with statues of giant rats. The pitt is to the east.')
+                notice = "This is a long hallway, with statues of giant rats. The pitt is to the east.";
             }
+            showScene(notice);
         }
         
         function moveWest(){
+            var notice;
             if (currentRoom === 1) {
                 currentRoom = 2;
-                showScene('You escaped to the room to your left. There are no snakes in the room, but the snakes will soon follow you.');
+                notice = "You escaped to the room to your left. There are no snakes in the room, but the snakes will soon follow you.";
             } else if ( currentRoom === 2){
-                showScene('That is a wall.');
+                notice = "That is a wall.";
             }
+            showScene(notice);
         }
     </script>
 </head>
