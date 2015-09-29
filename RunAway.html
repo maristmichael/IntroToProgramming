@@ -10,22 +10,32 @@
             document.getElementById("scene").innerHTML = descrip;   
         }
     </script>
-    
 </head>
 
 <body>
     <h1>Run Away!</h1>
-    <div id="scene">You wake up to find that you are in a room filled with snakes. Your are terrified of snakes, so you look for a way to escape.          To the north there is a bottomless pit, it might be a good idea to not          fall in. 
+    <div id="scene">You wake up to find that you are in a room filled with          snakes. Your are terrified of snakes, so you look for a way to escape.          Infront of you, to the north, there is a bottomless pit, it might be a          good idea to not fall in. 
     </div>
     <button onclick="
     if (currentRoom === 1) {
         currentRoom = 12;
         showScene('You somehow fell into the obvious pitt. You are dead.');
-        } else {
+    } else if (currentRoom === 12) {
         showScene('You are still dead.')
-        }
+    } else if (currentRoom === 2) {
+        currentRoom = 3;
+        showScene('This is a long hallway, with statues of giant rats. The pitt         is to the east.')
+    }
     ">North</button>         
-
+    
+    <button onclick="
+    if (currentRoom === 1) {
+        currentRoom = 2;
+        showScene('You escaped to the room to your left. There are no snakes in                     the room, but the snakes will soon follow you.');
+    } else if ( currentRoom === 2){
+        showScene('That is a wall.');
+    }
+    ">West</button>
 </body>
 
 
