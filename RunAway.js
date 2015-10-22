@@ -1,9 +1,17 @@
 // Michael Gutierrez
+
 var currentRoom = "startingRoom";
 var currentPoints = 0;
 
-// The variables below keep track if a room was visited.
+// The function below serve for convenience.
+function pointCount() {
+	return "Points: " + currentPoints;
+}
+function zeroPoints() {
+	return "Points: 0";
+}
 
+// The variables below keep track if a room was visited.
 var safeRoomVisit = false;
 var ratHallVisit = false;
 var redRoomVisit = false;
@@ -12,6 +20,7 @@ var snakeRoomVisit = false;
 var falseSafeVisit = false;
 var freedomHallVisit = false;
 
+// The function below are display functions.
 function showScene(message) {
     document.getElementById("message").innerHTML = message;
 }
@@ -19,6 +28,7 @@ function showPoints(message) {
     document.getElementById("points").innerHTML = message;
 }
 
+// The functions below are location and scenerio descriptions.
 function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
@@ -153,6 +163,58 @@ function hitWall(){
     return message;
 }
 
+// The functions below add score. 
+function pointsSafeRoom(){
+	if (safeRoomVisit === false) {
+        currentPoints += 5;
+        safeRoomVisit = true;
+		return currentPoints;
+	}
+}
+function pointsRatHall(){
+	if (ratHallVisit === false) {
+        currentPoints += 5;
+        ratHallVisit = true;
+		return currentPoints;
+	}
+}
+function pointsRedRoom(){
+	if (redRoomVisit === false) {
+        currentPoints += 5;
+        redRoomVisit = true;
+		return currentPoints;
+	}
+}
+function pointsSignHall(){
+	if (signHallVisit === false) {
+        currentPoints += 5;
+        signHallVisit = true;
+		return currentPoints;
+	}
+}
+function pointsSnakeRoom(){
+	if (snakeRoomVisit === false) {
+        currentPoints += 5;
+        snakeRoomVisit = true;
+		return currentPoints;
+	}
+}
+function pointsFalseSafe(){
+	if (falseSafeVisit === false) {
+        currentPoints += 5;
+        falseSafeVisit = true;
+		return currentPoints;
+	}
+}
+function pointsFreedomHall(){
+	if (freedomHallVisit === false) {
+        currentPoints += 5;
+        freedomHallVisit = true;
+		return currentPoints;
+	}
+}
+
+// The functions below moves player to a direction.
 function moveNorth() {
     var message;
     var points;
@@ -160,43 +222,43 @@ function moveNorth() {
     if (currentRoom === "startingRoom") {
         currentRoom = "thePitt";
         message = dumbDeath();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "safeRoom") {
         currentRoom = "ratHall";
+		pointsRatHall();
         message = ratHall();
-        ratHallVisit = true;
-        points = "Points: "
+        points = pointCount();
     } else if (currentRoom === "ratHall") {
         currentRoom = "redMarkedRoom";
+		pointsRedRoom();
         message = redMarkedRoom();
-        points = "Points: " 
-        redRoomVisit = true;
+        points = pointCount(); 
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "giantSnakeRoom";
         message = backToGiantSnake();
-        points = "Points: "
+        points = pointCount();
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "choseToDieRoom";
         message = choseToDieRoom();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "choseToDieRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "deadEnd") {
         message = yourEaten();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "trapRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "freedom") {
         message = freedom();
-        points = "Points: " 
+        points = pointCount(); 
     } else {
         message = hitWall();
-        points = "Points: " 
+        points = pointCount(); 
     }
     showScene(message);
     showPoints(points);
@@ -208,45 +270,47 @@ function moveWest() {
     
     if (currentRoom === "startingRoom") {
         currentRoom = "safeRoom";
+		pointsSafeRoom();
         message = safeRoom();
+		points = pointCount();
     } else if (currentRoom === "redMarkedRoom") {
         currentRoom = "deadEnd";
         message = deadEnd();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "deadEnd") {
         message = yourEaten();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "signHall") {
         currentRoom = "redMarkedRoom";
         message = backToRedRoom();
-        points = "Points: "
+        points = pointCount();
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "signHall";
         message = backToSignHall();
-        points = "Points: " 
+        points = pointCount(); 
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "giantSnakeRoom";
         message = backToGiantSnake();
-        points = "Points: " 
+        points = pointCount(); 
     } else if (currentRoom === "trapRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "thePitt";
         message = dumbDeath();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "choseToDieRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "freedom") {
         message = freedom();
-        points = "Points: "
+        points = pointCount();
     } else {
         message = hitWall();
-        points = "Points: " 
+        points = pointCount(); 
     }
     showScene(message);
     showPoints(points);
@@ -259,49 +323,48 @@ function moveEast() {
     if (currentRoom === "safeRoom") {
         currentRoom = "startingRoom";
         message = backToStart();
-        points = "Points: " 
-        safeRoomVisit = true;
+        points = pointCount(); 
     } else if (currentRoom === "ratHall") {
         currentRoom = "thePitt";
         message = dumbDeath();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "deadEnd") {
         message = yourEaten();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "redMarkedRoom") {
         currentRoom = "signHall";
+		pointsSignHall();
         message = signHall();
-        points = "Points: " 
-        signHallVisit = true;
+        points = pointCount(); 
     } else if (currentRoom === "signHall") {
         currentRoom = "giantSnakeRoom";
-        message = giantSnakeRoom ();
-        points = "Points: " 
-        snakeRoomVisit = true;
+		pointsSnakeRoom();
+        message = giantSnakeRoom();
+        points = pointCount(); 
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "falseSafeRoom";
+		pointsFalseSafe();
         message = falseSafeRoom();
-        points = "Points: " 
-        falseSafeVisit = true;
+        points = pointCount(); 
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "trapRoom";
         message = falseSafeRoom();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "trapRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "choseToDieRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "freedom") {
         message = freedom();
-        points = "Points: " 
+        points = pointCount(); 
     } else {
         message = hitWall();
-        points = "Points: " 
+        points = pointCount(); 
     }
     showScene(message);
     showPoints(points);
@@ -314,42 +377,42 @@ function moveSouth() {
     if (currentRoom === "ratHall") {
         currentRoom = "safeRoom";
         message = backToSafeRoom();
-        points = "Points: " 
+        points = pointCount(); 
     } else if (currentRoom === "redMarkedRoom") {
         currentRoom = "ratHall";
         message = backToRatHall();
-        points = "Points: " 
+        points = pointCount(); 
     } else if (currentRoom === "signHall") {
         currentRoom = "thePitt";
         message = signDeath();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "deadEnd") {
         message = yourEaten();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "trapRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "choseToDieRoom") {
         message = youreDevoured();
-        points = "Points: " + 0;
+        points = zeroPoints();
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "freedomHallway";
+		pointsFreedomHall();
         message = freedomHallway();
-        points = "Points: " 
+        points = pointCount(); 
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "freedom";
         message = freedom();
-        points = "Points: "
-        freedomHallVisit = true;
+        points = pointCount();
     } else if (currentRoom === "freedom") {
         message = freedom();
-        points = "Points: " 
+        points = pointCount(); 
     } else {
         message = hitWall();
-        points = "Points: " 
+        points = pointCount(); 
     }
     showScene(message);
     showPoints(points);
