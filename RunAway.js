@@ -62,6 +62,13 @@ function disableAllButtons(){
 	disableButton("south");
 	disableButton("go");
 }
+function enableAllButtons(){
+	enableButton("north");
+	enableButton("west");
+	enableButton("east");
+	enableButton("south");
+	enableButton("go");
+}
 
 // The function below handels the text input.
 function textInput(userInput) {
@@ -295,16 +302,19 @@ function moveNorth() {
         message = ratHall();
         points = pointCount();
 		disableButton("west");
+		enableButton("south");
     } else if (currentRoom === "ratHall") {
         currentRoom = "redMarkedRoom";
 		pointsRedRoom();
         message = redMarkedRoom();
         points = pointCount();
 		disableButton("north");
+		enableButton("west");
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "giantSnakeRoom";
         message = backToGiantSnake();
         points = pointCount();
+		enableAllButtons();
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "choseToDieRoom";
         message = choseToDieRoom();
@@ -370,7 +380,8 @@ function moveWest() {
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "giantSnakeRoom";
         message = backToGiantSnake();
-        points = pointCount(); 
+        points = pointCount();
+		enableAllButtons();
     } else if (currentRoom === "trapRoom") {
         message = youreDevoured();
         points = zeroPoints();
@@ -405,6 +416,7 @@ function moveEast() {
         points = pointCount();
 		disableButton("east");
 		disableButton("south");
+		enableButton("west");
     } else if (currentRoom === "ratHall") {
         currentRoom = "thePitt";
         message = dumbDeath();
@@ -428,7 +440,8 @@ function moveEast() {
         currentRoom = "giantSnakeRoom";
 		pointsSnakeRoom();
         message = giantSnakeRoom();
-        points = pointCount(); 
+        points = pointCount();
+		enableAllButtons();
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "falseSafeRoom";
 		pointsFalseSafe();
@@ -438,7 +451,7 @@ function moveEast() {
 		disableButton("south");
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "trapRoom";
-        message = falseSafeRoom();
+        message = trapRoom();
         points = zeroPoints();
 		disableAllButtons();
 	} else if (currentRoom === "trapRoom") {
@@ -475,6 +488,7 @@ function moveSouth() {
         message = backToRatHall();
         points = pointCount(); 
 		disableButton("west");
+		enableButton("north");
     } else if (currentRoom === "signHall") {
         currentRoom = "thePitt";
         message = signDeath();
