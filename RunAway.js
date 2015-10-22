@@ -6,8 +6,8 @@ var currentPoints = 0;
 
 var safeRoomVisit = false;
 var ratHallVisit = false;
-var redRoomVisit = false; 
-var signHallVisit = false; 
+var redRoomVisit = false;
+var signHallVisit = false;
 var snakeRoomVisit = false;
 var falseSafeVisit = false;
 var freedomHallVisit = false;
@@ -19,7 +19,7 @@ function showPoints(message) {
     document.getElementById("points").innerHTML = message;
 }
 
-function backToStart(){
+function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
     return message;
@@ -27,7 +27,7 @@ function backToStart(){
 function safeRoom() {
     var message;
     message = "You are in a safe room.<br>" +
-        "There are no snakes in the room, but the snakes will follow you if you dawdle for too long.";
+"There are no snakes in the room, but the snakes will follow you if you dawdle for too long.";
     /*if (safeRoomVisit === false) {
         currentPoints += 5;
         safeRoomVisit = true;
@@ -39,12 +39,13 @@ function safeRoom() {
 function backToSafeRoom(){
     var message;
     message = "You are back in the safe room.<br>" + 
-        "You have to leave this place eventually...";
+"You have to leave this place eventually...";
     return message;
 }
 function ratHall(){
     var message;
-    message = "This is a long hallway, with statues of giant rats.<br>The pitt is to the east.";
+    message = "This is a long hallway, with statues of giant rats.<br>" +
+"The pitt is to the east.";
     return message;
 }
 function backToRatHall(){
@@ -55,31 +56,51 @@ function backToRatHall(){
 function redMarkedRoom(){
     var message;
     message = "This room has two directions you can take.<br>" + 
-                 "There appears to be red marks all over the the path toward the west path.<br>" + 
-                 "West or East, choose wisely...";
+"There appears to be red marks all over the the path toward the west path.<br>" + "West or East, choose wisely...";
+    return message;
+}
+function backToRedRoom(){
+    var message;
+    message = "You are back in the room with red marks toward the west.";
     return message;
 }
 function deadEnd(){
     var message;
-    message = "Dead end...<br>The snakes caught up to you and had you for dinnner.";
+    message = "Dead end...<br>" + 
+"The snakes caught up to you and had you for dinnner.";
     return message;
 }
 function signHall(){
     var message;
-    message = "This room has a sign that states 'Freedom is South.'<br> Seems legit...";
+    message = "This room has a sign that states 'Freedom is South.'<br>" + "Seems legit...";
+    return message;
     
+}
+function signDeath(){
+    var message;
+    message = "It was not freedom...<br>" + 
+"You walked into the pitt which means you are dead.";
+    return message;
+}
+function backToSignHall(){
+    var message;
+    message = "This is the room with the sign.<br>Are you going to follow the sign south?";
+    return message;
 }
 function giantSnakeRoom(){
     var message;
-    message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD." + 
-        "DONT DISTURB IT!<br>" + 
-        "You can escape by heading East or South.";
+    message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD.<br>" + "DONT DISTURB IT!<br>" + "You can escape by heading East or South.";
+    return message;
+}
+function backToGiantSnake(){
+    var message;
+    message = "You went back into the room with the Giant Snake.<br>" + "Great decision...<br>" + "South or East...";
     return message;
 }
 function choseToDieRoom(){
     var message;
     message = "For some reason you decided to wake the snake.<br>" + 
-            "It goes without saying, you were eaten...";
+"It goes without saying, you were eaten...";
     return message;
 }
 function falseSafeRoom(){
@@ -90,21 +111,22 @@ function falseSafeRoom(){
 function trapRoom(){
     var message;
     message = "There's no where to go...<br>" + 
-              "The giant snake slithered to your location and ate you whole with its massive mouth.";
+"The giant snake slithered to your location and ate you whole with its massive mouth.";
     return message;
 }
 function freedomHallway(){
     var message;
     message = "You entered another room with statues of giant rats, and the pitt is to the west.<br>" +
-              "This time however, there appears to be greenerie in the ground. That is a good sign.";
+"This time however, there appears to be greenerie in the ground.<br>" 
+"That is a good sign.";
     return message;
 }
 function freedom(){
     var message;
-    message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+    message = "You've escaped this wretched place. No more snakes!<br> FREEDOM!";
     return message;
 }
-function beginningDeath(){
+function dumbDeath(){
     var message;
     message = "You somehow fell into the pitt that is in clear sight.<br>You are dead.";
     return message;
@@ -114,6 +136,22 @@ function stillAreDead(){
     message = "You are still dead."
     return message;
 }
+function youreDevoured(){
+    var message;
+    message = "You were devoured";
+    return message;
+}
+function yourEaten(){
+    var message;
+    message = "You have been eaten."
+    return message;
+}
+function hitWall(){
+    var message;
+    message = "You bumped into a wall, and fell hilariously.<br>" +
+"Choose a different direction.";
+    return message;
+}
 
 function moveNorth() {
     var message;
@@ -121,7 +159,7 @@ function moveNorth() {
     
     if (currentRoom === "startingRoom") {
         currentRoom = "thePitt";
-        message = beginningDeath();
+        message = dumbDeath();
         points = "Points: " + 0;
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
@@ -138,27 +176,26 @@ function moveNorth() {
         redRoomVisit = true;
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "giantSnakeRoom";
-        message = "You went back into the room with the Giant Snake.<br>Great decision...";
+        message = backToGiantSnake();
         points = "Points: "
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "choseToDieRoom";
-        message = "For some reason you decided to wake the snake.<br>" + 
-            "It goes without saying, you were eaten...";
+        message = choseToDieRoom();
         points = "Points: " + 0;
     } else if (currentRoom === "choseToDieRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "deadEnd") {
-        message = "You have been eaten.";
+        message = yourEaten();
         points = "Points: " + 0;
     } else if (currentRoom === "trapRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "freedom") {
-        message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+        message = freedom();
         points = "Points: " 
     } else {
-        message = "You bumped into a wall, and fell hilariously.<br>Choose a different direction.";
+        message = hitWall();
         points = "Points: " 
     }
     showScene(message);
@@ -177,38 +214,38 @@ function moveWest() {
         message = deadEnd();
         points = "Points: " + 0;
     } else if (currentRoom === "deadEnd") {
-        message = "You have been eaten.";
+        message = yourEaten();
         points = "Points: " + 0;
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
         points = "Points: " + 0;
     } else if (currentRoom === "signHall") {
         currentRoom = "redMarkedRoom";
-        message = "You are back in the room with red marks toward the west.";
+        message = backToRedRoom();
         points = "Points: "
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "signHall";
-        message = "This is the room with the sign.<br>Are you going to follow the sign south?";
+        message = backToSignHall();
         points = "Points: " 
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "giantSnakeRoom";
-        message = "You are back in the room with the giant snake.<br>Don't disturb it!";
+        message = backToGiantSnake();
         points = "Points: " 
     } else if (currentRoom === "trapRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "thePitt";
-        message = "You somehow fell into the pitt that is in clear sight.<br>You are dead.";
+        message = dumbDeath();
         points = "Points: " + 0;
     } else if (currentRoom === "choseToDieRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "freedom") {
-        message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+        message = freedom();
         points = "Points: "
     } else {
-        message = "You bumped into a wall, and fell hilariously.<br>Choose a different direction.";
+        message = hitWall();
         points = "Points: " 
     }
     showScene(message);
@@ -226,17 +263,17 @@ function moveEast() {
         safeRoomVisit = true;
     } else if (currentRoom === "ratHall") {
         currentRoom = "thePitt";
-        message = "You somehow fell into the pitt that is in clear sight.<br>You are dead.";
+        message = dumbDeath();
         points = "Points: " + 0;
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
         points = "Points: " + 0;
     } else if (currentRoom === "deadEnd") {
-        message = "You have been eaten.";
+        message = yourEaten();
         points = "Points: " + 0;
     } else if (currentRoom === "redMarkedRoom") {
         currentRoom = "signHall";
-        message = redMarkedRoom();
+        message = signHall();
         points = "Points: " 
         signHallVisit = true;
     } else if (currentRoom === "signHall") {
@@ -254,16 +291,16 @@ function moveEast() {
         message = falseSafeRoom();
         points = "Points: " + 0;
     } else if (currentRoom === "trapRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "choseToDieRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "freedom") {
-        message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+        message = freedom();
         points = "Points: " 
     } else {
-        message = "You bumped into a wall, and fell hilariously.<br>Choose a different direction.";
+        message = hitWall();
         points = "Points: " 
     }
     showScene(message);
@@ -284,19 +321,19 @@ function moveSouth() {
         points = "Points: " 
     } else if (currentRoom === "signHall") {
         currentRoom = "thePitt";
-        message = "It was not freedom...<br>You walked into the pitt which means you are dead.";
+        message = signDeath();
         points = "Points: " + 0;
     } else if (currentRoom === "thePitt") {
         message = stillAreDead();
         points = "Points: " + 0;
     } else if (currentRoom === "deadEnd") {
-        message = "You have been eaten.";
+        message = yourEaten();
         points = "Points: " + 0;
     } else if (currentRoom === "trapRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "choseToDieRoom") {
-        message = "You were devoured.";
+        message = youreDevoured();
         points = "Points: " + 0;
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "freedomHallway";
@@ -304,14 +341,14 @@ function moveSouth() {
         points = "Points: " 
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "freedom";
-        message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+        message = freedom();
         points = "Points: "
         freedomHallVisit = true;
     } else if (currentRoom === "freedom") {
         message = freedom();
         points = "Points: " 
     } else {
-        message = "You bumped into a wall, and fell hilariously.<br>Choose a different direction.";
+        message = hitWall();
         points = "Points: " 
     }
     showScene(message);
