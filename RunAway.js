@@ -58,11 +58,43 @@ function signHall(){
     message = "This room has a sign that states 'Freedom is South.'<br> Seems legit...";
     
 }
-function giantSnakeRoom(){}
-function choseToDieRoom(){}
-function trapRoom(){}
-function freedomHallway(){}
-function freedom(){}
+function giantSnakeRoom(){
+    var message;
+    message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD." + 
+        "DONT DISTURB IT!<br>" + 
+        "You can escape by heading East or South.";
+    return message;
+}
+function choseToDieRoom(){
+    var message;
+    message = "For some reason you decided to wake the snake.<br>" + 
+            "It goes without saying, you were eaten...";
+    return message;
+}
+
+function falseSafeRoom(){
+    var message;
+    message = "You escaped that huge snake, atleast for now.<br>Continue onwards.";
+    return message;
+}
+
+function trapRoom(){
+    var message;
+    message = "There's no where to go...<br>" + 
+              "The giant snake slithered to your location and ate you whole with its massive mouth.";
+    return message;
+}
+function freedomHallway(){
+    var message;
+    message = "You entered another room with statues of giant rats, and the pitt is to the west.<br>" +
+              "This time however, there appears to be greenerie in the ground. That is a good sign.";
+    return message;
+}
+function freedom(){
+    var message;
+    message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+    return message;
+}
 
 function moveNorth() {
     var message;
@@ -91,7 +123,8 @@ function moveNorth() {
         points = "Points: "
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "choseToDieRoom";
-        message = "For some reason you decided to wake the snake.<br>It goes without saying, you were eaten...";
+        message = "For some reason you decided to wake the snake.<br>" + 
+            "It goes without saying, you were eaten...";
         points = "Points: " + 0;
     } else if (currentRoom === "choseToDieRoom") {
         message = "You were devoured.";
@@ -189,19 +222,17 @@ function moveEast() {
         signHallVisit = true;
     } else if (currentRoom === "signHall") {
         currentRoom = "giantSnakeRoom";
-        message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD. DONT DISTURB IT!<br>" + 
-                 "You can escape by heading East or South.";
+        message = giantSnakeRoom ();
         points = "Points: " 
         snakeRoomVisit = true;
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "falseSafeRoom";
-        message = "You escaped that huge snake, atleast for now.<br>Continue onwards.";
+        message = falseSafeRoom();
         points = "Points: " 
         falseSafeVisit = true;
     } else if (currentRoom === "falseSafeRoom") {
         currentRoom = "trapRoom";
-        message = "There's no where to go...<br>" + 
-                 "The giant snake slithered to your location and ate you whole with its massive mouth.";
+        message = falseSafeRoom();
         points = "Points: " + 0;
     } else if (currentRoom === "trapRoom") {
         message = "You were devoured.";
@@ -250,8 +281,7 @@ function moveSouth() {
         points = "Points: " + 0;
     } else if (currentRoom === "giantSnakeRoom") {
         currentRoom = "freedomHallway";
-        message = "You entered another room with statues of giant rats, and the pitt is to the west.<br>" +
-                 "This time however, there appears to be greenerie in the ground. That is a good sign.";
+        message = freedomHallway();
         points = "Points: " 
     } else if (currentRoom === "freedomHallway") {
         currentRoom = "freedom";
@@ -259,7 +289,7 @@ function moveSouth() {
         points = "Points: "
         freedomHallVisit = true;
     } else if (currentRoom === "freedom") {
-        message = "You've escaped this wretched place. No more snakes!<br>FREEDOM!";
+        message = freedom();
         points = "Points: " 
     } else {
         message = "You bumped into a wall, and fell hilariously.<br>Choose a different direction.";
