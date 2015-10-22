@@ -28,6 +28,38 @@ function showPoints(message) {
     document.getElementById("points").innerHTML = message;
 }
 
+// The function below handels the text input.
+function textInput(userInput) {
+	var userInput = document.getElementById("command").value;
+	if (userInput === "N") {
+		alert("You entered " + userInput);
+		moveNorth();
+	} else if (userInput === "n") {
+		alert("You entered " + userInput);
+		moveNorth();
+	} else if (userInput === "S") {
+		alert("You entered " + userInput);
+		moveSouth();
+	} else if (userInput === "s") {
+		alert("You entered " + userInput);
+		moveSouth();
+	} else if (userInput === "E") {
+		alert("You entered " + userInput);
+		moveEast();
+	} else if (userInput === "e") {
+		alert("You entered " + userInput);
+		moveEast();
+	} else if (userInput === "W") {
+		alert("You entered " + userInput);
+		moveWest();
+	} else if (userInput === "w") {
+		alert("You entered " + userInput);
+		moveWest();
+	} else {
+		alert("You entered an incorrect direction. Try again.");
+	}
+}
+
 // The functions below are location and scenerio descriptions.
 function backToStart() {
     var message;
@@ -38,12 +70,6 @@ function safeRoom() {
     var message;
     message = "You are in a safe room.<br>" +
 "There are no snakes in the room, but the snakes will follow you if you dawdle for too long.";
-    /*if (safeRoomVisit === false) {
-        currentPoints += 5;
-        safeRoomVisit = true;
-        points = "Points: " + currentPoints;
-        return currentPoints;
-    } /*/
     return message;
 }
 function backToSafeRoom(){
