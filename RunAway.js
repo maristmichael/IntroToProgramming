@@ -443,4 +443,3 @@ function moveSouth() {
     showScene(message);
     showPoints(points);
 }
-
