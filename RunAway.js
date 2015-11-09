@@ -184,7 +184,7 @@ function moveNorth() {
     
 	switch (currentRoom) {
 		case "startingRoom":
-			currentRoom = "thePitt";
+			setRoomTo("thePitt");
 			message = dumbDeath();
 			points = zeroPoints();
 			disableAllButtons();
@@ -206,7 +206,7 @@ function moveNorth() {
 		break;
 
 		case "ratHall":
-			currentRoom = "redMarkedRoom";
+			setRoomTo("redMarkedRoom");
 			pointsRedRoom();
 			message = redMarkedRoom();
 			points = pointCount();
@@ -215,14 +215,14 @@ function moveNorth() {
 		break;
 
 		case "freedomHallway":
-			currentRoom = "giantSnakeRoom";
+			setRoomTo("giantSnakeRoom");
 			message = backToGiantSnake();
 			points = pointCount();
 			enableAllButtons();
 		break;
 
 		case "giantSnakeRoom":
-			currentRoom = "choseToDieRoom";
+			setRoomTo("choseToDieRoom");
 			message = choseToDieRoom();
 			points = zeroPoints();
 			disableAllButtons();
@@ -278,7 +278,7 @@ function moveWest() {
 		break;
 
 		case "redMarkedRoom":
-			currentRoom = "deadEnd";
+			setRoomTo("deadEnd");
 			message = deadEnd();
 			points = zeroPoints();
 			disableAllButtons();
@@ -298,7 +298,7 @@ function moveWest() {
 		break;
 
 		case "signHall":
-			currentRoom = "redMarkedRoom";
+			setRoomTo("redMarkedRoom");
 			message = backToRedRoom();
 			points = pointCount();
 			enableAllButtons();
@@ -306,7 +306,7 @@ function moveWest() {
 		break;
 
 		case "giantSnakeRoom":
-			currentRoom = "signHall";
+			setRoomTo("signHall");
 			message = backToSignHall();
 			points = pointCount();
 			enableAllButtons();
@@ -314,7 +314,7 @@ function moveWest() {
 		break;
 
 		case "falseSafeRoom":
-			currentRoom = "giantSnakeRoom";
+			setRoomTo("giantSnakeRoom");
 			message = backToGiantSnake();
 			points = pointCount();
 			enableAllButtons();
@@ -327,7 +327,7 @@ function moveWest() {
 		break;
 
 		case "freedomHallway":
-			currentRoom = "thePitt";
+			setRoomTo("thePitt");
 			message = dumbDeath();
 			points = zeroPoints();
 			disableAllButtons();
@@ -361,17 +361,17 @@ function moveEast() {
     
 	switch (currentRoom) {
 		case "safeRoom":
-			currentRoom = "startingRoom";
+			setRoomTo("startingRoom");
 			message = backToStart();
 			points = pointCount();
 			disableButton("east");
 			disableButton("south");
 			enableButton("west");
-			enableButton("east");
+			enableButton("north");
 		break;
 			
 		case "ratHall":
-			currentRoom = "thePitt";
+			setRoomTo("thePitt");
 			message = dumbDeath();
 			points = zeroPoints();
 			disableAllButtons();
@@ -390,7 +390,7 @@ function moveEast() {
 		break;
 			
 		case "redMarkedRoom":
-			currentRoom = "signHall";
+			setRoomTo("signHall");
 			pointsSignHall();
 			message = signHall();
 			points = pointCount();
@@ -399,7 +399,7 @@ function moveEast() {
 		break;
 			
 		case "signHall":
-			currentRoom = "giantSnakeRoom";
+			setRoomTo("giantSnakeRoom");
 			pointsSnakeRoom();
 			message = giantSnakeRoom();
 			points = pointCount();
@@ -407,7 +407,7 @@ function moveEast() {
 		break;
 
 		case "giantSnakeRoom":
-			currentRoom = "falseSafeRoom";
+			setRoomTo("falseSafeRoom");
 			pointsFalseSafe();
 			message = falseSafeRoom();
 			points = pointCount();
@@ -418,7 +418,7 @@ function moveEast() {
 		break;
 			
 		case "falseSafeRoom":
-			currentRoom = "trapRoom";
+			setRoomTo("trapRoom");
 			message = trapRoom();
 			points = zeroPoints();
 			disableAllButtons();
@@ -458,7 +458,7 @@ function moveSouth() {
 
 	switch (currentRoom) {
 		case "ratHall":
-			currentRoom = "safeRoom";
+			setRoomTo("safeRoom");
 			message = backToSafeRoom();
 			points = pointCount();
 			disableButton("west");
@@ -468,7 +468,7 @@ function moveSouth() {
 		break;
 
 		case "redMarkedRoom":
-			currentRoom = "ratHall";
+			setRoomTo("ratHall");
 			message = backToRatHall();
 			points = pointCount();
 			enableAllButtons();
@@ -476,7 +476,7 @@ function moveSouth() {
 		break;
 
 		case "signHall":
-			currentRoom = "thePitt";
+			setRoomTo("thePitt");
 			message = signDeath();
 			points = zeroPoints();
 			disableAllButtons();
@@ -507,7 +507,7 @@ function moveSouth() {
 		break;
 			
 		case "giantSnakeRoom":
-			currentRoom = "freedomHallway";
+			setRoomTo("freedomHallway");
 			pointsFreedomHall();
 			message = freedomHallway();
 			points = pointCount();
@@ -516,7 +516,7 @@ function moveSouth() {
 		break;
 			
 		case "freedomHallway":
-			currentRoom = "freedom";
+			setRoomTo("freedom");
 			message = freedom();
 			points = pointCount();
 			disableAllButtons();

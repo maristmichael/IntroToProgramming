@@ -26,7 +26,7 @@ function setRoomTo(roomName) {
 			currentRoom = "signHall";
 		break;
 		
-		case "gianSnakeRoom":
+		case "giantSnakeRoom":
 			currentRoom = "giantSnakeRoom";
 		break;
 			
@@ -54,10 +54,15 @@ function setRoomTo(roomName) {
 			currentRoom = "thePitt";
 		break;
 			
+		default:
+			alert("wow");
+		break;
+			
 	}
 }
 
 // The functions below are location descriptions.
+
 function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
