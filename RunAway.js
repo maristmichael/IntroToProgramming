@@ -27,10 +27,10 @@ var snakeRoomVisit = false;
 var falseSafeVisit = false;
 var freedomHallVisit = false;
 
-// The variables below are items that are in the game.
-var note;
-var miniStatue;
-var goldenSnake;
+// The variables below are items that can be in players inventory.
+var note = false;
+var miniStatue = false;
+var goldenSnake = false;
 
 // The functions below are display functions.
 function showScene(message) {
@@ -39,6 +39,10 @@ function showScene(message) {
 
 function showPoints(message) {
     document.getElementById("points").innerHTML = message;
+}
+
+function showItemEvent(event) {
+	document.getElementById("itemEvent").innerHTML = event;
 }
 
 function showInvalidDirection(error) {
@@ -555,6 +559,14 @@ function moveSouth() {
 }
 
 // Grab item function
-function grabItem(item){
-
+function grabItem(){
+	var event;
+	
+	if (currentRoom === "safeRoom") {
+		note = true;
+		event = "The note reads: 'The risk is worth the reward.'"
+		
+	}
+	
+	showItemEvent(event);
 }
