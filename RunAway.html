@@ -33,15 +33,20 @@
 	<input type id="command" type="text"/></input>
 
 	<button id="goButton" onclick="textInput();">Go</button>
-	<button id="northButton" onclick="moveNorth();">North</button>          
+	
+	<button id="northButton" onclick="moveNorth();">North</button>    
 	<button id="westButton" onclick="moveWest();">West</button>
 	<button id="eastButton" onclick="moveEast();">East</button>
 	<button id="southButton" onclick="moveSouth();">South</button>
 
 	<a href="mailto:michael.gutierrez2@marist.edu">E-mail me at if you're stuck</a>
-	<a href="http://s1042.photobucket.com/user/mike18g/media/RunAwayMap.jpg_zpsyrqr3327.png.html">Map of Game</a>
 
 	<div id="invalidDirection"></div>
+	
+	<button onclick="toggleMap('RunAwayMap.png')">Display/Hide Map</button>
+		<div id="RunAwayMap.png" style="display:none">
+		<img src="RunAwayMap.png"/>
+	</div>
 
 </body>
 

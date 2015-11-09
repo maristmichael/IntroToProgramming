@@ -85,6 +85,17 @@ function enableAllButtons(){
 	enableButton("go");
 }
 
+// Show/Hides game map.
+function toggleMap(id){
+	var gameMap = document.getElementById(id);
+	
+	if (gameMap.style.display === "none") {
+		gameMap.style.display = "block";
+	} else {
+		gameMap.style.display = "none";
+	}
+}
+
 // The function below handels the text input.
 function textInput(userInput) {
 	var error;
