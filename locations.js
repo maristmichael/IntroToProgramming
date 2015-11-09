@@ -1,5 +1,4 @@
 // The function below sets the players locations.
-
 function setRoomTo(roomName) {
 	switch (roomName) {
 		case "startingRoom":
@@ -21,7 +20,7 @@ function setRoomTo(roomName) {
 		case "deadEnd":
 			currentRoom = "deadEnd";
 		break;
-		
+
 		case "signHall":
 			currentRoom = "signHall";
 		break;
@@ -62,7 +61,6 @@ function setRoomTo(roomName) {
 }
 
 // The functions below are location descriptions.
-
 function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
@@ -72,7 +70,8 @@ function backToStart() {
 function safeRoom() {
     var message;
     message = "You are in a safe room.<br>" +
-"There are no snakes in the room, but the snakes will follow you if you dawdle for too long.";
+"There are no snakes in the room, but the snakes will follow you if you dawdle for too long.<br>" +
+"You spot a note on the ground";
     return message;
 }
 

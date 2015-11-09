@@ -27,6 +27,11 @@ var snakeRoomVisit = false;
 var falseSafeVisit = false;
 var freedomHallVisit = false;
 
+// The variables below are items that are in the game.
+var note;
+var miniStatue;
+var goldenSnake;
+
 // The functions below are display functions.
 function showScene(message) {
     document.getElementById("message").innerHTML = message;
@@ -547,4 +552,9 @@ function moveSouth() {
 	
     showScene(message);
     showPoints(points);
+}
+
+// Grab item function
+function grabItem(item){
+
 }
