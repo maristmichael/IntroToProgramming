@@ -513,66 +513,91 @@ function moveEast() {
     var message;
     var points;
     
-    if (currentRoom === "safeRoom") {
-        currentRoom = "startingRoom";
-        message = backToStart();
-        points = pointCount();
-		disableButton("east");
-		disableButton("south");
-		enableButton("west");
-    } else if (currentRoom === "ratHall") {
-        currentRoom = "thePitt";
-        message = dumbDeath();
-        points = zeroPoints();
-		disableAllButtons();
-    } else if (currentRoom === "thePitt") {
-        message = stillAreDead();
-        points = zeroPoints();
-		disableAllButtons();
-    } else if (currentRoom === "deadEnd") {
-        message = yourEaten();
-        points = zeroPoints();
-		disableAllButtons();
-    } else if (currentRoom === "redMarkedRoom") {
-        currentRoom = "signHall";
-		pointsSignHall();
-        message = signHall();
-        points = pointCount();
-		disableButton("north");
-    } else if (currentRoom === "signHall") {
-        currentRoom = "giantSnakeRoom";
-		pointsSnakeRoom();
-        message = giantSnakeRoom();
-        points = pointCount();
-		enableAllButtons();
-    } else if (currentRoom === "giantSnakeRoom") {
-        currentRoom = "falseSafeRoom";
-		pointsFalseSafe();
-        message = falseSafeRoom();
-        points = pointCount();
-		disableButton("north");
-		disableButton("south");
-    } else if (currentRoom === "falseSafeRoom") {
-        currentRoom = "trapRoom";
-        message = trapRoom();
-        points = zeroPoints();
-		disableAllButtons();
-	} else if (currentRoom === "trapRoom") {
-        message = youreDevoured();
-        points = zeroPoints();
-		disableAllButtons();
-    } else if (currentRoom === "choseToDieRoom") {
-        message = youreDevoured();
-        points = zeroPoints();
-		disableAllButtons();
-    } else if (currentRoom === "freedom") {
-        message = freedom();
-        points = pointCount();
-		disableAllButtons();
-    } else {
-        message = hitWall();
-        points = pointCount(); 
+	switch (currentRoom) {
+		case "safeRoom":
+			currentRoom = "startingRoom";
+			message = backToStart();
+			points = pointCount();
+			disableButton("east");
+			disableButton("south");
+			enableButton("west");
+		break;
+			
+		case "ratHall":
+			currentRoom = "thePitt";
+			message = dumbDeath();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+
+		case "thePitt":
+			message = stillAreDead();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+			
+		case "deadEnd":
+			message = yourEaten();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+			
+		case "redMarkedRoom":
+			currentRoom = "signHall";
+			pointsSignHall();
+			message = signHall();
+			points = pointCount();
+			disableButton("north");
+		break;
+			
+		case "signHall":
+			currentRoom = "giantSnakeRoom";
+			pointsSnakeRoom();
+			message = giantSnakeRoom();
+			points = pointCount();
+			enableAllButtons();
+		break;
+
+		case "giantSnakeRoom":
+			currentRoom = "falseSafeRoom";
+			pointsFalseSafe();
+			message = falseSafeRoom();
+			points = pointCount();
+			disableButton("north");
+			disableButton("south");
+		break;
+			
+		case "falseSafeRoom":
+			currentRoom = "trapRoom";
+			message = trapRoom();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+			
+		case "trapRoom":
+			message = youreDevoured();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+			
+		case "choseToDieRoom":
+			message = youreDevoured();
+			points = zeroPoints();
+			disableAllButtons();
+		break;
+			
+		case "freedom":
+			message = freedom();
+			points = pointCount();
+			disableAllButtons();
+		break;
+			
+		default:
+			message = hitWall();
+			points = pointCount();
+		break;
     }
+	
     showScene(message);
     showPoints(points);
 }
