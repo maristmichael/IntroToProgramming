@@ -267,28 +267,22 @@ function moveWest() {
     
 	switch (currentRoom) {
 		case "startingRoom":
-			currentRoom = "safeRoom";
+			setRoomTo("safeRoom");
 			pointsSafeRoom();
         	message = safeRoom();
 			points = pointCount();
 			disableButton("south");
 			disableButton("west");
+			enableButton("north");
+			enableButton("east");
 		break;
 
-		case "startingRoom":
-			currentRoom = "safeRoom";
-			pointsSafeRoom();
-			message = safeRoom();
-			points = pointCount();
-			disableButton("south");
-			disableButton("west");
-		break;
-    	
 		case "redMarkedRoom":
 			currentRoom = "deadEnd";
 			message = deadEnd();
 			points = zeroPoints();
 			disableAllButtons();
+			
 		break;
 
 		case "deadEnd":
@@ -307,6 +301,7 @@ function moveWest() {
 			currentRoom = "redMarkedRoom";
 			message = backToRedRoom();
 			points = pointCount();
+			enableAllButtons();
 			disableButton("north");
 		break;
 
@@ -314,6 +309,7 @@ function moveWest() {
 			currentRoom = "signHall";
 			message = backToSignHall();
 			points = pointCount();
+			enableAllButtons();
 			disableButton("north");
 		break;
 
@@ -371,6 +367,7 @@ function moveEast() {
 			disableButton("east");
 			disableButton("south");
 			enableButton("west");
+			enableButton("east");
 		break;
 			
 		case "ratHall":
@@ -397,6 +394,7 @@ function moveEast() {
 			pointsSignHall();
 			message = signHall();
 			points = pointCount();
+			enableAllButtons();
 			disableButton("north");
 		break;
 			
@@ -415,6 +413,8 @@ function moveEast() {
 			points = pointCount();
 			disableButton("north");
 			disableButton("south");
+			enableButton("west");
+			enableButton("east");
 		break;
 			
 		case "falseSafeRoom":
@@ -457,19 +457,22 @@ function moveSouth() {
     var points;
 
 	switch (currentRoom) {
-		case "safeRoom":
+		case "ratHall":
+			currentRoom = "safeRoom";
 			message = backToSafeRoom();
 			points = pointCount();
 			disableButton("west");
 			disableButton("south");
+			enableButton("north");
+			enableButton("east");
 		break;
 
 		case "redMarkedRoom":
 			currentRoom = "ratHall";
 			message = backToRatHall();
-			points = pointCount(); 
+			points = pointCount();
+			enableAllButtons();
 			disableButton("west");
-			enableButton("north");
 		break;
 
 		case "signHall":
@@ -508,6 +511,7 @@ function moveSouth() {
 			pointsFreedomHall();
 			message = freedomHallway();
 			points = pointCount();
+			enableAllButtons();
 			disableButton("east");
 		break;
 			

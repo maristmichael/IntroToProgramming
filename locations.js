@@ -1,4 +1,63 @@
-// The functions below are location and scenerio descriptions.
+// The function below sets the players locations.
+
+function setRoomTo(roomName) {
+	switch (roomName) {
+		case "startingRoom":
+			currentRoom = "startingRoom";
+		break;
+			
+		case "safeRoom":
+			currentRoom = "safeRoom";
+		break;
+			
+		case "ratHall":
+			currentRoom = "ratHall";
+		break;
+		
+		case "redMarkedRoom":
+			currentRoom = "redMarkedRoom";
+		break;
+		
+		case "deadEnd":
+			currentRoom = "deadEnd";
+		break;
+		
+		case "signHall":
+			currentRoom = "signHall";
+		break;
+		
+		case "gianSnakeRoom":
+			currentRoom = "giantSnakeRoom";
+		break;
+			
+		case "falseSafeRoom":
+			currentRoom = "falseSafeRoom";
+		break;
+		
+		case "trapRoom":
+			currentRoom = "trapRoom";
+		break;
+		
+		case "choseToDieRoom":
+			currentRoom = "choseToDieRoom";
+		break;
+		
+		case "freedomHallway":
+			currentRoom = "freedomHallway";
+		break;
+			
+		case "freedom":
+			currentRoom = "freedom";
+		break;
+		
+		case "thePitt":
+			currentRoom = "thePitt";
+		break;
+			
+	}
+}
+
+// The functions below are location descriptions.
 function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
