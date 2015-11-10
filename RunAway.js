@@ -1,7 +1,7 @@
 /* Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
- * November 8, 2015
+ * November 9, 2015
  * Project 4
  */
 
@@ -17,6 +17,15 @@ function pointCount() {
 
 function zeroPoints() {
 	return "Points: 0";
+}
+
+function allTypeCommands() {
+	return "Type 'N' or 'n' to go north.<br>" +
+	"Type 'S' or 's' to go north.<br>" +
+	"Type 'E' or 'e' to go north.<br>" +
+	"Type 'W' or 'w' to go north.<br>" +
+	"Type 'T' or 't' to grab item.<br>" +
+	"Type 'I' or 'i' to check inventory.<br>"
 }
 
 // The variables below keep track if a room was visited.
@@ -54,6 +63,10 @@ function showItemEvent(event) {
 
 function listInventory(items) {
 	document.getElementById("inventory").innerHTML = items;
+}
+
+function listHelp(help) {
+	document.getElementById("commandHelp").innerHTML = help;
 }
 
 function showInvalidDirection(error) {
@@ -157,6 +170,18 @@ function textInput(userInput) {
 	} else if (userInput === "i") {
 		showInventory();
 		error = ""
+	} else if (userInput === "H") {
+		listHelp();
+		error = ""
+	} else if (userInput === "h") {
+		listHelp();
+		error = ""
+/*	} else if (userInput === "P") {
+		();
+		error = ""
+	} else if (userInput === "p") {
+		();
+		error = "" */ 
 	} else {
 		error = "You entered an invalid command. Try again.";
 	}
@@ -226,7 +251,6 @@ function moveNorth() {
     var message;
     var points;
 	var event;
-	var items;
     
 	switch (currentRoom) {
 		case "startingRoom":
@@ -317,7 +341,6 @@ function moveNorth() {
     showScene(message);
     showPoints(points);
 	showItemEvent(event);
-	showInventory(items);
 }
 
 function moveWest() {
@@ -665,8 +688,7 @@ function grabItem(){
 	showItemEvent(event);
 }
 
-// This function handles listing player inventory. HARD to do w/out using an array
-var items 
+// This function handles listing player inventory. HARD w/out using an array 
 function showInventory() {
 	var items = "No items";
 	
@@ -694,4 +716,9 @@ function showInventory() {
 	listInventory(items);
 }
 
-
+// This function used to show all type commands
+function showHelp() {
+	var help;
+	help = allTypeCommands();
+	listHelp(help);
+}
