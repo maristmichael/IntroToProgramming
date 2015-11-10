@@ -1,3 +1,11 @@
+/* Michael Gutierrez
+ * Matthew Johnson
+ * CMPT 120L-115
+ * November 9, 2015
+ * Project 4
+ */
+
+
 // The function below sets the player's locations.
 function setRoomTo(roomName) {
 	switch (roomName) {

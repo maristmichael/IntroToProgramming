@@ -1,7 +1,7 @@
 <!-- Michael Gutierrez
 ---- Matthew Johnson
 ---- CMPT 120L-115
----- November 8, 2015
+---- November 9, 2015
 ---- Project 4
 ---->
 
@@ -34,16 +34,18 @@
 	<input type id="command" type="text"/></input>
 	<button id="goButton" onclick="textInput();">Go</button>
 	
-	<button id="takeButton" onclick="grabItem()";>Take</button>
-	<button id="inventoryButton" onclick="">Inventory</button>
-	<button id="helpButton" onclick="">Help</button>
-	
-	<div id="invalidDirection"></div>
-	
 	<button id="northButton" onclick="moveNorth();">North</button>
 	<button id="westButton" onclick="moveWest();">West</button>
 	<button id="eastButton" onclick="moveEast();">East</button>
 	<button id="southButton" onclick="moveSouth();">South</button>
+	
+	<div id="invalidDirection"></div>
+	
+	<button id="takeButton" onclick="grabItem()";>Take</button>
+	
+	<button id="inventoryButton" onclick="showInventory()";>Inventory</button>
+		<div id="inventory"></div>
+	<button id="helpButton" onclick="">Help</button>
 	
 	<button onclick="toggleMap('RunAwayMap.png')">Display/Hide Map</button>
 		<div id="RunAwayMap.png" style="display:none">

@@ -8,6 +8,7 @@
 
 var currentRoom = "startingRoom";
 var currentPoints = 0;
+var allItemsHeld = "";
 
 // The functions below serve for convenience.
 function pointCount() {
@@ -28,10 +29,15 @@ var falseSafeVisit = false;
 var freedomHallVisit = false;
 
 // The variables below are items that can be in players inventory.
-var note = false;
-var miniRatFigurine = false;
-var fadedPaper = false;
-var goldenSnake = false;
+var note = "Note";
+var miniRatFigurine = "Mini-Figurine";
+var fadedPaper = "Faded Paper";
+var goldenSake = "Golden Snake";
+
+var haveNote = false;
+var haveMiniRatFigurine = false;
+var haveFadedPaper = false;
+var haveGoldenSnake = false;
 
 // The functions below are display functions.
 function showScene(message) {
@@ -44,6 +50,10 @@ function showPoints(message) {
 
 function showItemEvent(event) {
 	document.getElementById("itemEvent").innerHTML = event;
+}
+
+function listInventory(items) {
+	document.getElementById("inventory").innerHTML = items;
 }
 
 function showInvalidDirection(error) {
@@ -141,8 +151,14 @@ function textInput(userInput) {
 	} else if (userInput === "t") {
 		grabItem();
 		error = "";
+	} else if (userInput === "I") {
+		showInventory();
+		error = ""
+	} else if (userInput === "i") {
+		showInventory();
+		error = ""
 	} else {
-		error = "You entered an invalid direction. Try again.";
+		error = "You entered an invalid command. Try again.";
 	}
 	
 	showInvalidDirection(error);
@@ -210,6 +226,7 @@ function moveNorth() {
     var message;
     var points;
 	var event;
+	var items;
     
 	switch (currentRoom) {
 		case "startingRoom":
@@ -300,6 +317,7 @@ function moveNorth() {
     showScene(message);
     showPoints(points);
 	showItemEvent(event);
+	showInventory(items);
 }
 
 function moveWest() {
@@ -619,30 +637,61 @@ function moveSouth() {
 	showItemEvent(event);
 }
 
-// This function handles when player grabs an item
+// This function handles when player grabs an item.
 function grabItem(){
 	var event;
 	
 	if (currentRoom === "safeRoom") {
-		note = true;
+		haveNote = true;
 		event = "You pocketed the note that read:<br>" + 
 "'The risk is worth the reward.'";
 	} else if (currentRoom === "ratHall") {
-		miniStatue = true;
+		haveMiniRatFigurine = true;
 		event = "You picked up the figurine. Maybe it'll give you good luck.";
 	} else if (currentRoom === "falseSafeRoom") {
-		fadedPaper = true;
+		haveFadedPaper = true;
 		event = "You pick up the paper that reads:<br>" +
 "'Death Awaits Ahead...'";
 	} else if (currentRoom === "freedomHallway") {
-		goldenSnake = true;
+		haveGoldenSnake = true;
 		event = "You pick up the golden item.<br>" + 
 "It is a snake carved out of pure gold.<br>" +
 "It appears that it has not been touched in ages.<br>" +
 "It'll probably sell for a pretty penny."
 	} else {
-		event = ""
+		event = "Nothing to take here."
 	}
 	
 	showItemEvent(event);
 }
+
+// This function handles listing player inventory. HARD to do w/out using an array
+var items 
+function showInventory() {
+	var items = "No items";
+	
+	if (haveNote === true) {
+		allItemsHeld = note;
+		items = allItemsHeld;
+	}
+	
+	if (haveMiniRatFigurine === true) {
+		allItemsHeld = note + ", " + miniRatFigurine;
+		items = allItemsHeld;
+	}
+	
+	if (haveFadedPaper === true) {
+		allItemsHeld = note + ", " + miniRatFigurine +", " +
+			fadedPaper;
+		items = allItemsHeld;
+	}
+	
+	if (haveGoldenSnake === true) {
+		allItemsHeld = note + ", " + miniRatFigurine +", " +
+			fadedPaper + ", " + goldenSake;
+	}
+	
+	listInventory(items);
+}
+
+
