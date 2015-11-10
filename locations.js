@@ -5,7 +5,6 @@
  * Project 4
  */
 
-
 // The function below sets the player's locations.
 function setRoomTo(roomName) {
 	switch (roomName) {
@@ -59,10 +58,6 @@ function setRoomTo(roomName) {
 		
 		case "thePitt":
 			currentRoom = "thePitt";
-		break;
-			
-		default:
-			alert("wow");
 		break;
 			
 	}

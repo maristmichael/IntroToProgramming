@@ -9,6 +9,7 @@
 var currentRoom = "startingRoom";
 var currentPoints = 0;
 var allItemsHeld = "";
+var breadcrumbTrail = [];
 
 // The functions below serve for convenience.
 function pointCount() {
@@ -21,11 +22,12 @@ function zeroPoints() {
 
 function allTypeCommands() {
 	return "Type 'N' or 'n' to go north.<br>" +
-	"Type 'S' or 's' to go north.<br>" +
-	"Type 'E' or 'e' to go north.<br>" +
-	"Type 'W' or 'w' to go north.<br>" +
+	"Type 'S' or 's' to go south.<br>" +
+	"Type 'E' or 'e' to go east.<br>" +
+	"Type 'W' or 'w' to go west.<br>" +
 	"Type 'T' or 't' to grab item.<br>" +
-	"Type 'I' or 'i' to check inventory.<br>"
+	"Type 'I' or 'i' to check inventory.<br>" + 
+	"Type 'P' or 'p' to show locations and moves."
 }
 
 // The variables below keep track if a room was visited.
@@ -67,6 +69,10 @@ function listInventory(items) {
 
 function listHelp(help) {
 	document.getElementById("commandHelp").innerHTML = help;
+}
+
+function listMoveHistory(history) {
+	document.getElementById("moveHistory").innerHTML = history;
 }
 
 function showInvalidDirection(error) {
@@ -124,6 +130,7 @@ function toggleMap(id){
 	
 	if (gameMap.style.display === "none") {
 		gameMap.style.display = "block";
+	
 	} else {
 		gameMap.style.display = "none";
 	}
@@ -171,17 +178,17 @@ function textInput(userInput) {
 		showInventory();
 		error = ""
 	} else if (userInput === "H") {
-		listHelp();
+		showHelp();
 		error = ""
 	} else if (userInput === "h") {
-		listHelp();
+		showHelp();
 		error = ""
-/*	} else if (userInput === "P") {
-		();
+	} else if (userInput === "P") {
+		previousMoves();
 		error = ""
 	} else if (userInput === "p") {
-		();
-		error = "" */ 
+		previousMoves();
+		error = ""
 	} else {
 		error = "You entered an invalid command. Try again.";
 	}
@@ -258,6 +265,7 @@ function moveNorth() {
 			message = dumbDeath();
 			points = zeroPoints();
 			event = "";
+			pushRoom("startingRoom");
 			disableAllButtons();
 		break;
 
@@ -274,6 +282,7 @@ function moveNorth() {
 			message = ratHall();
 			points = pointCount();
 			event = "";
+			pushRoom("safeRoom");
 			disableButton("west");
 			enableButton("south");
 		break;
@@ -284,6 +293,7 @@ function moveNorth() {
 			message = redMarkedRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("ratHall");
 			disableButton("north");
 			enableButton("west");
 		break;
@@ -293,6 +303,7 @@ function moveNorth() {
 			message = backToGiantSnake();
 			points = pointCount();
 			event = "";
+			pushRoom("freedomHallway");
 			enableAllButtons();
 		break;
 
@@ -301,6 +312,7 @@ function moveNorth() {
 			message = choseToDieRoom();
 			points = zeroPoints();
 			event = "";
+			pushRoom("giantSnakeRoom");
 			disableAllButtons();
 		break;
 
@@ -355,6 +367,7 @@ function moveWest() {
         	message = safeRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("startingRoom");
 			disableButton("south");
 			disableButton("west");
 			enableButton("north");
@@ -366,6 +379,7 @@ function moveWest() {
 			message = deadEnd();
 			points = zeroPoints();
 			event = "";
+			pushRoom("redMarkedRoom");
 			disableAllButtons();
 			
 		break;
@@ -389,6 +403,7 @@ function moveWest() {
 			message = backToRedRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("signHall");
 			enableAllButtons();
 			disableButton("north");
 		break;
@@ -398,6 +413,7 @@ function moveWest() {
 			message = backToSignHall();
 			points = pointCount();
 			event = "";
+			pushRoom("giantSnakeRoom");
 			enableAllButtons();
 			disableButton("north");
 		break;
@@ -407,6 +423,7 @@ function moveWest() {
 			message = backToGiantSnake();
 			points = pointCount();
 			event = "";
+			pushRoom("falseSafeRoom");
 			enableAllButtons();
 		break;
 
@@ -422,6 +439,7 @@ function moveWest() {
 			message = dumbDeath();
 			points = zeroPoints();
 			event = "";
+			pushRoom("freedomHallway")
 			disableAllButtons();
 		break;
 
@@ -462,6 +480,7 @@ function moveEast() {
 			message = backToStart();
 			points = pointCount();
 			event = "";
+			pushRoom("safeRoom");
 			disableButton("east");
 			disableButton("south");
 			enableButton("west");
@@ -473,6 +492,7 @@ function moveEast() {
 			message = dumbDeath();
 			points = zeroPoints();
 			event = "";
+			pushRoom("ratHall");
 			disableAllButtons();
 		break;
 
@@ -495,6 +515,7 @@ function moveEast() {
 			message = signHall();
 			points = pointCount();
 			event = "";
+			pushRoom("redMarkedRoom");
 			enableAllButtons();
 			disableButton("north");
 		break;
@@ -505,6 +526,7 @@ function moveEast() {
 			message = giantSnakeRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("signHall");
 			enableAllButtons();
 		break;
 
@@ -514,6 +536,7 @@ function moveEast() {
 			message = falseSafeRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("giantSnakeRoom");
 			disableButton("north");
 			disableButton("south");
 			enableButton("west");
@@ -525,6 +548,7 @@ function moveEast() {
 			message = trapRoom();
 			points = zeroPoints();
 			event = "";
+			pushRoom("falseSafeRoom");
 			disableAllButtons();
 		break;
 			
@@ -572,6 +596,7 @@ function moveSouth() {
 			message = backToSafeRoom();
 			points = pointCount();
 			event = "";
+			pushRoom("ratHall");
 			disableButton("west");
 			disableButton("south");
 			enableButton("north");
@@ -583,6 +608,7 @@ function moveSouth() {
 			message = backToRatHall();
 			points = pointCount();
 			event = "";
+			pushRoom("redMarkedRoom");
 			enableAllButtons();
 			disableButton("west");
 		break;
@@ -592,6 +618,7 @@ function moveSouth() {
 			message = signDeath();
 			points = zeroPoints();
 			event = "";
+			pushRoom("signHall");
 			disableAllButtons();
 		break;
 
@@ -629,6 +656,7 @@ function moveSouth() {
 			message = freedomHallway();
 			points = pointCount();
 			event = "";
+			pushRoom("giantSnakeRoom");
 			enableAllButtons();
 			disableButton("east");
 		break;
@@ -638,6 +666,7 @@ function moveSouth() {
 			message = freedom();
 			points = pointCount();
 			event = "";
+			pushRoom("freedomHallway");
 			disableAllButtons();
 		break;
 			
@@ -721,4 +750,68 @@ function showHelp() {
 	var help;
 	help = allTypeCommands();
 	listHelp(help);
+}
+
+// These functions are used to show/push player's move history onto array
+function previousMoves() {
+	var history;
+	history = breadcrumbTrail.toString();
+	listMoveHistory(history);
+
+}
+
+function pushRoom(room) {
+	switch (room) {
+		case "startingRoom":
+			breadcrumbTrail.push ("Starting Room");
+		break;
+			
+		case "safeRoom":
+			breadcrumbTrail.push ("Safe Room");
+		break;
+			
+		case "ratHall":
+			breadcrumbTrail.push ("Rat Hall");
+		break;
+		
+		case "redMarkedRoom":
+			breadcrumbTrail.push ("Red Marked Room");
+		break;
+		
+		case "deadEnd":
+			breadcrumbTrail.push ("Dead End");
+		break;
+
+		case "signHall":
+			breadcrumbTrail.push ("Sign Hall");
+		break;
+		
+		case "giantSnakeRoom":
+			breadcrumbTrail.push ("Giant Snake Room");
+		break;
+			
+		case "falseSafeRoom":
+			breadcrumbTrail.push ("False Safe Room");
+		break;
+		
+		case "trapRoom":
+			breadcrumbTrail.push ("Trap Room");
+		break;
+		
+		case "choseToDieRoom":
+			breadcrumbTrail.push ("Chose To Die Room");
+		break;
+		
+		case "freedomHallway":
+			breadcrumbTrail.push ("Freedom Hallway");
+		break;
+			
+		case "freedom":
+			breadcrumbTrail.push ("Freedom");
+		break;
+		
+		case "thePitt":
+			breadcrumbTrail.push ("The Pitt");
+		break;
+	}
 }
