@@ -1,4 +1,4 @@
-// The function below sets the players locations.
+// The function below sets the player's locations.
 function setRoomTo(roomName) {
 	switch (roomName) {
 		case "startingRoom":
@@ -60,7 +60,7 @@ function setRoomTo(roomName) {
 	}
 }
 
-// The functions below are location descriptions.
+// The functions below are location scenerios.
 function backToStart() {
     var message;
     message = "There are snakes in here you idiot. GET OUT!";
@@ -84,8 +84,9 @@ function backToSafeRoom(){
 
 function ratHall(){
     var message;
-    message = "This is a long hallway, with statues of giant rats.<br>" +
-"The pitt is to the east.";
+    message = "This is a long hallway, with two statues of giant rats.<br>" +
+"The pitt is to the east.<br>" + 
+"Next to one of the statues is a mini figurine of the same rat";
     return message;
 }
 
@@ -155,7 +156,9 @@ function choseToDieRoom(){
 
 function falseSafeRoom(){
     var message;
-    message = "You escaped that huge snake, atleast for now.<br>Continue onwards.";
+    message = "You escaped that huge snake, atleast for now.<br>" +
+"This room is a long corridor that only goes one way.<br>" +
+"On one wall there is a piece of paper that seems faded.<br>" 
     return message;
 }
 
@@ -168,9 +171,11 @@ function trapRoom(){
 
 function freedomHallway(){
     var message;
-    message = "You entered another room with statues of giant rats, and the pitt is to the west.<br>" +
+    message = "You entered another room with statues of giant rats," + 
+"and the pitt is to the west.<br>" +
 "This time however, there appears to be greenerie in the ground.<br>" 
-"That is a good sign.";
+"That is a good sign.<br>" +
+"In a patch of weeds you spot something golden.";
     return message;
 }
 
