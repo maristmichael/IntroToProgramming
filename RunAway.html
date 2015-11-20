@@ -1,8 +1,8 @@
 <!-- Michael Gutierrez
 ---- Matthew Johnson
 ---- CMPT 120L-115
----- November 8, 2015
----- Project 3
+---- November 9, 2015
+---- Project 4
 ---->
 
 <!doctype html>
@@ -11,15 +11,15 @@
 <head>
 	<meta charset="utf-8"/>
 	<title>Run Away!</title>
-	<script src="RunAway.js" type="text/javascript"></script>
+	<script src="RunAway.js"></script>
+	<script src="locations.js"></script>
+
 </head>
 
 <body>
 	<h1>Run Away!</h1>
 
-	<h2>
-		<div id="points">Points: 0</div>
-	</h2>
+	<h2> <div id="points">Points: 0</div> </h2>
 
 	<div id="message">
 		<p>You wake up to find that you are in a room filled with snakes.</p> 
@@ -27,19 +27,36 @@
 		<p>Infront of you, to the north, there is a bottomless pitt.</p>
 		<p>(It might be a good idea to not fall in)</p>    
 	</div>
+	
+	<div id="itemEvent"></div>
 
 	<input type id="command" type="text"/></input>
-
 	<button id="goButton" onclick="textInput();">Go</button>
-	<button id="northButton" onclick="moveNorth();">North</button>          
+	
+	<button id="northButton" onclick="moveNorth();">North</button>
 	<button id="westButton" onclick="moveWest();">West</button>
 	<button id="eastButton" onclick="moveEast();">East</button>
 	<button id="southButton" onclick="moveSouth();">South</button>
-
-	<a href="mailto:michael.gutierrez2@marist.edu">E-mail me at if you're stuck</a>
-	<a href="http://s1042.photobucket.com/user/mike18g/media/RunAwayMap.jpg_zpsyrqr3327.png.html">Map of Game</a>
-
+	
 	<div id="invalidDirection"></div>
+	
+	<button id="takeButton" onclick="grabItem()";>Take</button>
+	
+	<button id="inventoryButton" onclick="showInventory()";>Inventory</button>
+		<div id="inventory"></div>
+	
+	<button id="previousButton" onclick="previousMoves()";>Previous</button>
+		<div id="moveHistory"></div>
+	
+	<button id="helpButton" onclick="showHelp()";>Help</button>
+		<div id="commandHelp"></div>
+	
+	<button onclick="toggleMap('RunAwayMap.png')">Display/Hide Map</button>
+		<div id="RunAwayMap.png" style="display:none">
+		<img src="RunAwayMap.png"/>
+		</div>
+	
+	<a href="mailto:michael.gutierrez2@marist.edu">E-mail me if you're stuck</a>
 
 </body>
 
