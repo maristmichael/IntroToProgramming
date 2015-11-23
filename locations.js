@@ -1,65 +1,65 @@
-/* Michael Gutierrez
+/* 
+ * Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
  * November 9, 2015
- * Project 4
+ * Project 4 Corrections
  */
 
 // The function below sets the player's locations.
 function setRoomTo(roomName) {
 	switch (roomName) {
-		case "startingRoom":
-			currentRoom = "startingRoom";
-		break;
+	case "startingRoom":
+		currentRoom = "startingRoom";
+	break;
 			
-		case "safeRoom":
-			currentRoom = "safeRoom";
-		break;
-			
-		case "ratHall":
-			currentRoom = "ratHall";
-		break;
+	case "safeRoom":
+		currentRoom = "safeRoom";
+	break;
 		
-		case "redMarkedRoom":
-			currentRoom = "redMarkedRoom";
-		break;
-		
-		case "deadEnd":
-			currentRoom = "deadEnd";
-		break;
+	case "ratHall":
+		currentRoom = "ratHall";
+	break;
 
-		case "signHall":
-			currentRoom = "signHall";
-		break;
+	case "redMarkedRoom":
+		currentRoom = "redMarkedRoom";
+	break;
 		
-		case "giantSnakeRoom":
-			currentRoom = "giantSnakeRoom";
-		break;
+	case "deadEnd":
+		currentRoom = "deadEnd";
+	break;
+
+	case "signHall":
+		currentRoom = "signHall";
+	break;
+		
+	case "giantSnakeRoom":
+		currentRoom = "giantSnakeRoom";
+	break;
 			
-		case "falseSafeRoom":
-			currentRoom = "falseSafeRoom";
-		break;
+	case "falseSafeRoom":
+		currentRoom = "falseSafeRoom";
+	break;
 		
-		case "trapRoom":
-			currentRoom = "trapRoom";
-		break;
+	case "trapRoom":
+		currentRoom = "trapRoom";
+	break;
 		
-		case "choseToDieRoom":
-			currentRoom = "choseToDieRoom";
-		break;
+	case "choseToDieRoom":
+		currentRoom = "choseToDieRoom";
+	break;
 		
-		case "freedomHallway":
-			currentRoom = "freedomHallway";
-		break;
+	case "freedomHallway":
+		currentRoom = "freedomHallway";
+	break;
 			
-		case "freedom":
-			currentRoom = "freedom";
-		break;
+	case "freedom":
+		currentRoom = "freedom";
+	break;
 		
-		case "thePitt":
-			currentRoom = "thePitt";
-		break;
-			
+	case "thePitt":
+		currentRoom = "thePitt";
+	break;		
 	}
 }
 
@@ -73,23 +73,24 @@ function backToStart() {
 function safeRoom() {
     var message;
     message = "You are in a safe room.<br>" +
-"There are no snakes in the room, but the snakes will follow you if you dawdle for too long.<br>" +
-"You spot a note on the ground";
+	"There are no snakes in the room, but the" +
+	"snakes will follow you if you dawdle for too long.<br>" +
+	"You spot a note on the ground";
     return message;
 }
 
 function backToSafeRoom(){
     var message;
     message = "You are back in the safe room.<br>" + 
-"You have to leave this place eventually...";
+	"You have to leave this place eventually...";
     return message;
 }
 
 function ratHall(){
     var message;
     message = "This is a long hallway, with two statues of giant rats.<br>" +
-"The pitt is to the east.<br>" + 
-"Next to one of the statues is a mini figurine of the same rat";
+	"The pitt is to the east.<br>" + 
+	"Next to one of the statues is a mini figurine of the same rat";
     return message;
 }
 
@@ -102,7 +103,8 @@ function backToRatHall(){
 function redMarkedRoom(){
     var message;
     message = "This room has two directions you can take.<br>" + 
-"There appears to be red marks all over the the path toward the west path.<br>" + "West or East, choose wisely...";
+	"There appears to be red marks all over the the path toward" +
+	"the west path.<br>" + "West or East, choose wisely...";
     return message;
 }
 
@@ -115,70 +117,74 @@ function backToRedRoom(){
 function deadEnd(){
     var message;
     message = "Dead end...<br>" + 
-"The snakes caught up to you and had you for dinnner.";
+	"The snakes caught up to you and had you for dinnner.";
     return message;
 }
 
 function signHall(){
     var message;
-    message = "This room has a sign that states 'Freedom is South.'<br>" + "Seems legit...";
+    message = "This room has a sign that states 'Freedom is South.'<br>" + 
+	"Seems legit...";
     return message;
 }
 
 function signDeath(){
     var message;
     message = "It was not freedom...<br>" + 
-"You walked into the pitt which means you are dead.";
+	"You walked into the pitt which means you are dead.";
     return message;
 }
 
 function backToSignHall(){
     var message;
-    message = "This is the room with the sign.<br>Are you going to follow the sign south?";
+    message = "This is the room with the sign.<br>" +
+	"Are you going to follow the sign south?";
     return message;
 }
 
 function giantSnakeRoom(){
     var message;
-    message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD.<br>" + "DONT DISTURB IT!<br>" + "You can escape by heading East or South.";
+    message = "THERE IS A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EASTWARD.<br>" + 
+	"DONT DISTURB IT!<br>" + "You can escape by heading East or South.";
     return message;
 }
 
 function backToGiantSnake(){
     var message;
-    message = "You went back into the room with the Giant Snake.<br>" + "Great decision...<br>" + "South or East...";
+    message = "You went back into the room with the Giant Snake.<br>" + 
+	"Great decision...<br>" + "South or East...";
     return message;
 }
 
 function choseToDieRoom(){
     var message;
     message = "For some reason you decided to wake the snake.<br>" + 
-"It goes without saying, you were eaten...";
+	"It goes without saying, you were eaten...";
     return message;
 }
 
 function falseSafeRoom(){
     var message;
     message = "You escaped that huge snake, atleast for now.<br>" +
-"This room is a long corridor that only goes one way.<br>" +
-"On one wall there is a piece of paper that seems faded.<br>" 
+	"This room is a long corridor that only goes one way.<br>" +
+	"On one wall there is a piece of paper that seems faded.<br>" 
     return message;
 }
 
 function trapRoom(){
     var message;
     message = "There's no where to go...<br>" + 
-"The giant snake slithered to your location and ate you whole with its massive mouth.";
+	"The giant snake slithered to you and ate you whole with its massive mouth.";
     return message;
 }
 
 function freedomHallway(){
     var message;
     message = "You entered another room with statues of giant rats," + 
-"and the pitt is to the west.<br>" +
-"This time however, there appears to be greenerie in the ground.<br>" 
-"That is a good sign.<br>" +
-"In a patch of weeds you spot something golden.";
+	"and the pitt is to the west.<br>" +
+	"This time however, there appears to be greenerie in the ground.<br>" 
+	"That is a good sign.<br>" +
+	"In a patch of weeds you spot something golden.";
     return message;
 }
 
@@ -215,6 +221,6 @@ function yourEaten(){
 function hitWall(){
     var message;
     message = "You bumped into a wall, and fell hilariously.<br>" + 
-"Choose a different direction.";
+	"Choose a different direction.";
     return message;
 }
