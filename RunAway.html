@@ -10,6 +10,7 @@
 
 <head>
 	<meta charset="utf-8"/>
+	<link href="RunAway.css" type = "text/css" rel="stylesheet"/>
 	<title>Run Away!</title>
 	<script src="RunAway.js"></script>
 	<script src="locations.js"></script>
@@ -30,32 +31,50 @@
 	
 	<div id="itemEvent"></div>
 
+	<div id="commandGo">
 	<input type id="command" type="text"/></input>
 	<button id="goButton" onclick="textInput();">Go</button>
+	</div>
 	
+	<div id="navigation">
+		
+	<div id="north">
 	<button id="northButton" onclick="moveNorth();">North</button>
+	</div>
+	
 	<button id="westButton" onclick="moveWest();">West</button>
 	<button id="eastButton" onclick="moveEast();">East</button>
+	
+	<div id="south">
 	<button id="southButton" onclick="moveSouth();">South</button>
+	</div>
+		
+	</div>
 	
 	<div id="invalidDirection"></div>
 	
+	<div id="actions">
 	<button id="lookAroundButton" onclick="lookAround();">Look 			Around</button>
 	<button id="takeButton" onclick="grabItem();">Take</button>
 	
 	<button id="inventoryButton" onclick="showInventory();">Inventory</button>
 	<div id="inventory"></div>
+	</div>
 	
+	<div id="options">
+		
 	<button id="previousButton" onclick="previousMoves();">Previous</button>
 	<div id="moveHistory"></div>
 	
 	<button id="helpButton" onclick="showHelp();">Help</button>
 	<div id="commandHelp"></div>
 	
-	<button onclick="toggleMap('RunAwayMap.png')">Toggle Map</button>
+	<button id="mapButton" onclick="toggleMap('RunAwayMap.png')">Toggle Map</button>
 	<img id="RunAwayMap.png" style="display:none" src="RunAwayMap.png"/>
 	
-	<a href="mailto:michael.gutierrez2@marist.edu">E-mail me if you're stuck</a>
+	</div>
+	
+	<a id="email" href="mailto:michael.gutierrez2@marist.edu">E-mail me if you're stuck</a>
 
 </body>
 
