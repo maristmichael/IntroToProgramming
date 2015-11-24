@@ -89,17 +89,14 @@ function safeRoomEvent() {
 }
 
 function backToSafeRoom(){
-    var message;
-	
-    message = "You are back in the safe room.<br>" + 
-	"You have to leave this place eventually...";
+
 	setRoomTo("safeRoom");
 	pushRoom("ratHall");
 	disableButton("west");
 	disableButton("south");
 	enableButton("north");
 	enableButton("east");
-    return message;
+
 }
 
 function ratHallEvent(){
@@ -109,7 +106,6 @@ function ratHallEvent(){
 	pushRoom("safeRoom");
 	disableButton("west");
 	enableButton("south");
-    return message;
 }
 
 function backToRatHall(){
@@ -123,18 +119,13 @@ function backToRatHall(){
     return message;
 }
 
-function redMarkedRoom(){
-    var message;
-	
-    message = "This room has two directions you can take.<br>" + 
-	"There appears to be red marks all over the the path toward" +
-	"the west path.<br>" + "West or East, choose wisely...";
+function redMarkedRoomEvent(){
+	redMarkedRoom.visitCount ++;
 	setRoomTo("redMarkedRoom");
 	pointsRedRoom();
 	pushRoom("ratHall");
 	disableButton("north");
 	enableButton("west");
-    return message;
 }
 
 function backToRedRoom(){
@@ -148,35 +139,20 @@ function backToRedRoom(){
 	return message;
 }
 
-function deadEnd(){
-    var message;
-	
-    message = "Dead end...<br>" + 
-	"The snakes caught up to you and had you for dinnner.";
+function deadEndEvent(){
+	deadEnd.visitCount ++;
 	setRoomTo("deadEnd");
 	pushRoom("redMarkedRoom");
 	disableAllButtons();
-	return message;
 }
 
-function signHall(){
-    var message;
-	
-    message = "This room has a sign that states 'Freedom is South.'<br>" + 
-	"Seems legit...";
+function signHallEvent(){
+    signHall.visitCount ++;
 	setRoomTo("signHall");
 	pointsSignHall();
 	pushRoom("redMarkedRoom");
 	enableAllButtons();
 	disableButton("north");
-    return message;
-}
-
-function signDeath(){
-    var message;
-    message = "It was not freedom...<br>" + 
-	"You walked into the pitt which means you are dead.";
-    return message;
 }
 
 function backToSignHall(){
@@ -191,16 +167,12 @@ function backToSignHall(){
     return message;
 }
 
-function giantSnakeRoom(){
-    var message;
-	
-    message = "THERE'S A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EAST.<br>" +
-	"DONT DISTURB IT!<br>" + "You can escape by heading East or South.";
+function giantSnakeRoomEvent(){
+	giantSnakeRoom.visitCount ++;
 	setRoomTo("giantSnakeRoom");
 	pointsSnakeRoom();
 	pushRoom("signHall");
 	enableAllButtons();
-    return message;
 }
 
 function backToGiantSnakeWest(){
@@ -225,23 +197,15 @@ function backToGiantSnakeNorth(){
     return message;
 }
 
-function choseToDieRoom(){
-    var message;
-	
-    message = "For some reason you decided to wake the snake.<br>" + 
-	"It goes without saying, you were eaten...";
+function choseToDieRoomEvent(){
+	choseToDieRoom.visitCount ++;
 	setRoomTo("choseToDieRoom");
 	pushRoom("giantSnakeRoom");
 	disableAllButtons();
-    return message;
 }
 
-function falseSafeRoom(){
-    var message;
-	
-    message = "You escaped that huge snake, atleast for now.<br>" +
-	"This room is a long corridor that only goes one way.<br>" +
-	"On one wall there is a piece of paper that seems faded.<br>"
+function falseSafeRoomEvent(){
+	falseSafeRoom.visitCount ++;
 	setRoomTo("falseSafeRoom");
 	pointsFalseSafe();
 	pushRoom("giantSnakeRoom");
@@ -249,61 +213,44 @@ function falseSafeRoom(){
 	disableButton("south");
 	enableButton("west");
 	enableButton("east");
-    return message;
 }
 
-function trapRoom(){
-    var message;
-	
-    message = "There's no where to go...<br>" + 
-	"The giant snake slithered to you and ate you whole with its massive mouth.";
+function trapRoomEvent(){
+	trapRoom.visitCount ++;
 	setRoomTo("trapRoom");
 	pushRoom("falseSafeRoom");
 	disableAllButtons();
-    return message;
 }
 
-function freedomHallway(){
-    var message;
-	
-    message = "You entered another room with statues of giant rats," + 
-	"and the pitt is to the west.<br>" +
-	"This time however, there appears to be greenerie in the ground.<br>" 
-	"That is a good sign.<br>" +
-	"In a patch of weeds you spot something golden.";
+function freedomHallwayEvent(){
+ 	freedomHallway.visitCount ++;
 	setRoomTo("freedomHallway");
 	pointsFreedomHall();
 	pushRoom("giantSnakeRoom");
 	enableAllButtons();
 	disableButton("east");
-    return message;
 }
 
-function freedom(){
-    var message;
-	
-    message = "You've escaped this wretched place. No more snakes!<br> FREEDOM!";
+function freedomEvent(){
+	freedomHallway.visitCount ++;
 	setRoomTo("freedom");
 	pushRoom("freedomHallway");
 	disableAllButtons();
-    return message;
 }
 
 function thePittNorth(){
-    var message;
-	
-    message = "You somehow fell into the pitt that is in clear sight.<br>" + 
-	"You are dead.";
+ 	startingRoom.visitCount ++;
 	setRoomTo("thePitt");
 	pushRoom("startingRoom");
 	disableAllButtons();
-    return message;
 }
 
 function thePittSouth(){
     var message;
 	
-    message = "You somehow fell into the pitt that is in clear sight.<br>" + 		"You are dead.";
+    message = "It was not freedom...<br>" + 
+	"You walked into the pitt which means you are dead.";
+	signHall.visitCount ++;
 	setRoomTo("thePitt");
 	pushRoom("signHall");
 	disableAllButtons();
@@ -311,23 +258,17 @@ function thePittSouth(){
 }
 
 function thePittEast(){
-    var message;
-	
-    message = "You somehow fell into the pitt that is in clear sight.<br>" + 	 	"You are dead.";
+	ratHall.visitCount ++;
 	setRoomTo("thePitt");
 	pushRoom("ratHall");
 	disableAllButtons();
-    return message;
 }
 
 function thePittWest(){
-    var message;
-	
-    message = "You somehow fell into the pitt that is in clear sight.<br>" + 	 	 "You are dead.";
+	freedomHallway.visitCount ++;
 	setRoomTo("thePitt");
 	pushRoom("freedomHallway")
 	disableAllButtons();
-    return message;
 }
 
 function stillAreDead(){
@@ -348,7 +289,7 @@ function yourEaten(){
     return message;
 }
 
-function hitWall(){
+function hitWallEvent(){
     var message;
     message = "You bumped into a wall, and fell hilariously.<br>" + 
 	"Choose a different direction.";
@@ -382,7 +323,7 @@ function locationDescrip(location) {
 	switch (location) {
 	case "safeRoom":
 		return "You are in a safe room.<br>" +
-		"There are no snakes in the room, but the" +
+		"There are no snakes in the room, but the " +
 		"snakes will follow you if you dawdle for too long.<br>" +
 		"You spot a note on the ground";
 	break;
@@ -390,7 +331,7 @@ function locationDescrip(location) {
 	case "ratHall":
 		return "This is a long hallway, with two statues of giant rats.<br>" +
 		"The pitt is to the east.<br>" + 
-		"Next to one of the statues is a mini figurine of the same rat";
+		"Next to one of the statues is a mini figurine of the same rats";
 	break;
 			
 	case "redMarkedRoom":
@@ -431,7 +372,7 @@ function locationDescrip(location) {
 	break;
 			
 	case "freedomHallway":
-		return "You entered another room with statues of giant rats," + 
+		return "You entered another room with statues of giant rats, " + 
 		"and the pitt is to the west.<br>" +
 		"This time however, there appears to be greenerie in the ground.<br>" 
 		"That is a good sign.<br>" +

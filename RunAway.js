@@ -264,15 +264,11 @@ function moveNorth() {
     
 	switch (player.currentRoom) {
 	case locations[0]:
-		message = thePittNorth();
+		thePittNorth();
+		message = thePitt.description;
 		points = zeroPoints();
 	break;
-
-	case location[12]:
-		message = stillAreDead();
-		points = zeroPoints();			
-	break;
-
+		
 	case locations[1]:
 		ratHallEvent();
 		message = ratHall.description;
@@ -280,39 +276,21 @@ function moveNorth() {
 	break;
 
 	case locations[2]:
-		message = redMarkedRoom();
+		redMarkedRoomEvent();
+		message = redMarkedRoom.description;
 		points = pointCount();		
 	break;
 
-	case locations[10]":
+	case locations[10]:
 		message = backToGiantSnakeNorth();
 		points = pointCount();		
 	break;
 
 	case locations[6]:
-		message = choseToDieRoom();
+		choseToDieRoomEvent;
+		message = choseToDieRoom.description;
 		points = zeroPoints();		
-	break;
-
-	case locations[7]:
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-
-	case locations[4]:
-		message = yourEaten();
-		points = zeroPoints();		
-	break;
-			
-	case locations[9]:
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-
-	case locations[11]:
-		message = freedom();
-		points = pointCount();			
-	break;
+	break;	
 
 	default:
 		message = hitWall();
@@ -338,17 +316,8 @@ function moveWest() {
 	break;
 
 	case locations[3]:
-		message = deadEnd();
-		points = zeroPoints();
-	break;
-
-	case locations[4]:
-		message = yourEaten();
-		points = zeroPoints();
-	break;
-
-	case locations[12]:
-		message = stillAreDead();
+		deadEndEvent();
+		message = deadEnd.description;
 		points = zeroPoints();
 	break;
 
@@ -367,24 +336,10 @@ function moveWest() {
 		points = pointCount();
 	break;
 
-	case locations[9]:
-		message = youreDevoured();
+	case locations[10]:
+		thePittWest();
+		message = thePitt.description;
 		points = zeroPoints();
-	break;
-
-	case locations[10]":
-		message = thePittWest();
-		points = zeroPoints();
-	break;
-
-	case locations[7]:
-		message = youreDevoured();
-		points = zeroPoints();
-	break;
-
-	case locations[11]:
-		message = freedom();
-		points = pointCount();
 	break;
 
 	default:
@@ -405,58 +360,39 @@ function moveEast() {
     
 	switch (player.currentRoom) {
 	case locations[1]:
-		message = backToStart();
+		backToStart();
+		message = startingRoom.description;
 		points = pointCount();
 	break;
 			
 	case locations[2]:
-		message = thePitt();
+		thePittEast();
+		message = thePitt.description;
 		points = zeroPoints();		
-	break;
-
-	case locations[12]:
-		message = stillAreDead();
-		points = zeroPoints();
-	break;
-			
-	case locations[4]:
-		message = yourEaten();
-		points = zeroPoints();			
 	break;
 			
 	case locations[3]:
-		message = signHall();
+		signHallEvent();
+		message = signHall.description;
 		points = pointCount();		
 	break;
 			
 	case locations[5]:
-		message = giantSnakeRoom();
+		giantSnakeRoomEvent();
+		message = giantSnakeRoom.description;
 		points = pointCount();		
 	break;
 
 	case locations[6]:
-		message = falseSafeRoom();
+		falseSafeRoomEvent();
+		message = falseSafeRoom.description;
 		points = pointCount();
 	break;
 			
 	case locations[8]:
-		message = trapRoom();
+		trapRoomEvent();
+		message = trapRoom.description;
 		points = zeroPoints();			
-	break;
-			
-	case locations[9]:
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
-	case locations[7]:
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
-	case locations[11]:
-		message = freedom();
-		points = pointCount();		
 	break;
 			
 	default:
@@ -487,45 +423,23 @@ function moveSouth() {
 	break;
 
 	case locations[5]:
+		signDeath();
 		message = signDeath();
 		points = zeroPoints();
 	break;
 
-	case locations[12]:
-		message = stillAreDead();
-		points = zeroPoints();		
-	break;
-
-	case locations[4]:
-		message = yourEaten();
-		points = zeroPoints();		
-	break;
-
-	case locations[9]:
-		message = youreDevoured();
-		points = zeroPoints();
-	break;
-			
-	case locations[7]:
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
 	case locations[6]:
-		message = freedomHallway();
+		freedomHallwayEvent();
+		message = freedomHallway.description;
 		points = pointCount();
 	break;
 			
-	case locations[10]":
-		message = freedom();
+	case locations[10]:
+		freedomEvent();
+		message = freedom.description;
 		points = pointCount();		
 	break;
-			
-	case locations[11]:
-		message = freedom();
-		points = pointCount();		
-	break;
-			
+		
 	default:
 		message = hitWall();
 		points = pointCount();		
