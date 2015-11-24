@@ -89,15 +89,14 @@ function safeRoomEvent() {
 	enableButton("east");
 }
 
-function backToSafeRoom(){
-
+function backToSafeRoomSouth(){
+	safeRoom.visitCount ++;
 	setRoomTo("safeRoom");
 	pushRoom("ratHall");
 	disableButton("west");
 	disableButton("south");
 	enableButton("north");
 	enableButton("east");
-
 }
 
 function ratHallEvent(){
@@ -134,6 +133,7 @@ function backToRedRoom(){
     var message;
     
 	message = "You are back in the room with red marks toward" + 	 	 "the west.";
+	redMarkedRoom.visitCount ++;
     setRoomTo("redMarkedRoom");
 	pushRoom("signHall");
 	enableAllButtons();
@@ -306,6 +306,7 @@ function Location(name, description, visitCount, item) {
 	this.description = description;
 	this.visitCount = visitCount;
 	this.item = item;
+	this.toString = description;
 }
 
 var startingRoom = new Location("Starting Room", locationDescrip("startingRoom"), 1, "");
@@ -322,20 +323,29 @@ var freedomHallway = new Location("Freedom Hallway", locationDescrip("freedomHal
 var freedom = new Location("Freedom", locationDescrip("freedom"), 0, "");
 var thePitt = new Location("The Pitt", locationDescrip("thePitt"), 0, "");
 
+/*CANNOT FIGURE THIS OUT :( This function intellegently converts strings
+safeRoom.prototype.toString = function safeRoomRevisit(){
+	var newEvent;
+	
+	if (safeRoom.visitCount > 1) {
+		safeRoom.description = "You are now back in the safe room. " + 
+		"You spot a note on the ground."
+	}
+}
+*/ 
+
 // This is function serves for convenience 
 function locationDescrip(location) {
 	switch (location) {
 	case "safeRoom":
 		return "You are in a safe room.<br>" +
 		"There are no snakes in the room, but the " +
-		"snakes will follow you if you dawdle for too long.<br>" +
-		"You spot a note on the ground";
+		"snakes will follow you if you dawdle for too long.";
 	break;
 			
 	case "ratHall":
 		return "This is a long hallway, with two statues of giant rats.<br>" +
-		"The pitt is to the east.<br>" + 
-		"Next to one of the statues is a mini figurine of the same rats";
+		"The pitt is to the east.<br>" 
 	break;
 			
 	case "redMarkedRoom":
@@ -366,8 +376,7 @@ function locationDescrip(location) {
 			
 	case "falseSafeRoom":
 		return "You escaped that huge snake, atleast for now.<br>" +
-		"This room is a long corridor that only goes one way.<br>" +
-		"On one wall there is a piece of paper that seems faded.<br>";
+		"This room is a long corridor that only goes one way.<br>";
 	break;
 	
 	case "trapRoom":
@@ -379,8 +388,7 @@ function locationDescrip(location) {
 		return "You entered another room with statues of giant rats, " + 
 		"and the pitt is to the west.<br>" +
 		"This time however, there appears to be greenerie in the ground.<br>" 
-		"That is a good sign.<br>" +
-		"In a patch of weeds you spot something golden.";
+		"That is a good sign.<br>";
 	break;
 			
 	case "freedom":

@@ -413,7 +413,8 @@ function moveSouth() {
 
 	switch (player.currentRoom) {
 	case locations[2]:
-		message = backToSafeRoom();
+		backToSafeRoomSouth();
+		message = safeRoom.description;
 		points = pointCount();
 	break;
 
@@ -455,19 +456,19 @@ function moveSouth() {
 function grabItem(){
 	var event;
 	
-	if (foundNote === false) {
+	if (player.currentRoom === "safeRoom") {
 		foundNote = true;
 		player.inventory.push(note.name);
 		event = note.description;
-	} else if (foundMiniRatFigurine === false) {
+	} else if (player.currentRoom === "ratHall") {
 		foundMiniRatFigurine = true;
 		player.inventory.push(miniRatFigurine.name);
 		event = miniRatFigurine.description; 
-	} else if (foundFadedPaper === false) {
+	} else if (player.currentRoom === "falseSafeRoom") {
 		foundFadedPaper = true;
 		player.inventory.push(fadedPaper.name);
 		event = fadedPaper.description;
-	} else if (foundGoldenSnake === false) {
+	} else if (player.currentRoom === "freedomHallway") {
 		foundGoldenSnake = true;
 		player.inventory.push(goldenSnake.name);
 		event = goldenSnake.description;
@@ -477,6 +478,28 @@ function grabItem(){
 	showItemEvent(event);
 }
 
+//This function handles when player looks around
+function lookAround() {
+	var message
+	var spotNote = "You spot a note on the ground.";
+	var spotFigurine = "There's a mini figurine of a rat behind" +
+	"one of the statues.";
+	var spotFadedPaper = "You notice a paper is on the wall";
+	var spotGoldSnake = "There's something shiny in the grass";
+	
+	if (player.currentRoom === locations[1]) {
+		message = spotNote;
+	} else if (player.currentRoom === locations[2]) {
+		message = spotFigurine;
+	} else if (player.currentRoom === locations[8]) {
+		message = fadedPaper;
+	} else if (player.currentRoom === locations[10]) {
+		message = spotGoldSnake;
+	} else {
+		message = "Nothing here...";
+	}
+	showScene(message);
+}
 // This function handles listing player inventory.  
 function showInventory() {
 	var items;
