@@ -2,63 +2,63 @@
  * Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
- * November 9, 2015
- * Project 4 Corrections
+ * November 24, 2015
+ * Project 5
  */
 
 // The function below sets the player's locations.
 function setRoomTo(roomName) {
 	switch (roomName) {
 	case "startingRoom":
-		currentRoom = "startingRoom";
+		player.currentRoom = "startingRoom";
 	break;
 			
 	case "safeRoom":
-		currentRoom = "safeRoom";
+		player.currentRoom = "safeRoom";
 	break;
 		
 	case "ratHall":
-		currentRoom = "ratHall";
+		player.currentRoom = "ratHall";
 	break;
 
 	case "redMarkedRoom":
-		currentRoom = "redMarkedRoom";
+		player.currentRoom = "redMarkedRoom";
 	break;
 		
 	case "deadEnd":
-		currentRoom = "deadEnd";
+		player.currentRoom = "deadEnd";
 	break;
 
 	case "signHall":
-		currentRoom = "signHall";
+		player.currentRoom = "signHall";
 	break;
 		
 	case "giantSnakeRoom":
-		currentRoom = "giantSnakeRoom";
+		player.currentRoom = "giantSnakeRoom";
 	break;
 			
 	case "falseSafeRoom":
-		currentRoom = "falseSafeRoom";
+		player.currentRoom = "falseSafeRoom";
 	break;
 		
 	case "trapRoom":
-		currentRoom = "trapRoom";
+		player.currentRoom = "trapRoom";
 	break;
 		
 	case "choseToDieRoom":
-		currentRoom = "choseToDieRoom";
+		player.currentRoom = "choseToDieRoom";
 	break;
 		
 	case "freedomHallway":
-		currentRoom = "freedomHallway";
+		player.currentRoom = "freedomHallway";
 	break;
 			
 	case "freedom":
-		currentRoom = "freedom";
+		player.currentRoom = "freedom";
 	break;
 		
 	case "thePitt":
-		currentRoom = "thePitt";
+		player.currentRoom = "thePitt";
 	break;		
 	}
 }

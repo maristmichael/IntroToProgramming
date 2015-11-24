@@ -2,12 +2,13 @@
  * Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
- * November 9, 2015
- * Project 4 Corrections
+ * November 24, 2015
+ * Project 5
  */
 
-
-var currentRoom = "startingRoom";
+var player = {
+	currentRoom: "startingRoom"
+};
 var currentPoints = 0;
 var breadcrumbTrail = [];
 
@@ -239,7 +240,7 @@ function moveNorth() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
+	switch (player.currentRoom) {
 	case "startingRoom":
 		message = thePittNorth();
 		points = zeroPoints();
@@ -306,7 +307,7 @@ function moveWest() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
+	switch (player.currentRoom) {
 	case "startingRoom":
 		message = safeRoom();
 		points = pointCount();
@@ -378,7 +379,7 @@ function moveEast() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
+	switch (player.currentRoom) {
 	case "safeRoom":
 		message = backToStart();
 		points = pointCount();
@@ -450,7 +451,7 @@ function moveSouth() {
     var points;
 	var event = "";
 
-	switch (currentRoom) {
+	switch (player.currentRoom) {
 	case "ratHall":
 		message = backToSafeRoom();
 		points = pointCount();
