@@ -6,12 +6,25 @@
  * Project 5
  */
 
+// Global Player Object
 var player = {
 	currentRoom: "startingRoom",
 	currentPoints: 0,
-	inventory: [""],
+	inventory: [],
 	breadcrumbTrail: []
 };
+
+// These is an item protype and some instances
+function Item(name, description) {
+	this.name = name;
+	this.description = description;
+}
+
+var note = new Item("Note", itemDescription("note") );
+var miniRatFigurine = new Item("Rat Figurine", itemDescription("miniRatFigurine") );
+var fadedPaper = new Item("Paper", itemDescription("fadedPaper") );
+var goldenSnake = new Item("Golden Snake", itemDescription("goldenSnake") );
+
 
 // The functions below serve for convenience.
 function pointCount() {
@@ -31,6 +44,32 @@ function allTypeCommands() {
 	"Type 'I' or 'i' to check inventory.<br>" + 
 	"Type 'P' or 'p' to show locations and moves."
 }
+			
+function itemDescription(item) {
+	switch (item) {
+	case "note":
+		return "You pick up the note, it reads: " + 
+		"'The risk is worth the reward.'";
+	break;
+
+	case "miniRatFigurine":
+		return "This is a rat figurine, " + 
+		"possibly a good luck charm.";
+	break;
+
+	case "fadedPaper":
+		return "The paper is very faded but it reads: " +
+		"'The risk is worth the reward.'";
+	break;
+
+		case "goldenSnake":
+		return "It is a snake carved out of pure gold.<br>" +
+		"It has been sitting there for quite some time" +
+		"It'll probably sell for a pretty penny."
+	break;
+	}
+}
+
 
 // The variables below keep track if a room was visited.
 var safeRoomVisit = false;
@@ -518,24 +557,22 @@ function moveSouth() {
 function grabItem(){
 	var event;
 	
-	if (currentRoom === "safeRoom") {
+	if (player.currentRoom === "safeRoom") {
 		haveNote = true;
-		event = "You pocketed the note that read:<br>" + 
-		"'The risk is worth the reward.'";
-	} else if (currentRoom === "ratHall") {
+		player.inventory.push(note.name);
+		event = note.description;
+	} else if (player.currentRoom === "ratHall") {
 		haveMiniRatFigurine = true;
-		event = "You picked up the figurine." +
-		"Maybe it'll give you good luck.";
-	} else if (currentRoom === "falseSafeRoom") {
+		player.inventory.push(miniRatFigurine.name);
+		event = miniRatFigurine.description; 
+	} else if (player.currentRoom === "falseSafeRoom") {
 		haveFadedPaper = true;
-		event = "You pick up the paper that reads:<br>" +
-		"'Death Awaits Ahead...'";
-	} else if (currentRoom === "freedomHallway") {
+		player.inventory.push(fadedPaper.name);
+		event = fadedPaper.description;
+	} else if (player.currentRoom === "freedomHallway") {
 		haveGoldenSnake = true;
-		event = "You pick up the golden item.<br>" + 
-		"It is a snake carved out of pure gold.<br>" +
-		"It appears that it has not been touched in ages.<br>" +
-		"It'll probably sell for a pretty penny."
+		player.inventory.push(goldenSnake.name);
+		event = goldenSnake.description;
 	} else {
 		event = "Nothing to take here."
 	}
@@ -545,35 +582,9 @@ function grabItem(){
 
 // This function handles listing player inventory. HARD w/out using an array 
 function showInventory() {
-	var allItemsHeld = "";
-	var items = "No items";
-	var note = "Note";
-	var miniRatFigurine = "Mini-Figurine";
-	var fadedPaper = "Faded Paper";
-	var goldenSnake = "Golden Snake";
+	var items;
 
-	
-	if (haveNote === true) {
-		allItemsHeld = note;
-		items = allItemsHeld;
-	}
-	
-	if (haveMiniRatFigurine === true) {
-		allItemsHeld = note + ", " + miniRatFigurine;
-		items = allItemsHeld;
-	}
-	
-	if (haveFadedPaper === true) {
-		allItemsHeld = note + ", " + miniRatFigurine + ", " +
-		fadedPaper;
-		items = allItemsHeld;
-	}
-	
-	if (haveGoldenSnake === true) {
-		allItemsHeld = note + ", " + miniRatFigurine +", " +
-		fadedPaper + ", " + goldenSnake;
-	}
-	
+	items = player.inventory;
 	listInventory(items);
 }
 
