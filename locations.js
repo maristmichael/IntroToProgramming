@@ -79,6 +79,7 @@ function backToStart() {
 
 function safeRoomEvent() {
 	safeRoom.visitCount ++;
+	foundNote = false;
 	setRoomTo("safeRoom");
 	pointsSafeRoom();
 	pushRoom("startingRoom");
@@ -101,6 +102,7 @@ function backToSafeRoom(){
 
 function ratHallEvent(){
     ratHall.visitCount ++;
+	foundMiniRatFigurine = false;
 	setRoomTo("ratHall");
 	pointsRatHall();
 	pushRoom("safeRoom");
@@ -206,6 +208,7 @@ function choseToDieRoomEvent(){
 
 function falseSafeRoomEvent(){
 	falseSafeRoom.visitCount ++;
+	foundFadedPaper = false;
 	setRoomTo("falseSafeRoom");
 	pointsFalseSafe();
 	pushRoom("giantSnakeRoom");
@@ -224,6 +227,7 @@ function trapRoomEvent(){
 
 function freedomHallwayEvent(){
  	freedomHallway.visitCount ++;
+	foundGoldenSnake = false;
 	setRoomTo("freedomHallway");
 	pointsFreedomHall();
 	pushRoom("giantSnakeRoom");

@@ -71,10 +71,10 @@ function itemDescription(item) {
 
 // The variables below are items that can be in players inventory.
 
-var haveNote = false;
-var haveMiniRatFigurine = false;
-var haveFadedPaper = false;
-var haveGoldenSnake = false;
+var foundNote = 0;
+var foundMiniRatFigurine = 0;
+var foundFadedPaper = 0;
+var foundGoldenSnake = 0;
 
 // The functions below are display functions.
 function showScene(message) {
@@ -455,26 +455,25 @@ function moveSouth() {
 function grabItem(){
 	var event;
 	
-	if (player.currentRoom === "safeRoom") {
-		haveNote = true;
+	if (foundNote === false) {
+		foundNote = true;
 		player.inventory.push(note.name);
 		event = note.description;
-	} else if (player.currentRoom === "ratHall") {
-		haveMiniRatFigurine = true;
+	} else if (foundMiniRatFigurine === false) {
+		foundMiniRatFigurine = true;
 		player.inventory.push(miniRatFigurine.name);
 		event = miniRatFigurine.description; 
-	} else if (player.currentRoom === "falseSafeRoom") {
-		haveFadedPaper = true;
+	} else if (foundFadedPaper === false) {
+		foundFadedPaper = true;
 		player.inventory.push(fadedPaper.name);
 		event = fadedPaper.description;
-	} else if (player.currentRoom === "freedomHallway") {
-		haveGoldenSnake = true;
+	} else if (foundGoldenSnake === false) {
+		foundGoldenSnake = true;
 		player.inventory.push(goldenSnake.name);
 		event = goldenSnake.description;
 	} else {
 		event = "Nothing to take here."
 	}
-	
 	showItemEvent(event);
 }
 
