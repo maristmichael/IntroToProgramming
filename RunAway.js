@@ -14,7 +14,7 @@ var player = {
 	breadcrumbTrail: []
 };
 
-// These is an item protype and some instances
+// These is the item protoype and some instances
 function Item(name, description) {
 	this.name = name;
 	this.description = description;
@@ -24,7 +24,6 @@ var note = new Item("Note", itemDescription("note") );
 var miniRatFigurine = new Item("Rat Figurine", itemDescription("miniRatFigurine") );
 var fadedPaper = new Item("Paper", itemDescription("fadedPaper") );
 var goldenSnake = new Item("Golden Snake", itemDescription("goldenSnake") );
-
 
 // The functions below serve for convenience.
 function pointCount() {
@@ -69,7 +68,6 @@ function itemDescription(item) {
 	break;
 	}
 }
-
 
 // The variables below keep track if a room was visited.
 var safeRoomVisit = false;
@@ -580,7 +578,7 @@ function grabItem(){
 	showItemEvent(event);
 }
 
-// This function handles listing player inventory. HARD w/out using an array 
+// This function handles listing player inventory.  
 function showInventory() {
 	var items;
 
