@@ -7,14 +7,15 @@
  */
 
 var player = {
-	currentRoom: "startingRoom"
+	currentRoom: "startingRoom",
+	currentPoints: 0,
+	inventory: [""],
+	breadcrumbTrail: []
 };
-var currentPoints = 0;
-var breadcrumbTrail = [];
 
 // The functions below serve for convenience.
 function pointCount() {
-	return "Points: " + currentPoints;
+	return "Points: " + player.currentPoints;
 }
 
 function zeroPoints() {
@@ -180,57 +181,57 @@ function textInput(userInput) {
 // The functions below add score. 
 function pointsSafeRoom(){
 	if (safeRoomVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         safeRoomVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsRatHall(){
 	if (ratHallVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         ratHallVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsRedRoom(){
 	if (redRoomVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         redRoomVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsSignHall(){
 	if (signHallVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         signHallVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsSnakeRoom(){
 	if (snakeRoomVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         snakeRoomVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsFalseSafe(){
 	if (falseSafeVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         falseSafeVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
 function pointsFreedomHall(){
 	if (freedomHallVisit === false) {
-        currentPoints += 5;
+        player.currentPoints += 5;
         freedomHallVisit = true;
-		return currentPoints;
+		return player.currentPoints;
 	}
 }
 
@@ -586,62 +587,62 @@ function showHelp() {
 // These functions are used to show/push player's move history onto array
 function previousMoves() {
 	var history;
-	history = breadcrumbTrail.toString();
+	history = player.breadcrumbTrail;
 	listMoveHistory(history);
 }
 
 function pushRoom(room) {
 	switch (room) {
 		case "startingRoom":
-			breadcrumbTrail.push ("Starting Room");
+			player.breadcrumbTrail.push ("Starting Room");
 		break;
 			
 		case "safeRoom":
-			breadcrumbTrail.push ("Safe Room");
+			player.breadcrumbTrail.push ("Safe Room");
 		break;
 			
 		case "ratHall":
-			breadcrumbTrail.push ("Rat Hall");
+			player.breadcrumbTrail.push ("Rat Hall");
 		break;
 		
 		case "redMarkedRoom":
-			breadcrumbTrail.push ("Red Marked Room");
+			player.breadcrumbTrail.push ("Red Marked Room");
 		break;
 		
 		case "deadEnd":
-			breadcrumbTrail.push ("Dead End");
+			player.breadcrumbTrail.push ("Dead End");
 		break;
 
 		case "signHall":
-			breadcrumbTrail.push ("Sign Hall");
+			player.breadcrumbTrail.push ("Sign Hall");
 		break;
 		
 		case "giantSnakeRoom":
-			breadcrumbTrail.push ("Giant Snake Room");
+			player.breadcrumbTrail.push ("Giant Snake Room");
 		break;
 			
 		case "falseSafeRoom":
-			breadcrumbTrail.push ("False Safe Room");
+			player.breadcrumbTrail.push ("False Safe Room");
 		break;
 		
 		case "trapRoom":
-			breadcrumbTrail.push ("Trap Room");
+			player.breadcrumbTrail.push ("Trap Room");
 		break;
 		
 		case "choseToDieRoom":
-			breadcrumbTrail.push ("Chose To Die Room");
+			player.breadcrumbTrail.push ("Chose To Die Room ");
 		break;
 		
 		case "freedomHallway":
-			breadcrumbTrail.push ("Freedom Hallway");
+			player.breadcrumbTrail.push ("Freedom Hallway");
 		break;
 			
 		case "freedom":
-			breadcrumbTrail.push ("Freedom");
+			player.breadcrumbTrail.push ("Freedom");
 		break;
 		
 		case "thePitt":
-			breadcrumbTrail.push ("The Pitt");
+			player.breadcrumbTrail.push ("The Pitt");
 		break;
 	}
 }
