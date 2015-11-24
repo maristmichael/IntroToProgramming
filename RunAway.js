@@ -69,15 +69,6 @@ function itemDescription(item) {
 	}
 }
 
-// The variables below keep track if a room was visited.
-var safeRoomVisit = false;
-var ratHallVisit = false;
-var redRoomVisit = false;
-var signHallVisit = false;
-var snakeRoomVisit = false;
-var falseSafeVisit = false;
-var freedomHallVisit = false;
-
 // The variables below are items that can be in players inventory.
 
 var haveNote = false;
@@ -217,57 +208,50 @@ function textInput(userInput) {
 
 // The functions below add score. 
 function pointsSafeRoom(){
-	if (safeRoomVisit === false) {
+	if ( safeRoom.visitCount === 1) {
         player.currentPoints += 5;
-        safeRoomVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsRatHall(){
-	if (ratHallVisit === false) {
+	if (ratHall.visitCount === 1) {
         player.currentPoints += 5;
-        ratHallVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsRedRoom(){
-	if (redRoomVisit === false) {
+	if (redMarkedRoom.visitCount === 1) {
         player.currentPoints += 5;
-        redRoomVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsSignHall(){
-	if (signHallVisit === false) {
+	if (signHall.visitCount === 1) {
         player.currentPoints += 5;
-        signHallVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsSnakeRoom(){
-	if (snakeRoomVisit === false) {
+	if (giantSnakeRoom.visitCount === 1) {
         player.currentPoints += 5;
-        snakeRoomVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsFalseSafe(){
-	if (falseSafeVisit === false) {
+	if (falseSafeRoom.visitCount === 1) {
         player.currentPoints += 5;
-        falseSafeVisit = true;
 		return player.currentPoints;
 	}
 }
 
 function pointsFreedomHall(){
-	if (freedomHallVisit === false) {
+	if (freedomHallway.visitCount === 1) {
         player.currentPoints += 5;
-        freedomHallVisit = true;
 		return player.currentPoints;
 	}
 }
@@ -279,52 +263,53 @@ function moveNorth() {
 	var event = "";
     
 	switch (player.currentRoom) {
-	case "startingRoom":
+	case locations[0]:
 		message = thePittNorth();
 		points = zeroPoints();
 	break;
 
-	case "thePitt":
+	case location[12]:
 		message = stillAreDead();
 		points = zeroPoints();			
 	break;
 
-	case "safeRoom":
-		message = ratHall();
+	case locations[1]:
+		ratHallEvent();
+		message = ratHall.description;
 		points = pointCount();			
 	break;
 
-	case "ratHall":
+	case locations[2]:
 		message = redMarkedRoom();
 		points = pointCount();		
 	break;
 
-	case "freedomHallway":
+	case locations[10]":
 		message = backToGiantSnakeNorth();
 		points = pointCount();		
 	break;
 
-	case "giantSnakeRoom":
+	case locations[6]:
 		message = choseToDieRoom();
 		points = zeroPoints();		
 	break;
 
-	case "choseToDieRoom":
+	case locations[7]:
 		message = youreDevoured();
 		points = zeroPoints();		
 	break;
 
-	case "deadEnd":
+	case locations[4]:
 		message = yourEaten();
 		points = zeroPoints();		
 	break;
 			
-	case "trapRoom":
+	case locations[9]:
 		message = youreDevoured();
 		points = zeroPoints();		
 	break;
 
-	case "freedom":
+	case locations[11]:
 		message = freedom();
 		points = pointCount();			
 	break;
@@ -346,57 +331,58 @@ function moveWest() {
 	var event = "";
     
 	switch (player.currentRoom) {
-	case "startingRoom":
-		message = safeRoom();
+	case locations[0]:
+		safeRoomEvent();
+		message = safeRoom.description;
 		points = pointCount();
 	break;
 
-	case "redMarkedRoom":
+	case locations[3]:
 		message = deadEnd();
 		points = zeroPoints();
 	break;
 
-	case "deadEnd":
+	case locations[4]:
 		message = yourEaten();
 		points = zeroPoints();
 	break;
 
-	case "thePitt":
+	case locations[12]:
 		message = stillAreDead();
 		points = zeroPoints();
 	break;
 
-	case "signHall":
+	case locations[5]:
 		message = backToRedRoom();
 		points = pointCount();
 	break;
 
-	case "giantSnakeRoom":
+	case locations[6]:
 		message = backToSignHall();
 		points = pointCount();
 	break;
 
-	case "falseSafeRoom":
+	case locations[8]:
 		message = backToGiantSnakeWest();
 		points = pointCount();
 	break;
 
-	case "trapRoom":
+	case locations[9]:
 		message = youreDevoured();
 		points = zeroPoints();
 	break;
 
-	case "freedomHallway":
+	case locations[10]":
 		message = thePittWest();
 		points = zeroPoints();
 	break;
 
-	case "choseToDieRoom":
+	case locations[7]:
 		message = youreDevoured();
 		points = zeroPoints();
 	break;
 
-	case "freedom":
+	case locations[11]:
 		message = freedom();
 		points = pointCount();
 	break;
@@ -418,57 +404,57 @@ function moveEast() {
 	var event = "";
     
 	switch (player.currentRoom) {
-	case "safeRoom":
+	case locations[1]:
 		message = backToStart();
 		points = pointCount();
 	break;
 			
-	case "ratHall":
+	case locations[2]:
 		message = thePitt();
 		points = zeroPoints();		
 	break;
 
-	case "thePitt":
+	case locations[12]:
 		message = stillAreDead();
 		points = zeroPoints();
 	break;
 			
-	case "deadEnd":
+	case locations[4]:
 		message = yourEaten();
 		points = zeroPoints();			
 	break;
 			
-	case "redMarkedRoom":
+	case locations[3]:
 		message = signHall();
 		points = pointCount();		
 	break;
 			
-	case "signHall":
+	case locations[5]:
 		message = giantSnakeRoom();
 		points = pointCount();		
 	break;
 
-	case "giantSnakeRoom":
+	case locations[6]:
 		message = falseSafeRoom();
 		points = pointCount();
 	break;
 			
-	case "falseSafeRoom":
+	case locations[8]:
 		message = trapRoom();
 		points = zeroPoints();			
 	break;
 			
-	case "trapRoom":
+	case locations[9]:
 		message = youreDevoured();
 		points = zeroPoints();		
 	break;
 			
-	case "choseToDieRoom":
+	case locations[7]:
 		message = youreDevoured();
 		points = zeroPoints();		
 	break;
 			
-	case "freedom":
+	case locations[11]:
 		message = freedom();
 		points = pointCount();		
 	break;
@@ -490,52 +476,52 @@ function moveSouth() {
 	var event = "";
 
 	switch (player.currentRoom) {
-	case "ratHall":
+	case locations[2]:
 		message = backToSafeRoom();
 		points = pointCount();
 	break;
 
-	case "redMarkedRoom":
+	case locations[3]:
 		message = backToRatHall();
 		points = pointCount();
 	break;
 
-	case "signHall":
+	case locations[5]:
 		message = signDeath();
 		points = zeroPoints();
 	break;
 
-	case "thePitt":
+	case locations[12]:
 		message = stillAreDead();
 		points = zeroPoints();		
 	break;
 
-	case "deadEnd":
+	case locations[4]:
 		message = yourEaten();
 		points = zeroPoints();		
 	break;
 
-	case "trapRoom":
+	case locations[9]:
 		message = youreDevoured();
 		points = zeroPoints();
 	break;
 			
-	case "choseToDieRoom":
+	case locations[7]:
 		message = youreDevoured();
 		points = zeroPoints();		
 	break;
 			
-	case "giantSnakeRoom":
+	case locations[6]:
 		message = freedomHallway();
 		points = pointCount();
 	break;
 			
-	case "freedomHallway":
+	case locations[10]":
 		message = freedom();
 		points = pointCount();		
 	break;
 			
-	case "freedom":
+	case locations[11]:
 		message = freedom();
 		points = pointCount();		
 	break;

@@ -10,80 +10,75 @@
 function setRoomTo(roomName) {
 	switch (roomName) {
 	case "startingRoom":
-		player.currentRoom = "startingRoom";
+		player.currentRoom = locations[0];
 	break;
 			
 	case "safeRoom":
-		player.currentRoom = "safeRoom";
+		player.currentRoom = locations[1];
 	break;
 		
 	case "ratHall":
-		player.currentRoom = "ratHall";
+		player.currentRoom = locations[2];
 	break;
 
 	case "redMarkedRoom":
-		player.currentRoom = "redMarkedRoom";
+		player.currentRoom = locations[3];
 	break;
 		
 	case "deadEnd":
-		player.currentRoom = "deadEnd";
+		player.currentRoom = locations[4];
 	break;
 
 	case "signHall":
-		player.currentRoom = "signHall";
+		player.currentRoom = locations[5];
 	break;
 		
 	case "giantSnakeRoom":
-		player.currentRoom = "giantSnakeRoom";
+		player.currentRoom = locations[6];
 	break;
 			
 	case "falseSafeRoom":
-		player.currentRoom = "falseSafeRoom";
+		player.currentRoom = locations[8];
 	break;
 		
 	case "trapRoom":
-		player.currentRoom = "trapRoom";
+		player.currentRoom = locations[9];
 	break;
 		
 	case "choseToDieRoom":
-		player.currentRoom = "choseToDieRoom";
+		player.currentRoom = locations[7];
 	break;
 		
 	case "freedomHallway":
-		player.currentRoom = "freedomHallway";
+		player.currentRoom = locations[10];
 	break;
 			
 	case "freedom":
-		player.currentRoom = "freedom";
+		player.currentRoom = locations[11];
 	break;
 		
 	case "thePitt":
-		player.currentRoom = "thePitt";
+		player.currentRoom = locations[12];
 	break;		
 	}
 }
 
+// This Array holds the locations
+locations = ["startingRoom", "safeRoom", "ratHall", "redMarkedRoom", "deadEnd", "signHall", "giantSnakeRoom", "choseToDieRoom", "falseSafeRoom", "trapRoom", "freedomHallway", "freedom", "thePitt"]
+
 // These are location functions
 function backToStart() {
-    var message;
-	
-    message = "There are snakes in here you idiot. GET OUT!";
+	startingRoom.visitCount ++;
 	setRoomTo("startingRoom");
 	pushRoom("safeRoom");
 	disableButton("east");
 	disableButton("south");
 	enableButton("west");
 	enableButton("north");
-    return message;
 }
 
-function safeRoom() {
- 	var message;
-
-	message = "You are in a safe room.<br>" +
-	"There are no snakes in the room, but the" +
-	"snakes will follow you if you dawdle for too long.<br>" +
-	"You spot a note on the ground";
+function safeRoomEvent() {
+	safeRoom.visitCount ++;
 	setRoomTo("safeRoom");
 	pointsSafeRoom();
 	pushRoom("startingRoom");
@@ -91,7 +86,6 @@ function safeRoom() {
 	disableButton("west");
 	enableButton("north");
 	enableButton("east");
-	return message;
 }
 
 function backToSafeRoom(){
@@ -108,12 +102,8 @@ function backToSafeRoom(){
     return message;
 }
 
-function ratHall(){
-    var message;
-	
-    message = "This is a long hallway with two giant statues of rats.<br>" +
-	"The pitt is to the east.<br>" + 
-	"Next to one of the statues is a mini figurine of the same rat";
+function ratHallEvent(){
+    ratHall.visitCount ++;
 	setRoomTo("ratHall");
 	pointsRatHall();
 	pushRoom("safeRoom");
@@ -373,6 +363,7 @@ function Location(name, description, visitCount, item) {
 	this.item = item;
 }
 
+var startingRoom = new Location("Starting Room", locationDescrip("startingRoom"), 1, "");
 var safeRoom = new Location("Safe Room", locationDescrip("safeRoom"), 0, note);
 var ratHall = new Location("Rat Hall", locationDescrip("ratHall"), 0, miniRatFigurine);
 var redMarkedRoom = new Location("Red Marked Room", locationDescrip("redMarkedRoom"), 0, "");
@@ -382,7 +373,7 @@ var giantSnakeRoom = new Location("Giant Snake Room", locationDescrip("giantSnak
 var choseToDieRoom = new Location("Chose To Die Room", locationDescrip("choseToDieRoom"), 0, "");
 var falseSafeRoom = new Location("False Safe Room", locationDescrip("falseSafeRoom"), 0, fadedPaper);
 var trapRoom = new Location("Trap Room", locationDescrip("trapRoom"), 0, "");
-var freedomHallway = new Location("Freedom Hall", locationDescrip("freedomHallway"), 0, goldenSnake);
+var freedomHallway = new Location("Freedom Hallway", locationDescrip("freedomHallway"), 0, goldenSnake);
 var freedom = new Location("Freedom", locationDescrip("freedom"), 0, "");
 var thePitt = new Location("The Pitt", locationDescrip("thePitt"), 0, "");
 
@@ -491,6 +482,10 @@ function locationDescrip(location) {
 	case "hitWall":
 		return "You bumped into a wall, and fell hilariously.<br>" + 
 	"Choose a different direction.";
+	break;
+			
+	case "startingRoom":
+		return "There are snakes in here you idiot. GET OUT!";
 	break;
 	}
 }
