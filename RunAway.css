@@ -1,0 +1,55 @@
+h1 {
+	color: red;
+	text-align: center;
+}
+
+body {
+	background-color: black;
+	color: red;
+}
+
+#points {
+	color: gold;
+}
+
+#goButton, #command, #northButton, #southButton, #eastButton, #westButton, #lookAroundButton, #takeButton, #inventoryButton {
+	background-color: firebrick;
+}
+
+#northButton, #southButton, #eastButton, #westButton {
+	background-color: gray;
+}
+
+#previousButton, #helpButton, #mapButton {
+	background-color: slategray;
+}
+#commandGo {
+	text-align: center;
+	margin: auto;
+}
+
+#north {
+	text-align: center;
+}
+
+#westButton, #eastButton {
+	text-align: center;
+}
+
+#south {
+	text-align: center;
+}
+#navigation, #invalidDirection, #actions {
+	text-align: center;
+}
+#email {
+	float: right;
+}
+
+#options {
+	float: left;
+}
+
+#map {
+	text-align: center;
+}

@@ -2,18 +2,82 @@
  * Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
- * November 9, 2015
- * Project 4 Corrections
- */
+ * November 24, 2015
+ * Project 5 Corrections
+*/
 
+// These is the item protoype and some instances
+function Item(name, observed, description) {
+	this.name = name;
+	this.observed = observed;
+	this.description = description;
+}
 
-var currentRoom = "startingRoom";
-var currentPoints = 0;
-var breadcrumbTrail = [];
+var note = new Item(
+	"note",
+	"You spot a note on the ground.",
+	"You pick up the note, it reads:<br>" + 
+	"'You can never escape the Pitt'"
+);
+
+var miniRatFigurine = new Item(
+	"Rat Figurine",
+	"There's a mini figurine of a rat behind one of the statues.",
+	"This is a rat figurine, possibly a good luck charm."
+);
+
+var fadedPaper = new Item(
+	"Faded Paper",
+	"You notice a paper is on the wall.",
+	"You pick up the note on the wall, it reads:<br>" + 
+	"'The risk is worth the reward.'"
+);
+
+var goldenSnake = new Item(
+	"Golden Snake",
+	"There's something shiny in the grass.",
+	"It is a snake carved out of pure gold.<br>" +
+	"It has been sitting there for quite some time" +
+	"It'll probably sell for a pretty penny."
+);
+
+// Location Prototype and locationinstances
+function Location(name, description, visitCount, item) {
+	this.name = name;
+	this.description = description;
+	this.visitCount = visitCount;
+	this.item = item;
+	this.toString = description;
+}
+
+var startingRoom = new Location("Starting Room", locationDescrip("startingRoom"), 1, null);
+var safeRoom = new Location("Safe Room", locationDescrip("safeRoom"), 0, note);
+var ratHall = new Location("Rat Hall", locationDescrip("ratHall"), 0, miniRatFigurine);
+var redMarkedRoom = new Location("Red Marked Room", locationDescrip("redMarkedRoom"), 0, null)
+var deadEnd = new Location("Dead End", locationDescrip("deadEnd"), 0, null);
+var signHall = new Location("Sign Hall", locationDescrip("signHall"), 0,null);
+var giantSnakeRoom = new Location("Giant Snake Room", locationDescrip("giantSnakeRoom"), 0, null);
+var choseToDieRoom = new Location("Chose To Die Room", locationDescrip("choseToDieRoom"), 0, null);
+var falseSafeRoom = new Location("False Safe Room", locationDescrip("falseSafeRoom"), 0, fadedPaper);
+var trapRoom = new Location("Trap Room", locationDescrip("trapRoom"), 0, null);
+var freedomHallway = new Location("Freedom Hallway", locationDescrip("freedomHallway"), 0, goldenSnake);
+var freedom = new Location("Freedom", locationDescrip("freedom"), 0, null);
+var thePitt = new Location("The Pitt", locationDescrip("thePitt"), 0, null);
+
+// This Array holds the locations
+var locations = [startingRoom, safeRoom, ratHall, redMarkedRoom, deadEnd, signHall, giantSnakeRoom, choseToDieRoom, falseSafeRoom, trapRoom, freedomHallway, freedom, thePitt];
+
+// Global Player Object
+var player = {
+	currentRoom: locations[0],
+	currentPoints: 0,
+	inventory: [],
+	breadcrumbTrail: []
+};
 
 // The functions below serve for convenience.
 function pointCount() {
-	return "Points: " + currentPoints;
+	return "Points: " + player.currentPoints;
 }
 
 function zeroPoints() {
@@ -30,21 +94,114 @@ function allTypeCommands() {
 	"Type 'P' or 'p' to show locations and moves."
 }
 
-// The variables below keep track if a room was visited.
-var safeRoomVisit = false;
-var ratHallVisit = false;
-var redRoomVisit = false;
-var signHallVisit = false;
-var snakeRoomVisit = false;
-var falseSafeVisit = false;
-var freedomHallVisit = false;
-
-// The variables below are items that can be in players inventory.
-
-var haveNote = false;
-var haveMiniRatFigurine = false;
-var haveFadedPaper = false;
-var haveGoldenSnake = false;
+// This is function serves for convenience 
+function locationDescrip(location) {
+	switch (location) {
+	case "safeRoom":
+		return "You are in a safe room.<br>" +
+		"There are no snakes in the room, but the " +
+		"snakes will follow you if you dawdle for too long.";
+	break;
+			
+	case "ratHall":
+		return "This is a long hallway, with two statues of giant rats.<br>" +
+		"The pitt is to the east.<br>";
+	break;
+			
+	case "redMarkedRoom":
+		return "This room has two directions you can take.<br>" + 
+		"There appears to be red marks all over the the path toward" +
+		"the west path.<br>" + "West or East, choose wisely...";
+	break;
+			
+	case "deadEnd":
+		return "Dead end...<br>" + 
+		"The snakes caught up to you and had you for dinnner.";
+	break;
+			
+	case "signHall":
+		return "This room has a sign that states 'Freedom is South.'<br>" +
+		"Seems legit...";
+	break;
+			
+	case "giantSnakeRoom":
+		return "THERE'S A 30 FOOT SNAKE NEAR THE NORTH WALL FACING EAST.<br>" + 
+		"DONT DISTURB IT!<br>" + "You can escape by heading East or South.";
+	break;
+			
+	case "choseToDieRoom":
+		return "For some reason you decided to wake the snake.<br>" + 
+		"It goes without saying, you were eaten...";
+	break;
+			
+	case "falseSafeRoom":
+		return "You escaped that huge snake, atleast for now.<br>" +
+		"This room is a long corridor that only goes one way.<br>";
+	break;
+	
+	case "trapRoom":
+		return "There's no where to go...<br>" + 
+		"The giant snake slithered to you and ate you whole with its massive mouth.";
+	break;
+			
+	case "freedomHallway":
+		return "You entered another room with statues of giant rats, " + 
+		"and the pitt is to the west.<br>" +
+		"This time however, there appears to be greenerie in the ground.<br>" 
+		"That is a good sign.<br>";
+	break;
+			
+	case "freedom":
+		return "You've escaped this wretched place. No more snakes!<br> FREEDOM!";
+	break;
+			
+	case "backToStart":
+		return "There are snakes in here you idiot. GET OUT!";
+	break;
+			
+	case "backToRatHall":
+		return "This is the room with the rat statues and pitt to the east.";
+	break;
+			
+	case "backToRedRoom":
+		return "You are back in the room with red marks toward the west.";
+	break;
+			
+	case "pittDeathSouth":
+		return "It was not freedom...<br>" + 
+		"You walked into the pitt which means you are dead.";
+	break;
+			
+	case "backToSignHall":
+		return "This is the room with the sign.<br>" +
+		"Are you going to follow the sign south?";
+	break;
+			
+	case "backToGiantSnake":
+		return "You went back into the room with the Giant Snake.<br>" + 
+		"Great decision...<br>" + "South or East...";
+	break;
+			
+	case "backToSafeRoom":
+		return "You are back in the safe room.<br>" + 
+		"You have to leave this place eventually...";
+	break;
+			
+	case "thePitt":
+		return "You somehow fell into the pitt that is in clear sight.<br>" +
+		"You are dead.";
+	break;
+	
+	case "hitWall":
+		return "You bumped into a wall, and fell hilariously.<br>" + 
+		"Choose a different direction.";
+	break;
+			
+	case "startingRoom":
+		return "There are snakes in here you idiot. GET OUT!";
+	break;
+	}
+}
 
 // The functions below are display functions.
 function showScene(message) {
@@ -178,58 +335,51 @@ function textInput(userInput) {
 
 // The functions below add score. 
 function pointsSafeRoom(){
-	if (safeRoomVisit === false) {
-        currentPoints += 5;
-        safeRoomVisit = true;
-		return currentPoints;
+	if ( safeRoom.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsRatHall(){
-	if (ratHallVisit === false) {
-        currentPoints += 5;
-        ratHallVisit = true;
-		return currentPoints;
+	if (ratHall.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsRedRoom(){
-	if (redRoomVisit === false) {
-        currentPoints += 5;
-        redRoomVisit = true;
-		return currentPoints;
+	if (redMarkedRoom.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsSignHall(){
-	if (signHallVisit === false) {
-        currentPoints += 5;
-        signHallVisit = true;
-		return currentPoints;
+	if (signHall.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsSnakeRoom(){
-	if (snakeRoomVisit === false) {
-        currentPoints += 5;
-        snakeRoomVisit = true;
-		return currentPoints;
+	if (giantSnakeRoom.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsFalseSafe(){
-	if (falseSafeVisit === false) {
-        currentPoints += 5;
-        falseSafeVisit = true;
-		return currentPoints;
+	if (falseSafeRoom.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
 function pointsFreedomHall(){
-	if (freedomHallVisit === false) {
-        currentPoints += 5;
-        freedomHallVisit = true;
-		return currentPoints;
+	if (freedomHallway.visitCount === 1) {
+        player.currentPoints += 5;
+		return player.currentPoints;
 	}
 }
 
@@ -239,59 +389,43 @@ function moveNorth() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
-	case "startingRoom":
-		message = thePittNorth();
+	switch (player.currentRoom) {
+	case locations[0]: // From starting room to pitt
+		player.currentRoom = locations[12];
+		thePittNorth();
+		message = thePitt.description;
 		points = zeroPoints();
 	break;
-
-	case "thePitt":
-		message = stillAreDead();
-		points = zeroPoints();			
-	break;
-
-	case "safeRoom":
-		message = ratHall();
+		
+	case locations[1]: // From safe room to rat hall
+		player.currentRoom = locations[2];
+		ratHallEvent();
+		message = ratHall.description;
 		points = pointCount();			
 	break;
 
-	case "ratHall":
-		message = redMarkedRoom();
+	case locations[2]:
+		player.currentRoom = locations[3];
+		redMarkedRoomEvent();
+		message = redMarkedRoom.description;
 		points = pointCount();		
 	break;
 
-	case "freedomHallway":
+	case locations[10]:
+		player.currentRoom = locations[6];
 		message = backToGiantSnakeNorth();
 		points = pointCount();		
 	break;
 
-	case "giantSnakeRoom":
-		message = choseToDieRoom();
+	case locations[6]:
+		player.currentRoom = locations[7];
+		choseToDieRoomEvent();
+		message = choseToDieRoom.description;
 		points = zeroPoints();		
-	break;
-
-	case "choseToDieRoom":
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-
-	case "deadEnd":
-		message = yourEaten();
-		points = zeroPoints();		
-	break;
-			
-	case "trapRoom":
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-
-	case "freedom":
-		message = freedom();
-		points = pointCount();			
-	break;
+	break;	
 
 	default:
-		message = hitWall();
+		message = hitWallEvent();
 		points = pointCount();
 	break;
 	}
@@ -306,64 +440,49 @@ function moveWest() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
-	case "startingRoom":
-		message = safeRoom();
+	switch (player.currentRoom) {
+	case locations[0]:
+		player.currentRoom = locations[1];
+		console.log(player.currentRoom.item);
+		safeRoomEvent();
+		message = safeRoom.description;
 		points = pointCount();
 	break;
 
-	case "redMarkedRoom":
-		message = deadEnd();
+	case locations[3]:
+		player.currentRoom = locations[4];
+		deadEndEvent();
+		message = deadEnd.description;
 		points = zeroPoints();
 	break;
 
-	case "deadEnd":
-		message = yourEaten();
-		points = zeroPoints();
-	break;
-
-	case "thePitt":
-		message = stillAreDead();
-		points = zeroPoints();
-	break;
-
-	case "signHall":
+	case locations[5]:
+		player.currentRoom = locations[3];
 		message = backToRedRoom();
 		points = pointCount();
 	break;
 
-	case "giantSnakeRoom":
+	case locations[6]:
+		player.currentRoom = locations[5];
 		message = backToSignHall();
 		points = pointCount();
 	break;
 
-	case "falseSafeRoom":
+	case locations[8]:
+		player.currentRoom = locations[6];
 		message = backToGiantSnakeWest();
 		points = pointCount();
 	break;
 
-	case "trapRoom":
-		message = youreDevoured();
+	case locations[10]:
+		player.currentRoom = locations[12];
+		thePittWest();
+		message = thePitt.description;
 		points = zeroPoints();
-	break;
-
-	case "freedomHallway":
-		message = thePittWest();
-		points = zeroPoints();
-	break;
-
-	case "choseToDieRoom":
-		message = youreDevoured();
-		points = zeroPoints();
-	break;
-
-	case "freedom":
-		message = freedom();
-		points = pointCount();
 	break;
 
 	default:
-		message = hitWall();
+		message = hitWallEvent();
 		points = pointCount(); 
 	break;
 	}
@@ -378,64 +497,51 @@ function moveEast() {
     var points;
 	var event = "";
     
-	switch (currentRoom) {
-	case "safeRoom":
-		message = backToStart();
+	switch (player.currentRoom) {
+	case locations[1]:
+		player.currentRoom = locations [0];
+		backToStart();
+		message = startingRoom.description;
 		points = pointCount();
 	break;
 			
-	case "ratHall":
-		message = thePitt();
+	case locations[2]:
+		player.currentRoom = locations[12];
+		thePittEast();
+		message = thePitt.description;
 		points = zeroPoints();		
 	break;
-
-	case "thePitt":
-		message = stillAreDead();
-		points = zeroPoints();
-	break;
 			
-	case "deadEnd":
-		message = yourEaten();
-		points = zeroPoints();			
-	break;
-			
-	case "redMarkedRoom":
-		message = signHall();
+	case locations[3]:
+		player.currentRoom = [5]
+		signHallEvent();
+		message = signHall.description;
 		points = pointCount();		
 	break;
 			
-	case "signHall":
-		message = giantSnakeRoom();
+	case locations[5]:
+		player.currentRoom = [6];
+		giantSnakeRoomEvent();
+		message = giantSnakeRoom.description;
 		points = pointCount();		
 	break;
 
-	case "giantSnakeRoom":
-		message = falseSafeRoom();
+	case locations[6]:
+		player.currentRoom = locations[8];
+		falseSafeRoomEvent();
+		message = falseSafeRoom.description;
 		points = pointCount();
 	break;
 			
-	case "falseSafeRoom":
-		message = trapRoom();
+	case locations[8]:
+		player.currentRoom = location[9];
+		trapRoomEvent();
+		message = trapRoom.description;
 		points = zeroPoints();			
-	break;
-			
-	case "trapRoom":
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
-	case "choseToDieRoom":
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
-	case "freedom":
-		message = freedom();
-		points = pointCount();		
 	break;
 			
 	default:
-		message = hitWall();
+		message = hitWallEvent();
 		points = pointCount();		
 	break;
     }
@@ -450,59 +556,43 @@ function moveSouth() {
     var points;
 	var event = "";
 
-	switch (currentRoom) {
-	case "ratHall":
-		message = backToSafeRoom();
+	switch (player.currentRoom) {
+	case locations[2]:
+		player.currentRoom = locations[1];
+		backToSafeRoomSouth();
+		message = safeRoom.description;
 		points = pointCount();
 	break;
 
-	case "redMarkedRoom":
+	case locations[3]:
+		player.currentRoom = locations[2];
 		message = backToRatHall();
 		points = pointCount();
 	break;
 
-	case "signHall":
-		message = signDeath();
+	case locations[5]:
+		player.currentRoom = locations[12];
+		thePittSouth();
+		message = thePittSouth();
 		points = zeroPoints();
 	break;
 
-	case "thePitt":
-		message = stillAreDead();
-		points = zeroPoints();		
-	break;
-
-	case "deadEnd":
-		message = yourEaten();
-		points = zeroPoints();		
-	break;
-
-	case "trapRoom":
-		message = youreDevoured();
-		points = zeroPoints();
-	break;
-			
-	case "choseToDieRoom":
-		message = youreDevoured();
-		points = zeroPoints();		
-	break;
-			
-	case "giantSnakeRoom":
-		message = freedomHallway();
+	case locations[6]:
+		player.currentRoom = locations[10];
+		freedomHallwayEvent();
+		message = freedomHallway.description;
 		points = pointCount();
 	break;
 			
-	case "freedomHallway":
-		message = freedom();
+	case locations[10]:
+		player.currentRoom = locations[11];
+		freedomEvent();
+		message = freedom.description;
 		points = pointCount();		
 	break;
-			
-	case "freedom":
-		message = freedom();
-		points = pointCount();		
-	break;
-			
+		
 	default:
-		message = hitWall();
+		message = hitWallEvent();
 		points = pointCount();		
 	break;
     }
@@ -516,62 +606,40 @@ function moveSouth() {
 function grabItem(){
 	var event;
 	
-	if (currentRoom === "safeRoom") {
-		haveNote = true;
-		event = "You pocketed the note that read:<br>" + 
-		"'The risk is worth the reward.'";
-	} else if (currentRoom === "ratHall") {
-		haveMiniRatFigurine = true;
-		event = "You picked up the figurine." +
-		"Maybe it'll give you good luck.";
-	} else if (currentRoom === "falseSafeRoom") {
-		haveFadedPaper = true;
-		event = "You pick up the paper that reads:<br>" +
-		"'Death Awaits Ahead...'";
-	} else if (currentRoom === "freedomHallway") {
-		haveGoldenSnake = true;
-		event = "You pick up the golden item.<br>" + 
-		"It is a snake carved out of pure gold.<br>" +
-		"It appears that it has not been touched in ages.<br>" +
-		"It'll probably sell for a pretty penny."
-	} else {
-		event = "Nothing to take here."
-	}
-	
+	var itemHere = player.currentRoom.item;
+    if (itemHere) {
+
+		player.inventory.push(itemHere.name);
+		player.currentRoom.item = null;
+        event = itemHere.description; 
+    } else {
+		event = "There is nothing to take here...";
+    }
 	showItemEvent(event);
 }
 
-// This function handles listing player inventory. HARD w/out using an array 
-function showInventory() {
-	var allItemsHeld = "";
-	var items = "No items";
-	var note = "Note";
-	var miniRatFigurine = "Mini-Figurine";
-	var fadedPaper = "Faded Paper";
-	var goldenSnake = "Golden Snake";
+//This function handles when player looks around
+function lookAround() {
+	var message
+	
+	var itemHere = player.currentRoom.item;
+    if (itemHere) {
+        message = itemHere.observed;
+    } else {
+		message = "You observe nothing in this room.";
+    }
+	showScene(message);
+}
 
+// This function handles listing player inventory.  
+function showInventory() {
+	var items;
 	
-	if (haveNote === true) {
-		allItemsHeld = note;
-		items = allItemsHeld;
+	if (player.inventory === []) {
+		items = "No items obtained.";
+	} else {
+		items = player.inventory;
 	}
-	
-	if (haveMiniRatFigurine === true) {
-		allItemsHeld = note + ", " + miniRatFigurine;
-		items = allItemsHeld;
-	}
-	
-	if (haveFadedPaper === true) {
-		allItemsHeld = note + ", " + miniRatFigurine + ", " +
-		fadedPaper;
-		items = allItemsHeld;
-	}
-	
-	if (haveGoldenSnake === true) {
-		allItemsHeld = note + ", " + miniRatFigurine +", " +
-		fadedPaper + ", " + goldenSnake;
-	}
-	
 	listInventory(items);
 }
 
@@ -585,62 +653,73 @@ function showHelp() {
 // These functions are used to show/push player's move history onto array
 function previousMoves() {
 	var history;
-	history = breadcrumbTrail.toString();
+	history = player.breadcrumbTrail;
 	listMoveHistory(history);
 }
 
 function pushRoom(room) {
 	switch (room) {
 		case "startingRoom":
-			breadcrumbTrail.push ("Starting Room");
+			player.breadcrumbTrail.push ("Starting Room");
 		break;
 			
 		case "safeRoom":
-			breadcrumbTrail.push ("Safe Room");
+			player.breadcrumbTrail.push ("Safe Room");
 		break;
 			
 		case "ratHall":
-			breadcrumbTrail.push ("Rat Hall");
+			player.breadcrumbTrail.push ("Rat Hall");
 		break;
 		
 		case "redMarkedRoom":
-			breadcrumbTrail.push ("Red Marked Room");
+			player.breadcrumbTrail.push ("Red Marked Room");
 		break;
 		
 		case "deadEnd":
-			breadcrumbTrail.push ("Dead End");
+			player.breadcrumbTrail.push ("Dead End");
 		break;
 
 		case "signHall":
-			breadcrumbTrail.push ("Sign Hall");
+			player.breadcrumbTrail.push ("Sign Hall");
 		break;
 		
 		case "giantSnakeRoom":
-			breadcrumbTrail.push ("Giant Snake Room");
+			player.breadcrumbTrail.push ("Giant Snake Room");
 		break;
 			
 		case "falseSafeRoom":
-			breadcrumbTrail.push ("False Safe Room");
+			player.breadcrumbTrail.push ("False Safe Room");
 		break;
 		
 		case "trapRoom":
-			breadcrumbTrail.push ("Trap Room");
+			player.breadcrumbTrail.push ("Trap Room");
 		break;
 		
 		case "choseToDieRoom":
-			breadcrumbTrail.push ("Chose To Die Room");
+			player.breadcrumbTrail.push ("Chose To Die Room ");
 		break;
 		
 		case "freedomHallway":
-			breadcrumbTrail.push ("Freedom Hallway");
+			player.breadcrumbTrail.push ("Freedom Hallway");
 		break;
 			
 		case "freedom":
-			breadcrumbTrail.push ("Freedom");
+			player.breadcrumbTrail.push ("Freedom");
 		break;
 		
 		case "thePitt":
-			breadcrumbTrail.push ("The Pitt");
+			player.breadcrumbTrail.push ("The Pitt");
 		break;
 	}
 }
+
+window.onload = function(){
+	var message = "You wake up to find that you are in a room filled with snakes.<br>" +
+		"Your are terrified of snakes, so you look for a way to escape.<br>" +
+		"Infront of you, to the north, there is a bottomless pitt.<br>" +
+		"(It might be a good idea to not fall in...)";
+
+	disableButton("east");
+	disableButton("south");
+	showScene(message);
+};
