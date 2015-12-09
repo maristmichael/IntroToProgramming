@@ -67,7 +67,6 @@ function setRoomTo(roomName) {
 // These are location functions
 function backToStart() {
 	startingRoom.visitCount ++;
-	setRoomTo("startingRoom");
 	pushRoom("safeRoom");
 	disableButton("east");
 	disableButton("south");
@@ -77,8 +76,6 @@ function backToStart() {
 
 function safeRoomEvent() {
 	safeRoom.visitCount ++;
-	foundNote = false;
-	setRoomTo("safeRoom");
 	pointsSafeRoom();
 	pushRoom("startingRoom");
 	disableButton("south");
@@ -89,7 +86,6 @@ function safeRoomEvent() {
 
 function backToSafeRoomSouth(){
 	safeRoom.visitCount ++;
-	setRoomTo("safeRoom");
 	pushRoom("ratHall");
 	disableButton("west");
 	disableButton("south");
@@ -99,8 +95,6 @@ function backToSafeRoomSouth(){
 
 function ratHallEvent(){
     ratHall.visitCount ++;
-	foundMiniRatFigurine = false;
-	setRoomTo("ratHall");
 	pointsRatHall();
 	pushRoom("safeRoom");
 	disableButton("west");
@@ -111,7 +105,6 @@ function backToRatHall(){
     var message;
 	
     message = "This is the room with the rat statues and pitt to the east.";
-	setRoomTo("ratHall");
 	pushRoom("redMarkedRoom");
 	enableAllButtons();
 	disableButton("west");
@@ -120,7 +113,6 @@ function backToRatHall(){
 
 function redMarkedRoomEvent(){
 	redMarkedRoom.visitCount ++;
-	setRoomTo("redMarkedRoom");
 	pointsRedRoom();
 	pushRoom("ratHall");
 	disableButton("north");
@@ -130,9 +122,8 @@ function redMarkedRoomEvent(){
 function backToRedRoom(){
     var message;
     
-	message = "You are back in the room with red marks toward" + 	 	 "the west.";
+	message = "You are back in the room with red marks toward" + "the west.";
 	redMarkedRoom.visitCount ++;
-    setRoomTo("redMarkedRoom");
 	pushRoom("signHall");
 	enableAllButtons();
 	disableButton("north");
@@ -141,14 +132,12 @@ function backToRedRoom(){
 
 function deadEndEvent(){
 	deadEnd.visitCount ++;
-	setRoomTo("deadEnd");
 	pushRoom("redMarkedRoom");
 	disableAllButtons();
 }
 
 function signHallEvent(){
     signHall.visitCount ++;
-	setRoomTo("signHall");
 	pointsSignHall();
 	pushRoom("redMarkedRoom");
 	enableAllButtons();
@@ -160,7 +149,6 @@ function backToSignHall(){
 	
     message = "This is the room with the sign.<br>" +
 	"Are you going to follow the sign south?";
-	setRoomTo("signHall");
 	pushRoom("giantSnakeRoom");
 	enableAllButtons();
 	disableButton("north");
@@ -169,7 +157,6 @@ function backToSignHall(){
 
 function giantSnakeRoomEvent(){
 	giantSnakeRoom.visitCount ++;
-	setRoomTo("giantSnakeRoom");
 	pointsSnakeRoom();
 	pushRoom("signHall");
 	enableAllButtons();
@@ -180,7 +167,6 @@ function backToGiantSnakeWest(){
 	
     message = "You went back to the room with the Giant Snake.<br>" + 
 	"Great decision...<br>" + "South or East...";
-	setRoomTo("giantSnakeRoom");
 	pushRoom("falseSafeRoom");
 	enableAllButtons();
     return message;
@@ -191,7 +177,6 @@ function backToGiantSnakeNorth(){
 	
     message = "You went back to the room with the Giant Snake.<br>" + 
 	"Great decision...<br>" + "South or East...";
-	setRoomTo("giantSnakeRoom");
 	pushRoom("freedomHallway");
 	enableAllButtons();
     return message;
@@ -199,15 +184,12 @@ function backToGiantSnakeNorth(){
 
 function choseToDieRoomEvent(){
 	choseToDieRoom.visitCount ++;
-	setRoomTo("choseToDieRoom");
 	pushRoom("giantSnakeRoom");
 	disableAllButtons();
 }
 
 function falseSafeRoomEvent(){
 	falseSafeRoom.visitCount ++;
-	foundFadedPaper = false;
-	setRoomTo("falseSafeRoom");
 	pointsFalseSafe();
 	pushRoom("giantSnakeRoom");
 	disableButton("north");
@@ -218,15 +200,12 @@ function falseSafeRoomEvent(){
 
 function trapRoomEvent(){
 	trapRoom.visitCount ++;
-	setRoomTo("trapRoom");
 	pushRoom("falseSafeRoom");
 	disableAllButtons();
 }
 
 function freedomHallwayEvent(){
  	freedomHallway.visitCount ++;
-	foundGoldenSnake = false;
-	setRoomTo("freedomHallway");
 	pointsFreedomHall();
 	pushRoom("giantSnakeRoom");
 	enableAllButtons();
@@ -235,14 +214,12 @@ function freedomHallwayEvent(){
 
 function freedomEvent(){
 	freedomHallway.visitCount ++;
-	setRoomTo("freedom");
 	pushRoom("freedomHallway");
 	disableAllButtons();
 }
 
 function thePittNorth(){
  	startingRoom.visitCount ++;
-	setRoomTo("thePitt");
 	pushRoom("startingRoom");
 	disableAllButtons();
 }
@@ -253,7 +230,6 @@ function thePittSouth( ){
     message = "It was not freedom...<br>" + 
 	"You walked into the pitt which means you are dead.";
 	signHall.visitCount ++;
-	setRoomTo("thePitt");
 	pushRoom("signHall");
 	disableAllButtons();
     return message;
@@ -261,14 +237,12 @@ function thePittSouth( ){
 
 function thePittEast(){
 	ratHall.visitCount ++;
-	setRoomTo("thePitt");
 	pushRoom("ratHall");
 	disableAllButtons();
 }
 
 function thePittWest(){
 	freedomHallway.visitCount ++;
-	setRoomTo("thePitt");
 	pushRoom("freedomHallway")
 	disableAllButtons();
 }
@@ -297,15 +271,3 @@ function hitWallEvent(){
 	"Choose a different direction.";
     return message;
 }
-
-
-/*CANNOT FIGURE THIS OUT :( This function intellegently converts strings
-safeRoom.prototype.toString = function safeRoomRevisit(){
-	var newEvent;
-	
-	if (safeRoom.visitCount > 1) {
-		safeRoom.description = "You are now back in the safe room. " + 
-		"You spot a note on the ground."
-	}
-}
-*/ 
