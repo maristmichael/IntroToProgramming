@@ -2,11 +2,11 @@
  * Michael Gutierrez
  * Matthew Johnson
  * CMPT 120L-115
- * November 24, 2015
- * Project 5 Corrections
+ * December 11, 2015
+ * Final Project
 */
 
-// These is the item protoype and some instances
+// These is the item constructer and objects
 function Item(name, observed, description) {
 	this.name = name;
 	this.observed = observed;
@@ -41,31 +41,38 @@ var goldenSnake = new Item(
 	"It'll probably sell for a pretty penny."
 );
 
-// Location Prototype and locationinstances
+const NORTH = 0;
+const SOUTH = 1;
+const WEST = 2;
+const EAST = 3;
+
+// Location constructor and prototype
 function Location(name, description, visitCount, item) {
 	this.name = name;
 	this.description = description;
 	this.visitCount = visitCount;
 	this.item = item;
-	this.toString = description;
 }
 
-var startingRoom = new Location("Starting Room", locationDescrip("startingRoom"), 1, null);
-var safeRoom = new Location("Safe Room", locationDescrip("safeRoom"), 0, note);
-var ratHall = new Location("Rat Hall", locationDescrip("ratHall"), 0, miniRatFigurine);
-var redMarkedRoom = new Location("Red Marked Room", locationDescrip("redMarkedRoom"), 0, null)
-var deadEnd = new Location("Dead End", locationDescrip("deadEnd"), 0, null);
-var signHall = new Location("Sign Hall", locationDescrip("signHall"), 0,null);
-var giantSnakeRoom = new Location("Giant Snake Room", locationDescrip("giantSnakeRoom"), 0, null);
-var choseToDieRoom = new Location("Chose To Die Room", locationDescrip("choseToDieRoom"), 0, null);
-var falseSafeRoom = new Location("False Safe Room", locationDescrip("falseSafeRoom"), 0, fadedPaper);
-var trapRoom = new Location("Trap Room", locationDescrip("trapRoom"), 0, null);
-var freedomHallway = new Location("Freedom Hallway", locationDescrip("freedomHallway"), 0, goldenSnake);
-var freedom = new Location("Freedom", locationDescrip("freedom"), 0, null);
-var thePitt = new Location("The Pitt", locationDescrip("thePitt"), 0, null);
+Location.prototype.toString = function() {
+    return this.descrip;
+}
 
-// This Array holds the locations
-var locations = [startingRoom, safeRoom, ratHall, redMarkedRoom, deadEnd, signHall, giantSnakeRoom, choseToDieRoom, falseSafeRoom, trapRoom, freedomHallway, freedom, thePitt];
+var locations = [
+	new Location("Starting Room", locationDescrip("startingRoom"), 1, null);
+	new Location("Safe Room", locationDescrip("safeRoom"), 0, note);
+	new Location("Rat Hall", locationDescrip("ratHall"), 0, miniRatFigurine);
+	new Location("Red Marked Room", locationDescrip("redMarkedRoom"), 0, null)
+	new Location("Dead End", locationDescrip("deadEnd"), 0, null);
+	new Location("Sign Hall", locationDescrip("signHall"), 0,null);
+	new Location("Giant Snake Room", locationDescrip("giantSnakeRoom"), 0, null);
+	new Location("Chose To Die Room", locationDescrip("choseToDieRoom"), 0, null);
+	new Location("False Safe Room", locationDescrip("falseSafeRoom"), 0, fadedPaper);
+	new Location("Trap Room", locationDescrip("trapRoom"), 0, null);
+	new Location("Freedom Hallway", locationDescrip("freedomHallway"), 0, goldenSnake);
+	new Location("Freedom", locationDescrip("freedom"), 0, null);
+	new Location("The Pitt", locationDescrip("thePitt"), 0, null);
+];
 
 // Global Player Object
 var player = {
