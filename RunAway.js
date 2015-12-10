@@ -60,19 +60,19 @@ Location.prototype.toString = function() {
 
 // These are all of the locations
 var locations = [
-0	new Location("Starting Room", DescriptionOf("startingRoom"), 1, null);
-1	new Location("Safe Room", DescriptionOf("safeRoom"), 0, note);
-2	new Location("Rat Hall", DescriptionOf("ratHall"), 0, miniRatFigurine);
-3	new Location("Red Marked Room", DescriptionOf("redMarkedRoom"), 0, null)
-4	new Location("Dead End", DescriptionOf("deadEnd"), 0, null);
-5	new Location("Sign Hall", DescriptionOf("signHall"), 0,null);
-6	new Location("Giant Snake Room", DescriptionOf("giantSnakeRoom"), 0, null);
-7	new Location("Chose To Die Room", DescriptionOf("choseToDieRoom"), 0, null);
-8	new Location("False Safe Room", DescriptionOf("falseSafeRoom"), 0, fadedPaper);
-9	new Location("Trap Room", DescriptionOf("trapRoom"), 0, null);
-10	new Location("Freedom Hallway", DescriptionOf("freedomHallway"), 0, goldenSnake);
-11	new Location("Freedom", DescriptionOf("freedom"), 0, null);
-12	new Location("The Pitt", DescriptionOf("thePitt"), 0, null);
+/*0*/	new Location("Starting Room", DescriptionOf("startingRoom"), 1, null),
+/*1*/	new Location("Safe Room", DescriptionOf("safeRoom"), 0, note),
+/*2*/	new Location("Rat Hall", DescriptionOf("ratHall"), 0, miniRatFigurine),
+/*3*/	new Location("Red Marked Room", DescriptionOf("redMarkedRoom"), 0, null),
+/*4*/	new Location("Dead End", DescriptionOf("deadEnd"), 0, null),
+/*5*/	new Location("Sign Hall", DescriptionOf("signHall"), 0,null),
+/*6*/	new Location("Giant Snake Room", DescriptionOf("giantSnakeRoom"), 0, null),
+/*7*/	new Location("Chose To Die Room", DescriptionOf("choseToDieRoom"), 0, null),
+/*8*/	new Location("False Safe Room", DescriptionOf("falseSafeRoom"), 0, fadedPaper),
+/*9*/	new Location("Trap Room", DescriptionOf("trapRoom"), 0, null),
+/*10*/	new Location("Freedom Hallway", DescriptionOf("freedomHallway"), 0, goldenSnake),
+/*11*/	new Location("Freedom", DescriptionOf("freedom"), 0, null),
+/*12*/	new Location("The Pitt", DescriptionOf("thePitt"), 0, null),
 ];
 
 // This is the navigation matrix
@@ -101,6 +101,20 @@ var player = {
 	breadcrumbTrail: []
 };
 
+// Converts an integer direction constant into the name of the direction.
+function directionToString(dir) {
+    switch (dir) {
+    case NORTH: return "North";
+            break;
+    case EAST: return "East";
+            break;
+    case SOUTH: return "South";
+            break;
+    case WEST: return "West";
+            break;
+    }
+}
+
 // The functions below serve for convenience.
 function pointCount() {
 	return "Points: " + player.currentPoints;
@@ -111,13 +125,13 @@ function zeroPoints() {
 }
 
 function allTypeCommands() {
-	return "Type 'N' or 'n' to go north.<br>" +
-	"Type 'S' or 's' to go south.<br>" +
-	"Type 'E' or 'e' to go east.<br>" +
-	"Type 'W' or 'w' to go west.<br>" +
-	"Type 'T' or 't' to grab item.<br>" +
-	"Type 'I' or 'i' to check inventory.<br>" + 
-	"Type 'P' or 'p' to show locations and moves."
+	return "Type 'N' to go north.<br>" +
+	"Type 'S' to go south.<br>" +
+	"Type 'E' to go east.<br>" +
+	"Type 'W' to go west.<br>" +
+	"Type 'T' to grab item.<br>" +
+	"Type 'I' to check inventory.<br>" + 
+	"Type 'P' to show locations and moves."
 }
 
 // This is function serves for convenience 
@@ -224,14 +238,17 @@ function DescriptionOf(location) {
 	break;
 			
 	case "startingRoom":
-		return "There are snakes in here you idiot. GET OUT!";
+		return "You wake up to find that you are in a room filled with snakes.<br>" +
+		"Your are terrified of snakes, so you look for a way to escape.<br>" +
+		"Infront of you, to the north, there is a bottomless pitt.<br>" +
+		"(It might be a good idea to not fall in...)";
 	break;
 	}
 }
 
 // The functions below are display functions.
-function showScene(message) {
-    document.getElementById("message").innerHTML = message;
+function showScene(loc) {
+    document.getElementById("message").innerHTML = loc.description;
 }
 
 function showPoints(message) {
@@ -316,7 +333,7 @@ function toggleMap(id){
 }
 
 // The function below handels the text input.
-function TextInputCommand() {
+function textInputCommands() {
 	var error = "";
     var cmd = document.getElementById("command").value;
 	
@@ -329,7 +346,9 @@ function TextInputCommand() {
 	case "H": showHelp(); break;
 	case "I": showInventory(); break;
 	case "P": previousMoves(); break;
-    default : error = cmd + " is not a valid command" break;
+    
+	default : error = cmd + " is not a valid command.";
+	break;
     }
 	
 	showInvalidDirection(error);
@@ -385,7 +404,7 @@ function pointsFreedomHall(){
 	}
 }
 
-// The functions below moves player to a direction.
+/* // The functions below moves player to a direction.
 function moveNorth() {
     var message;
     var points;
@@ -552,7 +571,8 @@ function moveEast() {
     showPoints(points);
 	showItemEvent(event);
 }
-
+*/
+/*
 function moveSouth() {
     var message;
     var points;
@@ -602,6 +622,24 @@ function moveSouth() {
     showScene(message);
     showPoints(points);
 	showItemEvent(event);
+}
+*/ 
+
+
+function from(loc, dir) {
+    var locId = locations.indexOf(loc);
+	
+    return map[locId][dir];
+}
+
+function move(dir) {
+    var nextLocation = from(player.currentRoom,dir); /* TODO Use the function above to get the destination. */
+    if (nextLocation !== null) {
+        player.currentRoom = nextLocation;
+        showScene(player.currentRoom);
+    } else {
+        showScene("You cannont go" + dir);
+    }
 }
 
 // This function handles when player grabs an item.
@@ -716,12 +754,6 @@ function pushRoom(room) {
 }
 
 window.onload = function(){
-	var message = "You wake up to find that you are in a room filled with snakes.<br>" +
-		"Your are terrified of snakes, so you look for a way to escape.<br>" +
-		"Infront of you, to the north, there is a bottomless pitt.<br>" +
-		"(It might be a good idea to not fall in...)";
-
-	disableButton("east");
-	disableButton("south");
-	showScene(message);
+	player.currentRoom = locations[0];
+	showScene(player.currentRoom);
 };
