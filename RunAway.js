@@ -58,22 +58,41 @@ Location.prototype.toString = function() {
     return this.descrip;
 }
 
+// These are all of the locations
 var locations = [
-	new Location("Starting Room", locationDescrip("startingRoom"), 1, null);
-	new Location("Safe Room", locationDescrip("safeRoom"), 0, note);
-	new Location("Rat Hall", locationDescrip("ratHall"), 0, miniRatFigurine);
-	new Location("Red Marked Room", locationDescrip("redMarkedRoom"), 0, null)
-	new Location("Dead End", locationDescrip("deadEnd"), 0, null);
-	new Location("Sign Hall", locationDescrip("signHall"), 0,null);
-	new Location("Giant Snake Room", locationDescrip("giantSnakeRoom"), 0, null);
-	new Location("Chose To Die Room", locationDescrip("choseToDieRoom"), 0, null);
-	new Location("False Safe Room", locationDescrip("falseSafeRoom"), 0, fadedPaper);
-	new Location("Trap Room", locationDescrip("trapRoom"), 0, null);
-	new Location("Freedom Hallway", locationDescrip("freedomHallway"), 0, goldenSnake);
-	new Location("Freedom", locationDescrip("freedom"), 0, null);
-	new Location("The Pitt", locationDescrip("thePitt"), 0, null);
+0	new Location("Starting Room", DescriptionOf("startingRoom"), 1, null);
+1	new Location("Safe Room", DescriptionOf("safeRoom"), 0, note);
+2	new Location("Rat Hall", DescriptionOf("ratHall"), 0, miniRatFigurine);
+3	new Location("Red Marked Room", DescriptionOf("redMarkedRoom"), 0, null)
+4	new Location("Dead End", DescriptionOf("deadEnd"), 0, null);
+5	new Location("Sign Hall", DescriptionOf("signHall"), 0,null);
+6	new Location("Giant Snake Room", DescriptionOf("giantSnakeRoom"), 0, null);
+7	new Location("Chose To Die Room", DescriptionOf("choseToDieRoom"), 0, null);
+8	new Location("False Safe Room", DescriptionOf("falseSafeRoom"), 0, fadedPaper);
+9	new Location("Trap Room", DescriptionOf("trapRoom"), 0, null);
+10	new Location("Freedom Hallway", DescriptionOf("freedomHallway"), 0, goldenSnake);
+11	new Location("Freedom", DescriptionOf("freedom"), 0, null);
+12	new Location("The Pitt", DescriptionOf("thePitt"), 0, null);
 ];
 
+// This is the navigation matrix
+var map = [
+	/* [North, South, West, East] */
+	[ locations[12], null, locations[1], null ], // from Starting Room --> Safe Room(west), The Pitt(north) 
+    [ locations[2], null, null, locations[0] ], // from Safe Room --> Rat Hall(north), Starting Room(east)
+	[ locations[3], locations[1], null, locations[12] ], // from Rat Hall --> R.M. Room(north), The Pitt(east), Safe Room(south)
+	[ null, locations[2], locations[4], locations[5] ], // from Red Marked Room --> Dead End(west), Sign Hall(east), Rat Hall(south) 
+	[ null, null, null, null ], // from Dead End --> Nowhere
+	[ null, locations[12], locations[3], locations[6] ], // from Sign Hall --> R.M. Room(west), G.S. Room(east), The Pitt(south)
+	[ locations[7], locations[10], locations[5], locations[8] ], // from Giant Snake Room --> C.T.D. Room(north), Sign Hall(west), False Safe Room(east), Freedom Hall(south)
+	[ null, null, null, null ], // from Choose To Die Room --> Nowhere
+	[ null, null, locations[6], locations[9] ], // from False Safe Room --> G.S. Room(west), Trap Room(east)
+	[ null, null, null, null ], // from Trap Room --> Nowhere
+	[ locations[6], null, locations[12], locations[11] ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west), Freedom(south)
+	[ null, null, null, null ], // from Freedom --> Nowhere
+	[ null, null, null, null ], // from The Pitt --> Nowhere
+	
+]
 // Global Player Object
 var player = {
 	currentRoom: locations[0],
@@ -102,7 +121,7 @@ function allTypeCommands() {
 }
 
 // This is function serves for convenience 
-function locationDescrip(location) {
+function DescriptionOf(location) {
 	switch (location) {
 	case "safeRoom":
 		return "You are in a safe room.<br>" +
