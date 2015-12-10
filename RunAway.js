@@ -316,45 +316,21 @@ function toggleMap(id){
 }
 
 // The function below handels the text input.
-function textInput(userInput) {
+function TextInputCommand() {
 	var error = "";
-	var userInput = document.getElementById("command").value;
+    var cmd = document.getElementById("command").value;
 	
-	if (userInput === "N") {
-		moveNorth();
-	} else if (userInput === "n") {
-		moveNorth();
-	} else if (userInput === "S") {
-		moveSouth();
-	} else if (userInput === "s") {
-		moveSouth();
-	} else if (userInput === "E") {
-		moveEast();
-	} else if (userInput === "e") {
-		moveEast();
-	} else if (userInput === "W") {
-		moveWest();
-	} else if (userInput === "w") {
-		moveWest();
-	} else if (userInput === "T") {
-		grabItem();
-	} else if (userInput === "t") {
-		grabItem();
-	} else if (userInput === "I") {
-		showInventory();
-	} else if (userInput === "i") {
-		showInventory();
-	} else if (userInput === "H") {
-		showHelp();
-	} else if (userInput === "h") {
-		showHelp();
-	} else if (userInput === "P") {
-		previousMoves();
-	} else if (userInput === "p") {
-		previousMoves();
-	} else {
-		error = "You entered an invalid command. Try again.";
-	}
+    switch (cmd.toUpperCase()) {
+    case "N": move(NORTH); break;
+    case "E": move(EAST); break;
+    case "S": move(SOUTH); break;
+    case "W": move(WEST); break;
+	case "T": grabItem(); break;
+	case "H": showHelp(); break;
+	case "I": showInventory(); break;
+	case "P": previousMoves(); break;
+    default : error = cmd + " is not a valid command" break;
+    }
 	
 	showInvalidDirection(error);
 }
