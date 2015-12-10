@@ -6,7 +6,7 @@
  * Final Project
 */
 
-// These is the item constructer and objects
+// These is the item constructer and objects that were created with it
 function Item(name, observed, description) {
 	this.name = name;
 	this.observed = observed;
@@ -41,6 +41,7 @@ var goldenSnake = new Item(
 	"It'll probably sell for a pretty penny."
 );
 
+//These are the integer direction constants
 const NORTH = 0;
 const SOUTH = 1;
 const WEST = 2;
@@ -54,6 +55,7 @@ function Location(name, description, visitCount, item) {
 	this.item = item;
 }
 
+// A to string method for the locations
 Location.prototype.toString = function() {
     return this.descrip;
 }
@@ -78,7 +80,7 @@ var locations = [
 // This is the navigation matrix
 var map = [
 	/* [North, South, West, East] */
-	[ locations[12], null, locations[1], null ], // from Starting Room --> Safe Room(west), The Pitt(north) 
+	[ locations[12], null, locations[1], null ], // from Starting Room --> Safe Room(west), The Pitt(north)
     [ locations[2], null, null, locations[0] ], // from Safe Room --> Rat Hall(north), Starting Room(east)
 	[ locations[3], locations[1], null, locations[12] ], // from Rat Hall --> R.M. Room(north), The Pitt(east), Safe Room(south)
 	[ null, locations[2], locations[4], locations[5] ], // from Red Marked Room --> Dead End(west), Sign Hall(east), Rat Hall(south) 
@@ -92,8 +94,9 @@ var map = [
 	[ null, null, null, null ], // from Freedom --> Nowhere
 	[ null, null, null, null ], // from The Pitt --> Nowhere
 	
-]
-// Global Player Object
+];
+
+// This is the Global Player Object
 var player = {
 	currentRoom: locations[0],
 	currentPoints: 0,
@@ -101,7 +104,7 @@ var player = {
 	breadcrumbTrail: []
 };
 
-// Converts an integer direction constant into the name of the direction.
+// Converts the integer direction constant into the name of the direction.
 function directionToString(dir) {
     switch (dir) {
     case NORTH: return "North";
@@ -355,51 +358,35 @@ function textInputCommands() {
 }
 
 // The functions below add score. 
-function pointsSafeRoom(){
-	if ( safeRoom.visitCount === 1) {
-        player.currentPoints += 5;
+function score(){
+	var addPoints = 5;
+	
+	if (safeRoom.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsRatHall(){
-	if (ratHall.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (ratHall.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsRedRoom(){
-	if (redMarkedRoom.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (redMarkedRoom.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsSignHall(){
-	if (signHall.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (signHall.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsSnakeRoom(){
-	if (giantSnakeRoom.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (giantSnakeRoom.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsFalseSafe(){
-	if (falseSafeRoom.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (falseSafeRoom.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
-	}
-}
-
-function pointsFreedomHall(){
-	if (freedomHallway.visitCount === 1) {
-        player.currentPoints += 5;
+		
+	} else if (freedomHallway.visitCount === 1) {
+        player.currentPoints += addPoints;
 		return player.currentPoints;
 	}
 }
@@ -628,12 +615,11 @@ function moveSouth() {
 
 function from(loc, dir) {
     var locId = locations.indexOf(loc);
-	
     return map[locId][dir];
 }
 
 function move(dir) {
-    var nextLocation = from(player.currentRoom,dir); /* TODO Use the function above to get the destination. */
+    var nextLocation = from(player.currentRoom,dir);
     if (nextLocation !== null) {
         player.currentRoom = nextLocation;
         showScene(player.currentRoom);
@@ -690,7 +676,7 @@ function showHelp() {
 	listHelp(help);
 }
 
-// These functions are used to show/push player's move history onto array
+// These functions are used to show the player's prior moves push player's move history onto array
 function previousMoves() {
 	var history;
 	history = player.breadcrumbTrail;
