@@ -428,6 +428,7 @@ function move(dir) {
     } else {
         showScene("You cannont go" + dir);
     }
+
 	showPoints(points);
 	showItemEvent(event);
 
@@ -466,7 +467,6 @@ function lookAround() {
 // This function handles showing player inventory.  
 function listInventory() {
 	var items = "No items in your inventory";
-	
 	if (player.inventory.length !== 0) {
 		items = player.inventory;
 	}	
@@ -475,9 +475,16 @@ function listInventory() {
 
 // This function used to show all type commands
 function showHelp() {
-	var help;
-	help = allTypeCommands();
+    var help = allTypeCommands();
 	listHelp(help);
+	
+	var gameMap = document.getElementById("commandHelp");
+	if (gameMap.style.display === "none") {
+		gameMap.style.display = "block";
+	
+	} else {
+		gameMap.style.display = "none";
+	}
 }
 
 // This functions are used to show the player's prior moves push player's move history onto array
