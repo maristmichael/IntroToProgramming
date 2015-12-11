@@ -484,7 +484,15 @@ function previousMoves() {
 }
 
 function pressReturn() {
-	textInputCommands();
+	var error = "";
+	
+	document.getElementById("command").onkeydown = function(event){
+		if (event.keyCode === 13){
+			textInputCommands()
+			return error;
+		}
+		showInvalidDirection(error);
+	}
 }
 
 window.onload = function(){

@@ -27,7 +27,7 @@
 	<div id="itemEvent"></div>
 
 	<div id="commandGo">
-		<input type id="command" onkeypress="pressReturn();"type="text" maxlength="1" placeholder="Enter a command"/> 
+		<input type id="command" onKeydown="pressReturn();" type="text" maxlength="1" placeholder="Enter a command"/> 
 		<button id="goButton" onclick="textInputCommands();">Go</button>
 	</div>
 	
@@ -49,10 +49,6 @@
 	<div id="invalidDirection"></div>
 	
 	<div id="actions">
-	<button id="lookAroundButton" onclick="lookAround();">Look Around</button>
-	<button id="takeButton" onclick="grabItem();">Take</button>
-	
-	<button id="inventoryButton" onclick="showInventory();">Inventory</button>
 	<div id="inventory"></div>
 	</div>
 	
