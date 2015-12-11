@@ -3,6 +3,11 @@ h1 {
 	text-align: center;
 }
 
+h3 {
+	color: yellow;
+}
+
+
 body {
 	background-color: black;
 	color: red;
@@ -10,6 +15,10 @@ body {
 
 #points {
 	color: gold;
+}
+
+#displayInventory {
+	color: yellow;
 }
 
 #goButton, #command, #northButton, #southButton, #eastButton, #westButton, #lookAroundButton, #takeButton, #inventoryButton {

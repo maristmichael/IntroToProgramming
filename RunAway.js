@@ -263,8 +263,8 @@ function showItemEvent(event) {
 	document.getElementById("itemEvent").innerHTML = event;
 }
 
-function listInventory(items) {
-	document.getElementById("inventory").innerHTML = items;
+function showInventory(items) {
+	document.getElementById("displayInventory").innerHTML = items;
 }
 
 function listHelp(help) {
@@ -413,19 +413,24 @@ function from(loc, dir) {
 }
 
 function move(dir) {
-	var points
+	var points;
+	var items;
+	var event = "";
     var nextLocation = from(player.currentRoom,dir);
 	
     if (nextLocation !== null) {
         player.currentRoom = nextLocation;
 		score();
 		previousMoves();
+		listInventory();
 		points = pointCount();
         showScene(player.currentRoom);
     } else {
         showScene("You cannont go" + dir);
     }
 	showPoints(points);
+	showItemEvent(event);
+
 }
 
 // This function handles when player grabs an item.
@@ -436,7 +441,8 @@ function grabItem(){
     if (itemHere) {
 		player.inventory.push(itemHere.name);
 		player.currentRoom.item = null;
-        event = itemHere.description;	
+        event = itemHere.description;
+		listInventory();
     } else {
 		event = "There is nothing to take here...";
     }
@@ -457,16 +463,14 @@ function lookAround() {
 	showItemEvent(event);
 }
 
-// This function handles listing player inventory.  
-function showInventory() {
-	var items;
+// This function handles showing player inventory.  
+function listInventory() {
+	var items = "No items in your inventory";
 	
-	if (player.inventory === []) {
-		items = "No items obtained.";
-	} else {
+	if (player.inventory.length !== 0) {
 		items = player.inventory;
-	}
-	listInventory(items);
+	}	
+	showInventory(items);
 }
 
 // This function used to show all type commands
@@ -476,13 +480,14 @@ function showHelp() {
 	listHelp(help);
 }
 
-// These functions are used to show the player's prior moves push player's move history onto array
+// This functions are used to show the player's prior moves push player's move history onto array
 function previousMoves() {
 	player.breadcrumbTrail.push (player.currentRoom.name);
 	var history = player.breadcrumbTrail;
 	listMoveHistory(history);
 }
 
+// This function allows for the user to press enter key instead of go button
 function pressReturn() {
 	var error = "";
 	
@@ -495,7 +500,9 @@ function pressReturn() {
 	}
 }
 
+// Sets up conditions when game is loaded
 window.onload = function(){
 	player.currentRoom = locations[0];
 	showScene(player.currentRoom);
+	listInventory();
 };
