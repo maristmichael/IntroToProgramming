@@ -350,7 +350,7 @@ function textInputCommands() {
 	case "L": lookAround(); break;
 	case "G": grabItem(); break;
     
-	default : error = cmd + " is not a valid command.";
+	default: error = cmd + " is not a valid command.";
 	break;
     }
 	
@@ -404,226 +404,6 @@ function score(){
 		return player.currentPoints;
 	}
 }
-
-/* // The functions below moves player to a direction.
-function moveNorth() {
-    var message;
-    var points;
-	var event = "";
-    
-	switch (player.currentRoom) {
-	case locations[0]: // From starting room to pitt
-		player.currentRoom = locations[12];
-		thePittNorth();
-		message = thePitt.description;
-		points = zeroPoints();
-	break;
-		
-	case locations[1]: // From safe room to rat hall
-		player.currentRoom = locations[2];
-		ratHallEvent();
-		message = ratHall.description;
-		points = pointCount();			
-	break;
-
-	case locations[2]:
-		player.currentRoom = locations[3];
-		redMarkedRoomEvent();
-		message = redMarkedRoom.description;
-		points = pointCount();		
-	break;
-
-	case locations[10]:
-		player.currentRoom = locations[6];
-		message = backToGiantSnakeNorth();
-		points = pointCount();		
-	break;
-
-	case locations[6]:
-		player.currentRoom = locations[7];
-		choseToDieRoomEvent();
-		message = choseToDieRoom.description;
-		points = zeroPoints();		
-	break;	
-
-	default:
-		message = hitWallEvent();
-		points = pointCount();
-	break;
-	}
-	
-    showScene(message);
-    showPoints(points);
-	showItemEvent(event);
-}
-
-function moveWest() {
-    var message;
-    var points;
-	var event = "";
-    
-	switch (player.currentRoom) {
-	case locations[0]:
-		player.currentRoom = locations[1];
-		console.log(player.currentRoom.item);
-		safeRoomEvent();
-		message = safeRoom.description;
-		points = pointCount();
-	break;
-
-	case locations[3]:
-		player.currentRoom = locations[4];
-		deadEndEvent();
-		message = deadEnd.description;
-		points = zeroPoints();
-	break;
-
-	case locations[5]:
-		player.currentRoom = locations[3];
-		message = backToRedRoom();
-		points = pointCount();
-	break;
-
-	case locations[6]:
-		player.currentRoom = locations[5];
-		message = backToSignHall();
-		points = pointCount();
-	break;
-
-	case locations[8]:
-		player.currentRoom = locations[6];
-		message = backToGiantSnakeWest();
-		points = pointCount();
-	break;
-
-	case locations[10]:
-		player.currentRoom = locations[12];
-		thePittWest();
-		message = thePitt.description;
-		points = zeroPoints();
-	break;
-
-	default:
-		message = hitWallEvent();
-		points = pointCount(); 
-	break;
-	}
-	
-    showScene(message);
-    showPoints(points);
-	showItemEvent(event);
-}
-
-function moveEast() {
-    var message;
-    var points;
-	var event = "";
-    
-	switch (player.currentRoom) {
-	case locations[1]:
-		player.currentRoom = locations [0];
-		backToStart();
-		message = startingRoom.description;
-		points = pointCount();
-	break;
-			
-	case locations[2]:
-		player.currentRoom = locations[12];
-		thePittEast();
-		message = thePitt.description;
-		points = zeroPoints();		
-	break;
-			
-	case locations[3]:
-		player.currentRoom = [5]
-		signHallEvent();
-		message = signHall.description;
-		points = pointCount();		
-	break;
-			
-	case locations[5]:
-		player.currentRoom = [6];
-		giantSnakeRoomEvent();
-		message = giantSnakeRoom.description;
-		points = pointCount();		
-	break;
-
-	case locations[6]:
-		player.currentRoom = locations[8];
-		falseSafeRoomEvent();
-		message = falseSafeRoom.description;
-		points = pointCount();
-	break;
-			
-	case locations[8]:
-		player.currentRoom = location[9];
-		trapRoomEvent();
-		message = trapRoom.description;
-		points = zeroPoints();			
-	break;
-			
-	default:
-		message = hitWallEvent();
-		points = pointCount();		
-	break;
-    }
-	
-    showScene(message);
-    showPoints(points);
-	showItemEvent(event);
-}*/ 
-/*
-function moveSouth() {
-    var message;
-    var points;
-	var event = "";
-
-	switch (player.currentRoom) {
-	case locations[2]:
-		player.currentRoom = locations[1];
-		backToSafeRoomSouth();
-		message = safeRoom.description;
-		points = pointCount();
-	break;
-
-	case locations[3]:
-		player.currentRoom = locations[2];
-		message = backToRatHall();
-		points = pointCount();
-	break;
-
-	case locations[5]:
-		player.currentRoom = locations[12];
-		thePittSouth();
-		message = thePittSouth();
-		points = zeroPoints();
-	break;
-
-	case locations[6]:
-		player.currentRoom = locations[10];
-		freedomHallwayEvent();
-		message = freedomHallway.description;
-		points = pointCount();
-	break;
-			
-	case locations[10]:
-		player.currentRoom = locations[11];
-		freedomEvent();
-		message = freedom.description;
-		points = pointCount();		
-	break;
-		
-	default:
-		message = hitWallEvent();
-		points = pointCount();		
-	break;
-    }
-	
-    showScene(message);
-    showPoints(points);
-	showItemEvent(event);
-}
- */ 
 
 function from(loc, dir) {
     var locId = locations.indexOf(loc);
@@ -699,6 +479,10 @@ function previousMoves() {
 	player.breadcrumbTrail.push (player.currentRoom.name);
 	var history = player.breadcrumbTrail;
 	listMoveHistory(history);
+}
+
+function pressReturn() {
+	textInputCommands();
 }
 
 window.onload = function(){
