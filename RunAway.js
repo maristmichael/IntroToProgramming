@@ -133,7 +133,6 @@ function allTypeCommands() {
 	"Type 'E' to go east.<br>" +
 	"Type 'W' to go west.<br>" +
 	"Type 'T' to grab an item.<br>" +
-	"Type 'I' to check your inventory.<br>" + 
 	"Type 'M' to toggle the map on or off.<br>" +
 	"Type 'L' to look around your current room."
 }
@@ -280,48 +279,34 @@ function showInvalidDirection(error) {
 }
 
 // The functions below disable/enable html buttons.
-function disableButton(button){
-	if (button === "north") {
+function disableButton(){
+	if (from(player.currentRoom, NORTH) === null) {
 		document.getElementById("northButton").disabled = true;
-	} else if (button === "west") {
-		document.getElementById("westButton").disabled = true;
-	} else if (button === "east") { 
-		document.getElementById("eastButton").disabled = true;
-	} else if (button === "south") {
+	}
+	if (from(player.currentRoom, SOUTH) === null) {
 		document.getElementById("southButton").disabled = true;
-	} else if (button === "go") {
-		document.getElementById("goButton").disabled = true;
+	}
+	if (from(player.currentRoom, WEST) === null) {
+		document.getElementById("westButton").disabled = true;
+	}
+	if (from(player.currentRoom, EAST) === null) {
+		document.getElementById("eastButton").disabled = true;
 	}
 }
 
-function enableButton(button){
-	if (button === "north") {
+function enableButton(){
+	if (from(player.currentRoom, NORTH) !== null) {
 		document.getElementById("northButton").disabled = false;
-	} else if (button === "west") {
-		document.getElementById("westButton").disabled = false;
-	} else if (button === "east") { 
-		document.getElementById("eastButton").disabled = false;
-	} else if (button === "south") {
-		document.getElementById("southButton").disabled = false;
-	} else if (button === "go") {
-		document.getElementById("goButton").disabled = false;
 	}
-}
-
-function disableAllButtons(){
-	disableButton("north");
-	disableButton("west");
-	disableButton("east");
-	disableButton("south");
-	disableButton("go");
-}
-
-function enableAllButtons(){
-	enableButton("north");
-	enableButton("west");
-	enableButton("east");
-	enableButton("south");
-	enableButton("go");
+	if (from(player.currentRoom, SOUTH) !== null) {
+		document.getElementById("southButton").disabled = false;
+	}
+	if (from(player.currentRoom, WEST) !== null) {
+		document.getElementById("westButton").disabled = false;
+	}
+	if (from(player.currentRoom, EAST) !== null) {
+		document.getElementById("eastButton").disabled = false;
+	}
 }
 
 // Show/Hides game map.
@@ -347,7 +332,6 @@ function textInputCommands() {
     case "S": move(SOUTH); break;
     case "W": move(WEST); break;
 	case "T": grabItem(); break;
-	case "H": showHelp(); break;
 	case "L": lookAround(); break;
 	case "G": grabItem(); break;
 	case "M": toggleMap(); break; 
@@ -423,6 +407,8 @@ function move(dir) {
 		score();
 		previousMoves();
 		listInventory();
+		disableButton();
+		enableButton();
 		points = pointCount();
         showScene(player.currentRoom);
     } else {
@@ -481,7 +467,6 @@ function showHelp() {
 	var gameMap = document.getElementById("commandHelp");
 	if (gameMap.style.display === "none") {
 		gameMap.style.display = "block";
-	
 	} else {
 		gameMap.style.display = "none";
 	}
@@ -490,7 +475,8 @@ function showHelp() {
 // This functions are used to show the player's prior moves push player's move history onto array
 function previousMoves() {
 	player.breadcrumbTrail.push (player.currentRoom.name);
-	var history = player.breadcrumbTrail;
+	var history = player.breadcrumbTrail.reverse();
+	history = player.breadcrumbTrail.join(", ");
 	listMoveHistory(history);
 }
 
@@ -510,6 +496,7 @@ function pressReturn() {
 // Sets up conditions when game is loaded
 window.onload = function(){
 	player.currentRoom = locations[0];
+	disableButton();
 	showScene(player.currentRoom);
 	listInventory();
 };
