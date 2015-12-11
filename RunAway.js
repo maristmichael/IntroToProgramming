@@ -14,10 +14,10 @@ function Item(name, observed, description) {
 }
 
 var note = new Item(
-	"note",
+	"Note",
 	"You spot a note on the ground.",
-	"You pick up the note, it reads:<br>" + 
-	"'You can never escape the Pitt'"
+	"You pick up the note, it reads:<br>"
+	 + "'You can never escape the Pitt'"
 );
 
 var miniRatFigurine = new Item(
@@ -29,16 +29,16 @@ var miniRatFigurine = new Item(
 var fadedPaper = new Item(
 	"Faded Paper",
 	"You notice a paper is on the wall.",
-	"You pick up the note on the wall, it reads:<br>" + 
-	"'The risk is worth the reward.'"
+	"You pick up the note on the wall, it reads:<br>"
+	 + "'The risk is worth the reward.'"
 );
 
 var goldenSnake = new Item(
 	"Golden Snake",
 	"There's something shiny in the grass.",
-	"It is a snake carved out of pure gold.<br>" +
-	"It has been sitting there for quite some time" +
-	"It'll probably sell for a pretty penny."
+	"It is a snake carved out of pure gold.<br>"
+	 + "It has been sitting there for quite some time"
+	 + "It'll probably sell for a pretty penny."
 );
 
 //These are the integer direction constants
@@ -643,7 +643,6 @@ function move(dir) {
     } else {
         showScene("You cannont go" + dir);
     }
-	console.log(player.currentRoom);
 	showPoints(points);
 }
 
@@ -665,15 +664,15 @@ function grabItem(){
 
 //This function handles when player looks around
 function lookAround() {
-	var message
-	
+	var event;
 	var itemHere = player.currentRoom.item;
+	
     if (itemHere) {
-        message = itemHere.observed;
+        event = itemHere.observed;
     } else {
-		message = "You observe nothing in this room.";
+		event = "You observe nothing out of the ordinary in this room.";
     }
-	showScene(message);
+	showItemEvent(event);
 }
 
 // This function handles listing player inventory.  
