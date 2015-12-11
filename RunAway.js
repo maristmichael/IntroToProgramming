@@ -90,7 +90,7 @@ var map = [
 	[ null, null, null, null ], // from Choose To Die Room --> Nowhere
 	[ null, null, locations[6], locations[9] ], // from False Safe Room --> G.S. Room(west), Trap Room(east)
 	[ null, null, null, null ], // from Trap Room --> Nowhere
-	[ locations[6], null, locations[12], locations[11] ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west), Freedom(south)
+	[ locations[6], locations[11], locations[12], null ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west), Freedom(south)
 	[ null, null, null, null ], // from Freedom --> Nowhere
 	[ null, null, null, null ], // from The Pitt --> Nowhere
 	
@@ -107,14 +107,14 @@ var player = {
 // Converts the integer direction constant into the name of the direction.
 function directionToString(dir) {
     switch (dir) {
-    case NORTH: return "North";
+    	case NORTH: return "North";
             break;
-    case EAST: return "East";
-            break;
-    case SOUTH: return "South";
-            break;
-    case WEST: return "West";
-            break;
+    	case EAST:	return "East";
+			break;
+    	case SOUTH: return "South";
+			break;
+    	case WEST:	return "West";
+        	break;
     }
 }
 
@@ -360,33 +360,47 @@ function textInputCommands() {
 // The functions below add score. 
 function score(){
 	var addPoints = 5;
+	player.currentRoom.visitCount++;
 	
-	if (safeRoom.visitCount === 1) {
+	if (locations[1].visitCount === 1) {
         player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
+		return player.currentPoints;
+
+	} 
+	if (locations[2].visitCount === 1) {
+        player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	} else if (ratHall.visitCount === 1) {
+	}
+	if (locations[3].visitCount === 1) {
         player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	} else if (redMarkedRoom.visitCount === 1) {
+	}
+	if (locations[5].visitCount === 1) {
         player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	} else if (signHall.visitCount === 1) {
+	}
+	if (locations[6].visitCount === 1) {
         player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	} else if (giantSnakeRoom.visitCount === 1) {
+	}
+	if (locations[8].visitCount === 1) {
         player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	} else if (falseSafeRoom.visitCount === 1) {
+	}
+	if (locations[10].visitCount === 1) {
         player.currentPoints += addPoints;
-		return player.currentPoints;
-		
-	} else if (freedomHallway.visitCount === 1) {
-        player.currentPoints += addPoints;
+		player.currentRoom.visitCount++;
 		return player.currentPoints;
 	}
 }
@@ -557,8 +571,7 @@ function moveEast() {
     showScene(message);
     showPoints(points);
 	showItemEvent(event);
-}
-*/
+}*/ 
 /*
 function moveSouth() {
     var message;
@@ -619,28 +632,34 @@ function from(loc, dir) {
 }
 
 function move(dir) {
+	var points
     var nextLocation = from(player.currentRoom,dir);
+	
     if (nextLocation !== null) {
         player.currentRoom = nextLocation;
+		score();
+		points = pointCount();
         showScene(player.currentRoom);
     } else {
         showScene("You cannont go" + dir);
     }
+	console.log(player.currentRoom);
+	showPoints(points);
 }
 
 // This function handles when player grabs an item.
 function grabItem(){
 	var event;
-	
 	var itemHere = player.currentRoom.item;
+	
     if (itemHere) {
-
 		player.inventory.push(itemHere.name);
 		player.currentRoom.item = null;
-        event = itemHere.description; 
+        event = itemHere.description;	
     } else {
 		event = "There is nothing to take here...";
     }
+	
 	showItemEvent(event);
 }
 
