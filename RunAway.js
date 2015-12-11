@@ -55,7 +55,7 @@ function Location(name, description, visitCount, item) {
 	this.item = item;
 }
 
-// A to string method for the locations
+// A toString method for the locations
 Location.prototype.toString = function() {
     return this.descrip;
 }
@@ -271,7 +271,7 @@ function listHelp(help) {
 }
 
 function listMoveHistory(history) {
-	document.getElementById("moveHistory").innerHTML = history;
+	document.getElementById("previousMoves").innerHTML = history;
 }
 
 function showInvalidDirection(error) {
@@ -347,8 +347,8 @@ function textInputCommands() {
     case "W": move(WEST); break;
 	case "T": grabItem(); break;
 	case "H": showHelp(); break;
-	case "I": showInventory(); break;
-	case "P": previousMoves(); break;
+	case "L": lookAround(); break;
+	case "G": grabItem(); break;
     
 	default : error = cmd + " is not a valid command.";
 	break;
@@ -623,8 +623,7 @@ function moveSouth() {
     showPoints(points);
 	showItemEvent(event);
 }
-*/ 
-
+ */ 
 
 function from(loc, dir) {
     var locId = locations.indexOf(loc);
@@ -638,6 +637,7 @@ function move(dir) {
     if (nextLocation !== null) {
         player.currentRoom = nextLocation;
 		score();
+		previousMoves();
 		points = pointCount();
         showScene(player.currentRoom);
     } else {
@@ -696,65 +696,9 @@ function showHelp() {
 
 // These functions are used to show the player's prior moves push player's move history onto array
 function previousMoves() {
-	var history;
-	history = player.breadcrumbTrail;
+	player.breadcrumbTrail.push (player.currentRoom.name);
+	var history = player.breadcrumbTrail;
 	listMoveHistory(history);
-}
-
-function pushRoom(room) {
-	switch (room) {
-		case "startingRoom":
-			player.breadcrumbTrail.push ("Starting Room");
-		break;
-			
-		case "safeRoom":
-			player.breadcrumbTrail.push ("Safe Room");
-		break;
-			
-		case "ratHall":
-			player.breadcrumbTrail.push ("Rat Hall");
-		break;
-		
-		case "redMarkedRoom":
-			player.breadcrumbTrail.push ("Red Marked Room");
-		break;
-		
-		case "deadEnd":
-			player.breadcrumbTrail.push ("Dead End");
-		break;
-
-		case "signHall":
-			player.breadcrumbTrail.push ("Sign Hall");
-		break;
-		
-		case "giantSnakeRoom":
-			player.breadcrumbTrail.push ("Giant Snake Room");
-		break;
-			
-		case "falseSafeRoom":
-			player.breadcrumbTrail.push ("False Safe Room");
-		break;
-		
-		case "trapRoom":
-			player.breadcrumbTrail.push ("Trap Room");
-		break;
-		
-		case "choseToDieRoom":
-			player.breadcrumbTrail.push ("Chose To Die Room ");
-		break;
-		
-		case "freedomHallway":
-			player.breadcrumbTrail.push ("Freedom Hallway");
-		break;
-			
-		case "freedom":
-			player.breadcrumbTrail.push ("Freedom");
-		break;
-		
-		case "thePitt":
-			player.breadcrumbTrail.push ("The Pitt");
-		break;
-	}
 }
 
 window.onload = function(){
