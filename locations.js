@@ -3,7 +3,7 @@
  * Matthew Johnson
  * CMPT 120L-115
  * November 11, 2015
- * Final Project
+ * Version 1.0
 */
 
 

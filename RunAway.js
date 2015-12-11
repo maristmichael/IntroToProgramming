@@ -3,7 +3,7 @@
  * Matthew Johnson
  * CMPT 120L-115
  * December 11, 2015
- * Final Project
+ * Version 1.0
 */
 
 // These is the item constructer and objects that were created with it
