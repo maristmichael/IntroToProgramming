@@ -132,9 +132,10 @@ function allTypeCommands() {
 	"Type 'S' to go south.<br>" +
 	"Type 'E' to go east.<br>" +
 	"Type 'W' to go west.<br>" +
-	"Type 'T' to grab item.<br>" +
-	"Type 'I' to check inventory.<br>" + 
-	"Type 'P' to show locations and moves."
+	"Type 'T' to grab an item.<br>" +
+	"Type 'I' to check your inventory.<br>" + 
+	"Type 'M' to toggle the map on or off.<br>" +
+	"Type 'L' to look around your current room."
 }
 
 // This is function serves for convenience 
@@ -325,7 +326,7 @@ function enableAllButtons(){
 
 // Show/Hides game map.
 function toggleMap(id){
-	var gameMap = document.getElementById(id);
+	var gameMap = document.getElementById("RunAwayMap.png");
 	
 	if (gameMap.style.display === "none") {
 		gameMap.style.display = "block";
@@ -349,6 +350,7 @@ function textInputCommands() {
 	case "H": showHelp(); break;
 	case "L": lookAround(); break;
 	case "G": grabItem(); break;
+	case "M": toggleMap(); break; 
     
 	default: error = cmd + " is not a valid command.";
 	break;
