@@ -278,7 +278,7 @@ function showInvalidDirection(error) {
 	document.getElementById("invalidDirection").innerHTML = error;
 }
 
-// The functions below disable/enable html buttons.
+// The functions below disable/enable directional buttons.
 function disableButton(){
 	if (from(player.currentRoom, NORTH) === null) {
 		document.getElementById("northButton").disabled = true;
@@ -309,7 +309,7 @@ function enableButton(){
 	}
 }
 
-// Show/Hides game map.
+// Toggles game map.
 function toggleMap(id){
 	var gameMap = document.getElementById("RunAwayMap.png");
 	
@@ -323,23 +323,22 @@ function toggleMap(id){
 
 // The function below handels the text input.
 function textInputCommands() {
-	var error = "";
+	var error;
     var cmd = document.getElementById("command").value;
 	
     switch (cmd.toUpperCase()) {
-    case "N": move(NORTH); break;
-    case "E": move(EAST); break;
-    case "S": move(SOUTH); break;
-    case "W": move(WEST); break;
-	case "T": grabItem(); break;
-	case "L": lookAround(); break;
-	case "G": grabItem(); break;
-	case "M": toggleMap(); break; 
+    case "N": move(NORTH); error = ""; break;
+    case "E": move(EAST); error = ""; break;
+    case "S": move(SOUTH); error = ""; break;
+    case "W": move(WEST); error = ""; break;
+	case "T": grabItem(); error = "";break;
+	case "L": lookAround(); error = ""; break;
+	case "G": grabItem(); error = ""; break;
+	case "M": toggleMap(); error = "";break; 
     
-	default: error = cmd + " is not a valid command.";
+	default: error = cmd + " is not a valid command."; console.log("TEST")
 	break;
     }
-	
 	showInvalidDirection(error);
 }
 
@@ -353,44 +352,45 @@ function score(){
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 
-	} 
-	if (locations[2].visitCount === 1) {
+	} else if (locations[2].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	}
-	if (locations[3].visitCount === 1) {
+	} else if (locations[3].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	}
-	if (locations[5].visitCount === 1) {
+	} else if (locations[5].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	}
-	if (locations[6].visitCount === 1) {
+	} else if (locations[6].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	}
-	if (locations[8].visitCount === 1) {
+	} else if (locations[8].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
 		
-	}
-	if (locations[10].visitCount === 1) {
+	} else if (locations[10].visitCount === 1) {
         player.currentPoints += addPoints;
 		player.currentRoom.visitCount++;
 		return player.currentPoints;
+	} else if (locations[12].visitCount === 1) {
+		player.currentPoints = 0;
+		player.currentRoom.visitCount++;
+		return player.currentPoints;
+	} else {
+		pointCount();
 	}
 }
 
+// These functions look at player current location, determines next possible loc, and moves play
 function from(loc, dir) {
     var locId = locations.indexOf(loc);
     return map[locId][dir];
@@ -400,23 +400,27 @@ function move(dir) {
 	var points;
 	var items;
 	var event = "";
+	var error;
     var nextLocation = from(player.currentRoom,dir);
 	
     if (nextLocation !== null) {
+		previousMoves();
         player.currentRoom = nextLocation;
 		score();
-		previousMoves();
 		listInventory();
 		disableButton();
 		enableButton();
+		error = "";
 		points = pointCount();
         showScene(player.currentRoom);
     } else {
-        showScene("You cannont go" + dir);
+        error = "You cannont go " + directionToString(dir);
+		points = pointCount();
     }
 
 	showPoints(points);
 	showItemEvent(event);
+	showInvalidDirection(error);
 
 }
 
@@ -461,7 +465,7 @@ function listInventory() {
 
 // This function used to show all type commands
 function showHelp() {
-    var help = allTypeCommands();
+	var help = allTypeCommands();
 	listHelp(help);
 	
 	var gameMap = document.getElementById("commandHelp");
@@ -474,20 +478,24 @@ function showHelp() {
 
 // This functions are used to show the player's prior moves push player's move history onto array
 function previousMoves() {
-	player.breadcrumbTrail.push (player.currentRoom.name);
-	var history = player.breadcrumbTrail.reverse();
-	history = player.breadcrumbTrail.join(", ");
+	player.breadcrumbTrail.unshift (player.currentRoom.name);
+	if (player.breadcrumbTrail.length > 5) {
+		player.breadcrumbTrail.pop();
+	}
+	var history = player.breadcrumbTrail.join(", ");
 	listMoveHistory(history);
 }
 
 // This function allows for the user to press enter key instead of go button
 function pressReturn() {
-	var error = "";
+	var error;
 	
 	document.getElementById("command").onkeydown = function(event){
 		if (event.keyCode === 13){
 			textInputCommands()
 			return error;
+		} else {
+			error = "";
 		}
 		showInvalidDirection(error);
 	}
