@@ -36,9 +36,10 @@ var fadedPaper = new Item(
 var goldenSnake = new Item(
 	"Golden Snake",
 	"There's something shiny in the grass.",
-	"It is a snake carved out of pure gold.<br>"
-	 + "It has been sitting there for quite some time"
-	 + "It'll probably sell for a pretty penny."
+	"You found a snake carved out of pure gold.<br>"
+	 + "It has been sitting there for quite some time so "
+	 + "it'll probably sell for a pretty penny. <br>"
+	 + "Engraved in the bottom is 'Yell the danger you're running from.'"
 );
 
 //These are the integer direction constants
@@ -62,19 +63,19 @@ Location.prototype.toString = function() {
 
 // These are all of the locations
 var locations = [
-/*0*/	new Location("Starting Room", DescriptionOf("startingRoom"), 1, null),
-/*1*/	new Location("Safe Room", DescriptionOf("safeRoom"), 0, note),
-/*2*/	new Location("Rat Hall", DescriptionOf("ratHall"), 0, miniRatFigurine),
-/*3*/	new Location("Red Marked Room", DescriptionOf("redMarkedRoom"), 0, null),
-/*4*/	new Location("Dead End", DescriptionOf("deadEnd"), 0, null),
-/*5*/	new Location("Sign Hall", DescriptionOf("signHall"), 0,null),
-/*6*/	new Location("Giant Snake Room", DescriptionOf("giantSnakeRoom"), 0, null),
-/*7*/	new Location("Chose To Die Room", DescriptionOf("choseToDieRoom"), 0, null),
-/*8*/	new Location("False Safe Room", DescriptionOf("falseSafeRoom"), 0, fadedPaper),
-/*9*/	new Location("Trap Room", DescriptionOf("trapRoom"), 0, null),
-/*10*/	new Location("Freedom Hallway", DescriptionOf("freedomHallway"), 0, goldenSnake),
-/*11*/	new Location("Freedom", DescriptionOf("freedom"), 0, null),
-/*12*/	new Location("The Pitt", DescriptionOf("thePitt"), 0, null),
+/*0*/	new Location("Starting Room", descriptionOf("startingRoom"), 1, null),
+/*1*/	new Location("Safe Room", descriptionOf("safeRoom"), 0, note),
+/*2*/	new Location("Rat Hall", descriptionOf("ratHall"), 0, miniRatFigurine),
+/*3*/	new Location("Red Marked Room", descriptionOf("redMarkedRoom"), 0, null),
+/*4*/	new Location("Dead End", descriptionOf("deadEnd"), 0, null),
+/*5*/	new Location("Sign Hall", descriptionOf("signHall"), 0,null),
+/*6*/	new Location("Giant Snake Room", descriptionOf("giantSnakeRoom"), 0, null),
+/*7*/	new Location("Chose To Die Room", descriptionOf("choseToDieRoom"), 0, null),
+/*8*/	new Location("False Safe Room", descriptionOf("falseSafeRoom"), 0, fadedPaper),
+/*9*/	new Location("Trap Room", descriptionOf("trapRoom"), 0, null),
+/*10*/	new Location("Freedom Hallway", descriptionOf("freedomHallway"), 0, goldenSnake),
+/*11*/	new Location("Freedom", descriptionOf("freedom"), 0, null),
+/*12*/	new Location("The Pitt", descriptionOf("thePitt"), 0, null),
 ];
 
 // This is the navigation matrix
@@ -90,7 +91,7 @@ var map = [
 	[ null, null, null, null ], // from Choose To Die Room --> Nowhere
 	[ null, null, locations[6], locations[9] ], // from False Safe Room --> G.S. Room(west), Trap Room(east)
 	[ null, null, null, null ], // from Trap Room --> Nowhere
-	[ locations[6], locations[11], locations[12], null ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west), Freedom(south)
+	[ locations[6], null, locations[12], null ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west)
 	[ null, null, null, null ], // from Freedom --> Nowhere
 	[ null, null, null, null ], // from The Pitt --> Nowhere
 	
@@ -132,13 +133,13 @@ function allTypeCommands() {
 	"Type 'S' to go south.<br>" +
 	"Type 'E' to go east.<br>" +
 	"Type 'W' to go west.<br>" +
-	"Type 'T' to grab an item.<br>" +
+	"Type 'G' to grab an item.<br>" +
 	"Type 'M' to toggle the map on or off.<br>" +
-	"Type 'L' to look around your current room."
+	"Type 'L' to look around your current room.<br>" +
+	"Type 'Y' to yell something outloud.";
 }
 
-// This is function serves for convenience 
-function DescriptionOf(location) {
+function descriptionOf(location) {
 	switch (location) {
 	case "safeRoom":
 		return "You are in a safe room.<br>" +
@@ -190,12 +191,14 @@ function DescriptionOf(location) {
 	case "freedomHallway":
 		return "You entered another room with statues of giant rats, " + 
 		"and the pitt is to the west.<br>" +
-		"This time however, there appears to be greenerie in the ground.<br>" 
+		"This time however, there appears to be greenerie in the ground.<br>" +
 		"That is a good sign.<br>";
 	break;
 			
 	case "freedom":
-		return "You've escaped this wretched place. No more snakes!<br> FREEDOM!";
+		return "You woke up from your nightmare.<br>" +
+		"You've been having snake nightmares since going to college.<br>" +
+		"You truly thought that you were trapped in a weird location escaping from snakes...";
 	break;
 			
 	case "backToStart":
@@ -234,11 +237,6 @@ function DescriptionOf(location) {
 		return "You somehow fell into the pitt that is in clear sight.<br>" +
 		"You are dead.";
 	break;
-	
-	case "hitWall":
-		return "You bumped into a wall, and fell hilariously.<br>" + 
-		"Choose a different direction.";
-	break;
 			
 	case "startingRoom":
 		return "You wake up to find that you are in a room filled with snakes.<br>" +
@@ -248,6 +246,31 @@ function DescriptionOf(location) {
 	break;
 	}
 }
+
+// This function changes location description after it has been visited
+function newDescriptions() {
+	if (locations[0].visitCount > 1) {
+		locations[0].description = descriptionOf("backToStart");
+		
+	}
+	if (locations[1].visitCount > 2) {
+		locations[1].description = descriptionOf("backToSafeRoom");
+		
+	}
+	if (locations[2].visitCount > 1) {
+		locations[2].description = descriptionOf("backToRatHall");
+		
+	}
+	if (locations[3].visitCount > 1) {
+		locations[3].description = descriptionOf("backToRedRoom");
+		
+	}
+	if (locations[5].visitCount > 1) {
+		locations[5].description = descriptionOf("backToSignHall");
+		
+	if (locations[6].visitCount > 1) {
+		locations[6].description = descriptionOf("backToGiantSnake");	
+	}
 
 // The functions below are display functions.
 function showScene(loc) {
@@ -331,10 +354,11 @@ function textInputCommands() {
     case "E": move(EAST); error = ""; break;
     case "S": move(SOUTH); error = ""; break;
     case "W": move(WEST); error = ""; break;
-	case "T": grabItem(); error = "";break;
+	case "G": grabItem(); error = ""; break;
 	case "L": lookAround(); error = ""; break;
 	case "G": grabItem(); error = ""; break;
-	case "M": toggleMap(); error = "";break; 
+	case "M": toggleMap(); error = ""; break;
+	case "Y": yell(); error = ""; break;
     
 	default: error = cmd + " is not a valid command."; console.log("TEST")
 	break;
@@ -390,7 +414,7 @@ function score(){
 	}
 }
 
-// These functions look at player current location, determines next possible loc, and moves play
+// These functions looks at player's current location, determines next possible loc, and moves player
 function from(loc, dir) {
     var locId = locations.indexOf(loc);
     return map[locId][dir];
@@ -410,9 +434,11 @@ function move(dir) {
 		listInventory();
 		disableButton();
 		enableButton();
+		newDescriptions();
 		error = "";
 		points = pointCount();
         showScene(player.currentRoom);
+		console.log(player.currentRoom);
     } else {
         error = "You cannont go " + directionToString(dir);
 		points = pointCount();
@@ -451,6 +477,38 @@ function lookAround() {
     } else {
 		event = "You observe nothing out of the ordinary in this room.";
     }
+	showItemEvent(event);
+}
+
+//This function hadles when player talks
+function yell(){
+	var stated = prompt("Yes? Do you have something to say?");
+	function win () { 
+		player.currentRoom = locations[11];
+		disableButton();
+		showInventory("");
+		showPoints("");
+		showScene(player.currentRoom);
+		showItemEvent("");
+	}
+	
+	if (stated === null){
+		event = "You decide not to say something.<br>" +
+				 "What are you too scared to speak?";
+	} else {
+		event = 'For some reason you yelled "' + stated + '" outloud to yourself.<br>' + 
+				"What a weird person you are...";
+	}
+	
+	if (stated === "snakes") {
+		win();
+	} else if (stated === "Snakes") {
+		win();
+	} else if (stated === "snake") {
+		win();
+	} else if (stated === "Snake") {
+		win();
+	}
 	showItemEvent(event);
 }
 
@@ -503,6 +561,7 @@ function pressReturn() {
 
 // Sets up conditions when game is loaded
 window.onload = function(){
+	console.log(locations[0].description);
 	player.currentRoom = locations[0];
 	disableButton();
 	showScene(player.currentRoom);
