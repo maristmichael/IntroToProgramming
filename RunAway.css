@@ -89,7 +89,7 @@ footer.p {
 	margin-left: 1em;
 	max-width: 300px;
 }
-#commandHelp {
+#commandHelp, #invalidDirection {
 	max-width: 100;
 	background-color: rgba(0,0,0,0.8); 
 }
