@@ -6,13 +6,14 @@
  * Version 1.0
 */
 
-// These is the item constructer and objects that were created with it
+// This is the item constructer, it has name, a check if it was obversved, and a description
 function Item(name, observed, description) {
 	this.name = name;
 	this.observed = observed;
 	this.description = description;
 }
 
+// Item instantiations
 var note = new Item(
 	"Note",
 	"You spot a note on the ground.",
@@ -81,19 +82,19 @@ var locations = [
 // This is the navigation matrix
 var map = [
 	/* [North, South, West, East] */
-	[ locations[12], null, locations[1], null ], // from Starting Room --> Safe Room(west), The Pitt(north)
-    [ locations[2], null, null, locations[0] ], // from Safe Room --> Rat Hall(north), Starting Room(east)
+	[ locations[12], null, locations[1], null ],         // from Starting Room --> Safe Room(west), The Pitt(north)
+    	[ locations[2], null, null, locations[0] ],          // from Safe Room --> Rat Hall(north), Starting Room(east)
 	[ locations[3], locations[1], null, locations[12] ], // from Rat Hall --> R.M. Room(north), The Pitt(east), Safe Room(south)
-	[ null, locations[2], locations[4], locations[5] ], // from Red Marked Room --> Dead End(west), Sign Hall(east), Rat Hall(south) 
-	[ null, null, null, null ], // from Dead End --> Nowhere
+	[ null, locations[2], locations[4], locations[5] ],  // from Red Marked Room --> Dead End(west), Sign Hall(east), Rat Hall(south) 
+	[ null, null, null, null ],                          // from Dead End --> Nowhere
 	[ null, locations[12], locations[3], locations[6] ], // from Sign Hall --> R.M. Room(west), G.S. Room(east), The Pitt(south)
 	[ locations[7], locations[10], locations[5], locations[8] ], // from Giant Snake Room --> C.T.D. Room(north), Sign Hall(west), False Safe Room(east), Freedom Hall(south)
-	[ null, null, null, null ], // from Choose To Die Room --> Nowhere
-	[ null, null, locations[6], locations[9] ], // from False Safe Room --> G.S. Room(west), Trap Room(east)
-	[ null, null, null, null ], // from Trap Room --> Nowhere
-	[ locations[6], null, locations[12], null ], // from Freedom Hallway --> G.S. Room(north), The Pitt(west)
-	[ null, null, null, null ], // from Freedom --> Nowhere
-	[ null, null, null, null ], // from The Pitt --> Nowhere
+	[ null, null, null, null ],                          // from Choose To Die Room --> Nowhere
+	[ null, null, locations[6], locations[9] ],          // from False Safe Room --> G.S. Room(west), Trap Room(east)
+	[ null, null, null, null ],                          // from Trap Room --> Nowhere
+	[ locations[6], null, locations[12], null ],         // from Freedom Hallway --> G.S. Room(north), The Pitt(west)
+	[ null, null, null, null ],                          // from Freedom --> Nowhere
+	[ null, null, null, null ],                          // from The Pitt --> Nowhere
 	
 ];
 
@@ -105,6 +106,7 @@ var player = {
 	breadcrumbTrail: []
 };
 
+// Funtion that returns a the room description based on the location number
 function descriptionOf(location) {
 	switch (location) {
 	case "safeRoom":
