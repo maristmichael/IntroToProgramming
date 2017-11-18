@@ -1,55 +1,104 @@
-h1 {
-	color: red;
-	text-align: center;
+/*
+ * Michael Gutierrez
+ * Matthew Johnson
+ * CMPT 120L-115
+ * December 11, 2015
+ * Version 1.0
+*/
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+    text-align: center;
+    background-color: rgba(0,0,0,0.8);
+    color: darkred;
 }
 
 body {
-	background-color: black;
-	color: red;
+	background-image: url(spooky.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
-#points {
-	color: gold;
+aside, main {
+	display: inline-block;
+	vertical-align: top;
+	padding: 0 1%;
+}
+ main {
+	display: inline-block;
+	vertical-align: top;
+	padding: 0;
+	width: 50%;
+	max-width: 50%;
 }
 
-#goButton, #command, #northButton, #southButton, #eastButton, #westButton, #lookAroundButton, #takeButton, #inventoryButton {
-	background-color: firebrick;
+aside{
+	width: 20%;
+	height: 30%;
 }
 
-#northButton, #southButton, #eastButton, #westButton {
-	background-color: gray;
+header {
+	padding: 1em;
 }
 
-#previousButton, #helpButton, #mapButton {
-	background-color: slategray;
+footer {
+	padding: 2em;
+	background-color: rgba(0,0,0,0.8);
+	color: firebrick;
 }
-#commandGo {
+ 
+footer.p {
+	padding: 0;
+	margin: 0;
+}
+#event, #inventory, #previous {
+    padding: 1em;
+    height: 10em;
+    border-radius: 1em;
+    background-color: slategray;
+    color: darkred;
+    margin-bottom: 1em;
+}
+
+#event {
 	text-align: center;
-	margin: auto;
+	display: inline-block;
+    background: rgba(0,0,0,0.8);
+    border-radius: 1ex;
+    margin-top: 6em;
+    padding: 1em;
+    color: firebrick;
+    font-weight: bold;
 }
 
-#north {
-	text-align: center;
-}
-
-#westButton, #eastButton {
-	text-align: center;
-}
-
-#south {
-	text-align: center;
-}
-#navigation, #invalidDirection, #actions {
-	text-align: center;
-}
-#email {
-	float: right;
-}
-
-#options {
+#inventory {
 	float: left;
 }
 
-#map {
-	text-align: center;
+#previous {
+	float: right;
 }
+
+#textGo {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	margin-left: 1em;
+	max-width: 300px;
+}
+#commandHelp, #invalidDirection {
+	max-width: 100;
+	background-color: rgba(0,0,0,0.8); 
+}
+
+#goButton, #command, #northButton, #southButton, #eastButton, #westButton, #helpButton {
+	background-color: firebrick;
+}
+
+#northButton, #southButton, #eastButton, #westButton, #helpButtom{
+	background-color: gray;
+}
+

@@ -1,8 +1,8 @@
 <!-- Michael Gutierrez
 ---- Matthew Johnson
 ---- CMPT 120L-115
----- November 24, 2015
----- Project 5 Corrections
+---- December 11, 2015
+---- Version 1.0
 -->
 
 <!doctype html>
@@ -14,64 +14,66 @@
 	<title>Run Away!</title>
 	<script src="RunAway.js"></script>
 	<script src="locations.js"></script>
-
 </head>
 
 <body>
+	
+<header>
 	<h1>Run Away!</h1>
-
 	<h2> <div id="points">Points: 0</div> </h2>
+</header>
 
-	<div id="message"></div>
-	
-	<div id="itemEvent"></div>
+<aside>
+	<div id="inventory">
+		<h3>Inventory</h3>
+		<div id="displayInventory"></div>
+	</div>
+</aside>
 
-	<div id="commandGo">
-	<input type id="command"> 
-	<button id="goButton" onclick="textInput();">Go</button>
+<main>
+	<div id="event">
+		<div id="message"></div>
+		<div id="itemEvent"></div>
 	</div>
-	
-	<div id="navigation">
-		
-	<div id="north">
-	<button id="northButton" onclick="moveNorth();">North</button>
+</main>
+<aside>
+	<div id="previous">
+		<h4>Previous Moves</h4>
+		<div id="previousMoves"></div>
 	</div>
-	
-	<button id="westButton" onclick="moveWest();">West</button>
-	<button id="eastButton" onclick="moveEast();">East</button>
-	
-	<div id="south">
-	<button id="southButton" onclick="moveSouth();">South</button>
-	</div>
-		
+</aside>
+	<div id="textGo">
+		<div id="commandGo">
+			<input type id="command" onKeydown="pressReturn();"
+			type="text" maxlength="1" placeholder="Enter a command"/> 
+		<button id="goButton" onclick="textInputCommands();">Go</button>
+		</div>	
 	</div>
 	
 	<div id="invalidDirection"></div>
-	
-	<div id="actions">
-	<button id="lookAroundButton" onclick="lookAround();">Look Around</button>
-	<button id="takeButton" onclick="grabItem();">Take</button>
-	
-	<button id="inventoryButton" onclick="showInventory();">Inventory</button>
-	<div id="inventory"></div>
+	<div id="navigation">
+			<div id ="north">
+		<button id="northButton" onclick="move(NORTH);">North</button>
+			</div>
+			<div id="westEast">
+		<button id="westButton" onclick="move(WEST);">West</button>
+		<button id="eastButton" onclick="move(EAST);">East</button>
+			</div>
+			<div id= "south">
+		<button id="southButton" onclick="move(SOUTH);">South</button>
+			</div>
 	</div>
-	
-	<div id="options">
-		
-	<button id="previousButton" onclick="previousMoves();">Previous</button>
-	<div id="moveHistory"></div>
-	
 	<button id="helpButton" onclick="showHelp();">Help</button>
-	<div id="commandHelp"></div>
+	<div style="display:none" id="commandHelp"></div>
 	
-	<button id="mapButton" onclick="toggleMap('RunAwayMap.png')">Toggle Map</button>
+		<div id="map">
 	<img id="RunAwayMap.png" style="display:none" src="RunAwayMap.png"/>
-	
-	</div>
-	
-	<a id="email" href="mailto:michael.gutierrez2@marist.edu">E-mail me if you're stuck</a>
+		</div>
+<footer>
+	<a id="email" href="mailto:michael.gutierrez2@marist.edu">
+		E-mail me if you're stuck</a>
+	<p>Copyright &copy; 2015 Michael Gutierrez</p>
+</footer>
 
 </body>
-
-
 </html>
